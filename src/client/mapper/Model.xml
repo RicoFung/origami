@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">   
+  
+<mapper namespace="client.entity.Model">
+      <!-- 自动生成id策略 -->
+    <insert id="add" parameterType="client.entity.Model" useGeneratedKeys="true" keyProperty="id">  
+       	insert into tb_model(pid,name,sort) values (#{pid},#{name},#{sort})  
+    </insert>  
+	
+	<delete id="del" parameterType="client.entity.Model">
+		delete from tb_model where id = #{id}
+	</delete>
+	
+	<update id="upd" parameterType="client.entity.Model">
+		update tb_model set
+		  name = #{name},
+		  sort = #{sort}
+		where id = #{id}
+	</update>
+  	
+	<resultMap type="client.entity.Model" id="result">
+		<id property="id" column="id"/>
+		<result property="pid" column="pid"/>
+		<result property="name" column="name"/>
+		<result property="sort" column="sort"/>
+	</resultMap>
+  	
+	<sql id="columns">
+		t.ID, t.PID, t.NAME, t.SORT
+	</sql>
+	
+	<sql id="page">
+		<if test="offset!=null and limit!=null"> limit #{offset,javaType=String,jdbcType=NUMERIC}, #{limit,javaType=String,jdbcType=NUMERIC} </if>
+	</sql>
+	
+	<sql id="dynamicWhere">
+		<where>
+			<if test="pid != null"> and t.PID = #{pid} </if>
+			<if test="name != null"> and t.NAME like concat('%',#{name},'%') </if>
+		</where>
+	</sql>	
+	
+	<select id="getById" resultMap="result">
+		select <include refid="columns"/> from tb_model t where t.id = #{id}
+	</select>
+	
+	<select id="get" resultType="list" resultMap="result">
+		select <include refid="columns"/> from tb_model t
+		<include refid="dynamicWhere" /> order by t.sort 
+		<include refid="page" />
+	</select>
+	<select id="getMap" resultType="java.util.HashMap">
+		select <include refid="columns"/> from tb_model t
+		<include refid="dynamicWhere" /> order by t.sort 
+		<include refid="page" />
+	</select>
+	<select id="getMapJoinCategory" resultType="java.util.HashMap">
+		select <include refid="columns"/>, t1.NAME NAV_NAME, IFNULL(t2.URL,'') IMAGE_URL 
+		  from tb_model t 
+		 inner join tb_category t1 
+		 		 on t.pid = t1.id
+		  left join (select tt.id,tt.pid,tt.url,max(tt.sort) from tb_image tt group by tt.pid) t2
+		         on t.id = t2.pid
+		<include refid="dynamicWhere" /> order by t.sort 
+		<include refid="page" />
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(1) from tb_model
+		<include refid="dynamicWhere" />
+	</select>
+</mapper>  

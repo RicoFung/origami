@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">   
+  
+<mapper namespace="admin.entity.Category">
+      <!-- 自动生成id策略 -->
+    <insert id="add" parameterType="admin.entity.Category" useGeneratedKeys="true" keyProperty="id">  
+       	insert into tb_category(name,sort) values (#{m.name},#{m.sort})  
+    </insert>  
+	
+	<delete id="del" parameterType="admin.entity.Category">
+		delete from tb_category where id = #{id}
+	</delete>
+	
+	<update id="upd" parameterType="admin.entity.Category">
+		update tb_category set
+		  name = #{m.name},
+		  sort = #{m.sort}
+		where id = #{m.id}
+	</update>
+  	
+	<resultMap type="admin.entity.Category" id="result">
+		<id property="m.id" column="id"/>
+		<result property="m.name" column="name"/>
+		<result property="m.sort" column="sort"/>
+	</resultMap>
+  	
+	<sql id="columns">
+		ID, NAME, SORT
+	</sql>
+	
+	<sql id="page">
+		<if test="offset!=null and limit!=null"> limit #{offset,javaType=String,jdbcType=NUMERIC}, #{limit,javaType=String,jdbcType=NUMERIC} </if>
+	</sql>
+	
+	<sql id="dynamicWhere">
+		<where>
+			<if test="name != null and name != ''"> and NAME like concat('%',#{name},'%') </if>
+		</where>
+	</sql>	
+	
+	<select id="getById" resultMap="result">
+		select <include refid="columns"/> from tb_category where id = #{id}
+	</select>
+	
+	<select id="get" resultType="list" resultMap="result">
+		select <include refid="columns"/> from tb_category
+		<include refid="dynamicWhere" /> order by sort 
+		<include refid="page" />
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(1) from tb_category
+		<include refid="dynamicWhere" />
+	</select>
+</mapper>  

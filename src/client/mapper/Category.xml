@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">   
+  
+<mapper namespace="client.entity.Category">
+      <!-- 自动生成id策略 -->
+    <insert id="add" parameterType="client.entity.Category" useGeneratedKeys="true" keyProperty="id">  
+       	insert into tb_category(name,sort) values (#{name},#{sort})  
+    </insert>  
+	
+	<delete id="del" parameterType="client.entity.Category">
+		delete from tb_category where id = #{id}
+	</delete>
+	
+	<update id="upd" parameterType="client.entity.Category">
+		update tb_category set
+		  name = #{name},
+		  sort = #{sort}
+		where id = #{id}
+	</update>
+  	
+	<resultMap type="client.entity.Category" id="result">
+		<id property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="sort" column="sort"/>
+	</resultMap>
+  	
+	<sql id="columns">
+		t.ID, t.NAME, t.SORT
+	</sql>
+	
+	<sql id="page">
+		<if test="offset!=null and limit!=null"> limit #{offset,javaType=String,jdbcType=NUMERIC}, #{limit,javaType=String,jdbcType=NUMERIC} </if>
+	</sql>
+	
+	<sql id="dynamicWhere">
+		<where>
+			<if test="name != null"> and t.NAME like concat('%',#{name},'%') </if>
+		</where>
+	</sql>	
+	
+	<select id="getById" resultMap="result">
+		select <include refid="columns"/> from tb_category t where t.id = #{id}
+	</select>
+	
+	<select id="get" resultType="list" resultMap="result">
+		select <include refid="columns"/> from tb_category t
+		<include refid="dynamicWhere" /> order by t.sort 
+		<include refid="page" />
+	</select>
+	<select id="getMap" resultType="java.util.HashMap">
+		select <include refid="columns"/> from tb_category t
+		<include refid="dynamicWhere" /> order by t.sort 
+		<include refid="page" />
+	</select>
+	<select id="getNavMap" resultType="java.util.HashMap">
+		select <include refid="columns"/>, count(t1.id) QTY 
+		  from tb_category t 
+		  left join tb_model t1 on t.id = t1.pid
+		<include refid="dynamicWhere" /> 
+		group by t.id, t.name, t.sort
+        order by t.sort 
+		<include refid="page" />
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(1) from tb_category t
+		<include refid="dynamicWhere" />
+	</select>
+</mapper>  

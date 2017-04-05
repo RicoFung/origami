@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">   
+  
+<mapper namespace="admin.entity.Image">
+      <!-- 自动生成id策略 -->
+    <insert id="add" parameterType="admin.entity.Image" useGeneratedKeys="true" keyProperty="id">  
+       	insert into tb_image(pid,name,sort,url) values (#{m.pid},#{m.name},#{m.sort},#{m.url})  
+    </insert>  
+	
+	<delete id="del" parameterType="admin.entity.Image">
+		delete from tb_image where id = #{id}
+	</delete>
+	<delete id="delByPids" parameterType="admin.entity.Image">
+	    delete from tb_image where pid in
+	    <foreach collection="pids" index="index" item="item" open="(" separator="," close=")">   
+	      #{item}   
+	    </foreach>  
+	 </delete>
+	
+	<update id="upd" parameterType="admin.entity.Image">
+		update tb_image 
+		   set pid = #{m.pid},
+			   name = #{m.name},
+			   sort = #{m.sort},
+			   url = #{m.url},
+		 where id = #{m.id}
+	</update>
+	
+	<update id="updSortById" parameterType="admin.entity.Image">
+		update tb_image 
+		   set sort = #{m.sort}
+		 where id = #{m.id}
+	</update>
+  	
+	<resultMap type="admin.entity.Image" id="result">
+		<id property="m.id" column="id"/>
+		<result property="m.pid" column="pid"/>
+		<result property="m.name" column="name"/>
+		<result property="m.sort" column="sort"/>
+		<result property="m.url" column="url"/>
+	</resultMap>
+  	
+	<sql id="columns">
+		ID, PID, NAME, SORT, URL
+	</sql>
+	
+	<sql id="page">
+		<if test="offset!=null and limit!=null"> limit #{offset,javaType=String,jdbcType=NUMERIC}, #{limit,javaType=String,jdbcType=NUMERIC} </if>
+	</sql>
+	
+	<sql id="dynamicWhere">
+		<where>
+			<if test="pid != null"> and PID = #{pid} </if>
+			<if test="name != null"> and NAME like concat('%',#{name},'%') </if>
+			<if test="pids != null">
+				and PID in 
+			    <foreach collection="pids" index="index" item="item" open="(" separator="," close=")">   
+			      #{item}   
+			    </foreach>  
+			</if>
+		</where>
+	</sql>	
+	
+	<select id="getById" resultMap="result">
+		select <include refid="columns"/> from tb_image where id = #{id}
+	</select>
+	
+	<select id="get" resultType="list" resultMap="result">
+		select <include refid="columns"/> from tb_image
+		<include refid="dynamicWhere" />
+		order by sort
+		<include refid="page" />
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(1) from tb_image
+		<include refid="dynamicWhere" />
+		order by sort
+	</select>
+</mapper>  
