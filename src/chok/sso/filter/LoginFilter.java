@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
 
+import chok.devwork.Result;
 import chok.sso.AuthUser;
 import chok.util.http.HttpAction;
 import chok.util.http.HttpResult;
@@ -113,9 +114,22 @@ public class LoginFilter implements Filter
 					return;// 验证成功
 				}
 			}
-			resp.setHeader("P3P", "CP=CAO PSA OUR");
-			resp.setHeader("Access-Control-Allow-Origin", "*");
-			resp.sendRedirect(getLoginURL(req));
+
+			if (req.getHeader("x-requested-with") != null && req.getHeader("x-requested-with").equals("XMLHttpRequest")) 
+			{ // ajax请求
+				resp.setContentType("text/html;charset=UTF-8");
+				resp.setContentType("application/json");
+				Result result = new Result();
+				result.setSuccess(false);
+				result.setMsg("操作失败，没登录！");
+				resp.getWriter().print(JSON.toJSONString(result));
+			}
+			else
+			{ // 非ajax请求
+				resp.setHeader("P3P", "CP=CAO PSA OUR");
+				resp.setHeader("Access-Control-Allow-Origin", "*");
+				resp.sendRedirect(getLoginURL(req));
+			}
 			return;
 		}
 		catch(Exception e)
@@ -168,11 +182,17 @@ public class LoginFilter implements Filter
 	private String getLoginURL(HttpServletRequest req)
 	{
 		String url = "";
+		String queryString = "";
+		queryString = req.getQueryString()==null?"":"?"+req.getQueryString();
+		if(log.isInfoEnabled()) log.info("step1 : "+queryString);
+		queryString = queryString.indexOf("ticket=")==-1?queryString:queryString.substring(0,queryString.indexOf("ticket=")-1);
+		if(log.isInfoEnabled()) log.info("step2 : "+queryString);
 		try {
-			url = loginURL+"?service="+URLEncoder.encode(req.getRequestURL().toString(), "UTF-8");
+			url = loginURL+"?service="+URLEncoder.encode(req.getRequestURL().toString()+queryString, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			url = "";
 		}
+		if(log.isInfoEnabled()) log.info("step3 : "+url);
 		return url;
 	}
 }

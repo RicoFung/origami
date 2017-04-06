@@ -1,3 +1,5 @@
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="chok.util.PropertiesUtil" %>
 <script type="text/javascript" src="/static/res/jquery/jquery.js"></script>
 <script type="text/javascript" src="/static/res/jquery/jquery.form.js"></script>
 <script type="text/javascript" src="/static/res/jquery/jquery-ui.min.js"></script>
@@ -21,12 +23,5 @@ function getGlobalHeight(type) {
 	else if (type=='tree') {
 		return $(window).height() - 35;
 	}
-}
-function ajaxOnLoadError(status) {
-    if(status=='0' || typeof(status)=="undefined") {  
-        if (confirm('会话已过期, 请重新登录。')) {  
-            window.location.href = $ctx+'/login.jsp';              
-        }  
-    } 
 }
 </script>

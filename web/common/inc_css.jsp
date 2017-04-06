@@ -1,3 +1,4 @@
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="/static/res/bs/css/bootstrap.css"/>
 <link rel="stylesheet" href="/static/res/bs/css/bootstrap-table.css">
 <link rel="stylesheet" href="/static/res/bs/css/bootstrap-table-fixed-columns.css">
