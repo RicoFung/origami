@@ -11,8 +11,6 @@ String btnJson = o==null?"":o.getString("sso.btnJson");
 request.setAttribute("authUser", o);
 %>
 <%@ include file="/common/inc_ctx.jsp"%>
-<%@ include file="/common/inc_css.jsp"%>
-<%@ include file="/common/inc_js.jsp"%>
 <script type="text/javascript">
 /* js 全局变量 **********************************************************/
 var $g_menuJson = <%=menuJson%>;
