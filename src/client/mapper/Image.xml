@@ -29,7 +29,7 @@
 	</resultMap>
   	
 	<sql id="columns">
-		ID, PID, NAME, SORT, IFNULL(URL,'') URL, octet_length(IMAGE) DATASIZE
+		ID, PID, NAME, SORT, IFNULL(URL,'') URL
 	</sql>
 	
 	<sql id="page">
