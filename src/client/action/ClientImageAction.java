@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 
 import chok.devwork.BaseController;
 import client.entity.Image;
-import client.service.ImageService;
+import client.service.ClientImageService;
 
 @Scope("prototype")
 @Controller
@@ -20,7 +20,7 @@ import client.service.ImageService;
 public class ClientImageAction extends BaseController<Image>
 {
 	@Autowired
-	private ImageService service;
+	private ClientImageService service;
 	
 	@RequestMapping("/getPageByPid")
 	public void getPageByPid() 

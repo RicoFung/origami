@@ -14,7 +14,7 @@ import chok.devwork.BaseDao;
 import chok.devwork.BaseService;
 import chok.util.PropertiesUtil;
 
-@Service("paperImageService")
+@Service
 public class ImageService extends BaseService<Image,Long>
 {
 	@Autowired

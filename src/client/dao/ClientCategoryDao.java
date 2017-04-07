@@ -9,7 +9,7 @@ import chok.devwork.BaseDao;
 import client.entity.Category;
 
 @Repository
-public class CategoryDao extends BaseDao<Category,Long>
+public class ClientCategoryDao extends BaseDao<Category,Long>
 {
 	@Override
 	public Class<Category> getEntityClass()

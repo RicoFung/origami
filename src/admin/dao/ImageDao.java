@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import admin.entity.Image;
 import chok.devwork.BaseDao;
 
-@Repository("paperImageDao")
+@Repository
 public class ImageDao extends BaseDao<Image,Long>
 {
 	@Override

@@ -18,7 +18,7 @@ import chok.devwork.BaseDao;
 import chok.devwork.BaseService;
 import chok.util.PropertiesUtil;
 
-@Service("paperModelService")
+@Service
 public class ModelService extends BaseService<Model,Long>
 {
 	@Autowired

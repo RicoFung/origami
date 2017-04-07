@@ -8,7 +8,7 @@ import admin.entity.Category;
 import chok.devwork.BaseDao;
 import chok.devwork.BaseService;
 
-@Service("paperCategoryService")
+@Service
 public class CategoryService extends BaseService<Category,Long>
 {
 	@Autowired

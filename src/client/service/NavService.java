@@ -10,14 +10,14 @@ import com.google.gson.Gson;
 
 import chok.devwork.BaseDao;
 import chok.devwork.BaseService;
-import client.dao.CategoryDao;
+import client.dao.ClientCategoryDao;
 import client.entity.Category;
 
 @Service
 public class NavService extends BaseService<Category,Long>
 {
 	@Autowired
-	private CategoryDao dao;
+	private ClientCategoryDao dao;
 
 	@Override
 	public BaseDao<Category,Long> getEntityDao() {

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import admin.entity.Category;
 import chok.devwork.BaseDao;
 
-@Repository("paperCategoryDao")
+@Repository
 public class CategoryDao extends BaseDao<Category,Long>
 {
 	@Override

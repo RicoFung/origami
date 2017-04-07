@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 
 import chok.devwork.BaseController;
 import client.entity.Model;
-import client.service.ModelService;
+import client.service.ClientModelService;
 
 
 @Scope("prototype")
@@ -21,7 +21,7 @@ import client.service.ModelService;
 public class ClientModelAction extends BaseController<Model>
 {
 	@Autowired
-	private ModelService service;
+	private ClientModelService service;
 
 	@RequestMapping("/getPageByPid")
 	public void getPageByPid() 

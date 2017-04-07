@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 
 import chok.devwork.BaseDao;
 import chok.devwork.BaseService;
-import client.dao.ModelDao;
+import client.dao.ClientModelDao;
 import client.entity.Model;
 
 @Service
-public class ModelService extends BaseService<Model,Long>
+public class ClientModelService extends BaseService<Model,Long>
 {
 	@Autowired
-	private ModelDao dao;
+	private ClientModelDao dao;
 
 	@Override
 	public BaseDao<Model,Long> getEntityDao() 

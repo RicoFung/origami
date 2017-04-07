@@ -7,7 +7,7 @@ import client.entity.Image1;
 
 
 @Repository
-public class Image1Dao extends BaseDao<Image1,Long>
+public class ClientImage1Dao extends BaseDao<Image1,Long>
 {
 	@Override
 	public Class getEntityClass()
