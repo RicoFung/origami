@@ -100,9 +100,27 @@ $chok.view.get.config.tableColumns =
 [
     {title:'ID', field:'m.id', align:'center', valign:'middle', sortable:true},
     {title:'PID', field:'m.pid', align:'center', valign:'middle', sortable:true, visible:false},
-    {title:'模型名', field:'m.name', align:'center', valign:'middle', sortable:true},
-    {title:'分类名', field:'m.catname', align:'center', valign:'middle', sortable:true},
-    {title:'排序号', field:'m.sort', align:'center', valign:'middle', sortable:true}
+    {title:'名称', field:'m.name', align:'center', valign:'middle', sortable:true, 
+    	editable:
+    	{
+    		type:'text',
+   			title:'名称',
+	    	validate: function(value){
+	            return $chok.validator.checkEditable("required", null, value, null);
+	    	}
+    	}
+    },
+    {title:'分类名称', field:'m.catname', align:'center', valign:'middle', sortable:true},
+    {title:'排序', field:'m.sort', align:'center', valign:'middle', sortable:true, 
+    	editable:
+    	{
+	    	type:'text',
+	    	title:'排序',
+	    	validate: function(value){
+	            return $chok.validator.checkEditable("number", null, value, null);
+	    	}
+    	}
+    }
 ];
 //配置行菜单
 $chok.view.get.config.operateFormatter = function(value, row, index){
