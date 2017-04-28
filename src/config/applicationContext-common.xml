@@ -89,9 +89,9 @@
 		<property name="transactionManager" ref="transactionManager"/>
 		<property name="transactionAttributes">
 			<props>
-				<prop key="save*">PROPAGATION_REQUIRED,-Exception</prop>
-				<prop key="delete*">PROPAGATION_REQUIRED,-Exception</prop>
-				<prop key="update*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="add*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="del*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="upd*">PROPAGATION_REQUIRED,-Exception</prop>
 				<prop key="get*">PROPAGATION_NEVER,readOnly</prop>
 				<prop key="query*">PROPAGATION_NEVER,readOnly</prop>
 				<prop key="*">PROPAGATION_NEVER,readOnly</prop>
