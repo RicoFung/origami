@@ -69,8 +69,8 @@ $(function(){
 								<ul class="dropdown-menu" style="height: 125px;">
 									<li>
 										<ul id="user-dropdown-menu" class="menu">
-											<li menuId="myinfo"><a href="${ctx}/admin/user/getMyInfo.action?id=<%=userId%>&menuName=个人资料"><i class="fa fa-user text-aqua"></i> <span>个人资料</span></a></li>
-											<li menuId="updpwd"><a href="${ctx}/admin/user/updPwd1.action?id=<%=userId%>&menuName=修改密码"><i class="glyphicon glyphicon-lock text-aqua"></i><span>修改密码</span></a></li>
+											<li menuId="userinfo"><a href="${ctx}/auth/userinfo.action"><i class="fa fa-user text-aqua"></i> <span>个人资料</span></a></li>
+											<li menuId="password"><a href="${ctx}/auth/password.action"><i class="glyphicon glyphicon-lock text-aqua"></i><span>修改密码</span></a></li>
 											<li menuId="logout"><a href="${ctx}/auth/logout.action"><i class="glyphicon glyphicon-log-out text-red"></i><span>登出</span></a></li>
 										</ul>
 									</li>

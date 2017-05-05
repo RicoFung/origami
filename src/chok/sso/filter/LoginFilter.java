@@ -36,6 +36,7 @@ public class LoginFilter implements Filter
 	public static String ssoApiURL = "";// SSO接口地址
 	public static String loginURL = "";// 登录页面
 	public static String logoutURL = "";// 登出页面
+	public static String passwordURL = "";// 修改密码页面
 	public final static String TICKET = "ticket";// url中传来的sessionKey的变量名
 	public final static String LOGINER = "sso.loginer";// sessionUser在session中的key
 	
@@ -49,6 +50,7 @@ public class LoginFilter implements Filter
 			ssoApiURL = String.valueOf(config.getInitParameter("ssoApiURL")).trim();
 			loginURL = ssoAuthURL + "/login.action";
 			logoutURL = ssoAuthURL + "/logout.action";
+			passwordURL = ssoAuthURL + "/password.action";
 		}
 		catch(Exception e)
 		{
@@ -194,5 +196,20 @@ public class LoginFilter implements Filter
 		}
 		if(log.isInfoEnabled()) log.info("step3 : "+url);
 		return url;
+	}
+	
+	public static String getPasswordURL(String url)
+	{
+		if(url != null && url.length() > 0)
+		{
+			try
+			{
+				return passwordURL + "?service=" + URLEncoder.encode(url, "UTF-8");
+			}
+			catch(Exception e)
+			{
+			}
+		}
+		return passwordURL;
 	}
 }

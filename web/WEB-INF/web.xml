@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-	<display-name>orogami</display-name>
+	<display-name>origami</display-name>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
@@ -53,6 +53,15 @@
 	    <url-pattern>/*</url-pattern>     
 	</filter-mapping>
 	
+	<!-- sso修改密码过滤器 -->
+	<filter>
+		<filter-name>ssoPasswordFilter</filter-name>
+		<filter-class>chok.sso.filter.PasswordFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ssoPasswordFilter</filter-name>
+		<url-pattern>/auth/password.action</url-pattern>
+	</filter-mapping>
 	<!-- sso登出过滤器 -->
 	<filter>
 		<filter-name>ssoLogoutFilter</filter-name>
@@ -68,15 +77,15 @@
 		<filter-class>chok.sso.filter.LoginFilter</filter-class>
 		<init-param>
 			<param-name>ssoURL</param-name>     
-			<param-value>http://localhost:8585/sso</param-value>     
+			<param-value>http://172.20.4.113:8585/sso</param-value>     
 		</init-param>
 		<init-param>
 			<param-name>ssoAuthURL</param-name>     
-			<param-value>http://localhost:8585/sso/auth</param-value>     
+			<param-value>http://172.20.4.113:8585/sso/auth</param-value>     
 		</init-param>
 		<init-param>
 			<param-name>ssoApiURL</param-name>     
-			<param-value>http://localhost:8585/sso/api</param-value>     
+			<param-value>http://172.20.4.113:8585/sso/api</param-value>     
 		</init-param>
 		<init-param>
 			<param-name>ignoreURL</param-name>     
@@ -93,11 +102,11 @@
 		<filter-class>chok.sso.filter.AuthFilter</filter-class>
 		<init-param>
 			<param-name>ssoURL</param-name>     
-			<param-value>http://localhost:8585/sso</param-value>     
+			<param-value>http://172.20.4.113:8585/sso</param-value>     
 		</init-param>
 		<init-param>
 			<param-name>ssoApiURL</param-name>     
-			<param-value>http://localhost:8585/sso/api</param-value>     
+			<param-value>http://172.20.4.113:8585/sso/api</param-value>     
 		</init-param>
 		<init-param>
 			<param-name>ignoreURL</param-name>     
