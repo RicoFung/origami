@@ -9,6 +9,7 @@
 <script type="text/javascript" src="/static/res/bs/js/bootstrap-table-fixed-columns.js"></script>
 <script type="text/javascript" src="/static/res/bs/js/bootstrap-editable.min.js"></script>
 <script type="text/javascript" src="/static/res/bs/js/bootstrap-table-editable.min.js"></script>
+<script type="text/javascript" src="/static/res/bs/js/bootstrap-table-contextmenu.min.js"></script>
 <script type="text/javascript" src="/static/res/chok/js/chok.base.js"></script>
 <script type="text/javascript" src="/static/res/chok/js/chok.validator.js"></script>
 <script type="text/javascript" src="/static/res/chok/js/chok.form.js"></script>

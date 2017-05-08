@@ -27,6 +27,13 @@
 			<!-- data list
 			======================================================================================================= -->
 			<table id="tb_list"></table>
+			<!-- context menu
+			======================================================================================================= -->
+			<ul id="tb_ctx_menu" class="dropdown-menu">
+			    <li data-item="upd" class="upd" pbtnId="pbtn_upd"><a><i class="glyphicon glyphicon-edit"></i></a></li>
+			    <li data-item="getById" class="getById" pbtnId="pbtn_getById"><a><i class="glyphicon glyphicon-info-sign"></i></a></li>
+			    <li data-item="getImages" class="getImages" pbtnId="pbtn_getImages"><a><i class="glyphicon glyphicon-picture"></i></a></li>
+			</ul>
 		</div>
 		</div>
 		</div>
@@ -59,8 +66,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-			   <button type="reset" class="btn btn-default"><i class="glyphicon glyphicon-repeat"></i></button>
-			   <button type="button" class="btn btn-primary" id="form_query_btn"><i class="glyphicon glyphicon-ok"></i></button>
+				<button type="reset" class="btn btn-default"><i class="glyphicon glyphicon-repeat"></i></button>
+				<button type="button" class="btn btn-primary" id="form_query_btn"><i class="glyphicon glyphicon-ok"></i></button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal -->
@@ -122,38 +129,18 @@ $chok.view.get.config.tableColumns =
     	}
     }
 ];
-//配置行菜单
-$chok.view.get.config.operateFormatter = function(value, row, index){
-	var url_upd1 = "upd1.action?id="+row.m.id+"&"+$chok.view.get.fn.getUrlParams();
-	var url_getById = "getById.action?id="+row.m.id+"&"+$chok.view.get.fn.getUrlParams();
-	var url_getImages = "../image/get.action?pid="+row.m.id+"&ppid="+row.m.pid+"&"+$chok.view.get.fn.getUrlParams();
-    return ['<div class="btn-group">',
-	    	'<button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">',
-	    	'<span class="caret"></span>',
-	    	'</button>',
-	    	'<ul class="dropdown-menu" role="menu">',
-	    	'<li class="upd" pbtnId="pbtn_upd'+index+'">',
-	    	'<a href="'+url_upd1+'">',
-	        '<i class="glyphicon glyphicon-edit"></i>',
-	    	'</a>',
-	    	'</li>',
-	    	'<li class="getById" pbtnId="pbtn_getById'+index+'">',
-	    	'<a href="'+url_getById+'">',
-	        '<i class="glyphicon glyphicon-info-sign"></i>',
-	    	'</a>',
-	    	'</li>',
-	    	'<li class="getImages" pbtnId="pbtn_getImages'+index+'">',
-	    	'<a href="'+url_getImages+'">',
-	        '<i class="glyphicon glyphicon-picture"></i>',
-	    	'</a>',
-	    	'</li>',
-	    	'</ul>',
-	    	'</div>'
-		    ].join('');
-};
 $chok.view.get.callback.delRows = function(){
 };
 $chok.view.get.callback.onLoadSuccess = function(){
 	$chok.auth.btn($chok.view.menuPermitId,$g_btnJson);
+};
+$chok.view.get.callback.onContextMenuItem = function(row, $el){
+	if ($el.data("item")=="upd"){
+		location.href = "upd1.action?id="+row.m.id+"&"+$chok.view.get.fn.getUrlParams();
+	} else if ($el.data("item")=="getById"){
+		location.href = "getById.action?id="+row.m.id+"&"+$chok.view.get.fn.getUrlParams();
+	} else if ($el.data("item")=="getImages"){
+		location.href = "../image/get.action?pid="+row.m.id+"&ppid="+row.m.pid+"&"+$chok.view.get.fn.getUrlParams();
+	}
 };
 </script>
