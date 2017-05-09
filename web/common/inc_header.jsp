@@ -46,8 +46,8 @@ $(function(){
 	<header class="main-header">
 		<!-- Logo -->
 		<a href="javascript:void(0);return false;" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
-			<span class="logo-mini"><b>O</b>SYS</span> <!-- logo for regular state and mobile devices -->
-			<span class="logo-lg"><b>Origami</b>SYSTEM</span>
+			<span class="logo-mini"><b>O</b>App</span> <!-- logo for regular state and mobile devices -->
+			<span class="logo-lg"><b>Origami</b>App</span>
 		</a>
 		<!-- 顶部导航栏 -->
 		<nav class="navbar navbar-static-top">
