@@ -43,24 +43,23 @@
 ======================================================================================================= -->
 <form id="form_query">
 <div id="modal_form_query" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal_label" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-			   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			   <h4 class="modal-title" id="modal_label">筛选条件</h4>
-			</div>
-			<div class="modal-body">
-				<!-- queryForm -->
-				<div class="form-group">
-					 <label for="f_name">类别名：</label><input type="text" class="form-control input-sm" id="f_name"/>
-				</div>
-			</div>
-			<div class="modal-footer">
-			   <button type="reset" class="btn btn-default"><i class="glyphicon glyphicon-repeat"></i></button>
-			   <button type="button" class="btn btn-primary" id="form_query_btn"><i class="glyphicon glyphicon-ok"></i></button>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal -->
+<div class="modal-dialog">
+<div class="modal-content">
+	<div class="modal-header">
+	   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	   <h4 class="modal-title" id="modal_label">筛选条件</h4>
+	</div>
+	<div class="modal-body">
+		<div class="form-group">
+			 <label for="f_name">类别名：</label><input type="text" class="form-control input-sm" id="f_name"/>
+		</div>
+	</div>
+	<div class="modal-footer">
+	   <button type="reset" class="btn btn-default"><i class="glyphicon glyphicon-repeat"></i></button>
+	   <button type="button" class="btn btn-primary" id="form_query_btn"><i class="glyphicon glyphicon-ok"></i></button>
+	</div>
+</div><!-- /.modal-content -->
+</div><!-- /.modal -->
 </div>
 </form>
 <%@ include file="/common/inc_footer.jsp"%>
