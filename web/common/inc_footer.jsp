@@ -2,7 +2,7 @@
 	<!-- 底部栏 -->
 	<footer class="main-footer">
 		<div class="pull-right hidden-xs"><b>Version</b> 2.0.0</div>
-		<strong>Copyright &copy; 2016-2017 <a href="https://github.com/RexFun" target="blank">RexFun GitHub</a>.</strong> All rights reserved.
+		<strong>Copyright &copy; 2016-2017 <a href="https://github.com/RicoFung" target="blank">RicoFung GitHub</a>.</strong> All rights reserved.
 	</footer>
 	<!-- 右侧栏 -->
 	<aside class="control-sidebar control-sidebar-dark">
