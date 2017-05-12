@@ -138,8 +138,6 @@ $chok.view.get.callback.onContextMenuItem = function(row, $el){
 		location.href = "upd1.action?id="+row.m.id+"&"+$chok.view.get.fn.getUrlParams();
 	} else if ($el.data("item")=="getById"){
 		location.href = "getById.action?id="+row.m.id+"&"+$chok.view.get.fn.getUrlParams();
-	} else if ($el.data("item")=="getImages"){
-		location.href = "../image/get.action?pid="+row.m.id+"&ppid="+row.m.pid+"&"+$chok.view.get.fn.getUrlParams();
 	}
 };
 </script>

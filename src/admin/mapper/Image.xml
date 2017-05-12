@@ -22,16 +22,10 @@
 		   set pid = #{m.pid},
 			   name = #{m.name},
 			   sort = #{m.sort},
-			   url = #{m.url},
+			   url = #{m.url}
 		 where id = #{m.id}
 	</update>
 	
-	<update id="updSortById" parameterType="admin.entity.Image">
-		update tb_image 
-		   set sort = #{m.sort}
-		 where id = #{m.id}
-	</update>
-  	
 	<resultMap type="admin.entity.Image" id="result">
 		<id property="m.id" column="id"/>
 		<result property="m.pid" column="pid"/>
@@ -50,14 +44,7 @@
 	
 	<sql id="dynamicWhere">
 		<where>
-			<if test="pid != null"> and PID = #{pid} </if>
-			<if test="name != null"> and NAME like concat('%',#{name},'%') </if>
-			<if test="pids != null">
-				and PID in 
-			    <foreach collection="pids" index="index" item="item" open="(" separator="," close=")">   
-			      #{item}   
-			    </foreach>  
-			</if>
+			<if test="pid != null and pid != ''"> and PID = #{pid} </if>
 		</where>
 	</sql>	
 	

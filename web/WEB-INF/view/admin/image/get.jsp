@@ -3,11 +3,10 @@
 <!-- 主内容面板 -->
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>${param.menuName}<small>${modelName}</small></h1>
+		<h1>${param.menuName}</h1>
 		<ol class="breadcrumb">
 			<li><a href="${ctx}/index.jsp"><i class="fa fa-dashboard"></i> 首页</a></li>
-			<li><a href="../model/get.action?menuId=${param.menuId}&menuName=${param.menuName}">${param.menuName}</a></li>
-			<li class="active">${modelName}</li>
+			<li class="active">${param.menuName}</li>
 		</ol>
 	</section>
 	<section class="content">
@@ -16,127 +15,117 @@
 		<div class="box box-default">
 		<div class="box-header with-border">
 			<h3 class="box-title"><small><i class="glyphicon glyphicon-th-list"></i></small></h3>
-			<div class="box-tools pull-right">
-				<button type="button" class="btn btn-box-tool" id="back"><i class="glyphicon glyphicon-arrow-left"></i></button>
-			</div>
 		</div>
 		<div class="box-body">
 			<!-- toolbar
 			======================================================================================================= -->
 			<div id="toolbar">
-				<button type="button" class="btn btn-default" id="bar_btn_add" pbtnId="pbtn_add">新增</button>
-				<button type="button" class="btn btn-default" id="bar_btn_del" pbtnId="pbtn_del">删除</button>
-				<button type="button" class="btn btn-default" id="bar_btn_updSortBatch" pbtnId="pbtn_updSortBath">修改排序号</button>
+			<button type="button" class="btn btn-default" id="bar_btn_add" pbtnId="pbtn_add"><i class="glyphicon glyphicon-plus"></i></button>
+			<button type="button" class="btn btn-default" id="bar_btn_del" pbtnId="pbtn_del"><i class="glyphicon glyphicon-remove"></i></button>
+			<button type="button" class="btn btn-default" id="bar_btn_query" pbtnId="pbtn_query" data-toggle="modal" data-target="#modal_form_query"><i class="glyphicon glyphicon-search"></i></button>
 			</div>
 			<!-- data list
 			======================================================================================================= -->
-			<form style="padding-top:10px;padding-bottom:10px" id="form_del" action="del.action" method="post">
-				<table data-toggle="table" data-striped="true" onload="this.height=mainFrame.document.body.scrollHeight" >
-					<thead>
-					<tr>
-						<th style="width:2%"><input id="ckb_all" type="checkbox"/></th>
-						<th data-sortable="true">主键</th>
-						<th data-sortable="true">外键</th>
-						<th data-sortable="true">排序号</th>
-						<th>图片</th>
-					</tr>
-					</thead>
-					<tbody>
-					<c:forEach var="o" items="${resultList}" varStatus="st">
-					<tr>
-						<td><input name="keyIndex" type="checkbox" value="${o.m.id}"/></td>
-						<td>${o.m.id}</td>
-						<td>${o.m.pid}</td>
-						<td>
-							<input type="hidden" name="hidden_id" value="${o.m.id}" style="width:50px"/>
-							<input type="text" name="text_sort" value="${o.m.sort}" style="width:50px"/>
-							<input type="button" name="row_btn_upd" pbtnId="pbtn_upd${st.index}" value="修改"/>
-						</td>
-						<td>
-							<a href="getById.action?id=${o.m.id}">
-								<img src="${imagePath}${o.m.url}" alt="图片" style="width:100px;height:100px"/>
-							</a>
-						</td>
-					</tr>
-					</c:forEach>
-					</tbody>
-				</table>
-				<input name="page" type="hidden" value="${page.curPage}" />
-				<input name="pid" type="hidden" value="${pid}" />
-			</form>
-			<div>${pageNav.pageHtml}</div>
+			<table id="tb_list"></table>
+			<!-- context menu
+			======================================================================================================= -->
+			<ul id="tb_ctx_menu" class="dropdown-menu">
+			    <li data-item="getById" class="getById" pbtnId="pbtn_getById"><a><i class="glyphicon glyphicon-info-sign"></i></a></li>
+			</ul>
 		</div>
 		</div>
 		</div>
 		</div>
 	</section>
 </div>
+<!-- query form modal
+======================================================================================================= -->
+<form id="form_query">
+<div id="modal_form_query" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal_label" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+	<div class="modal-header">
+	   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	   <h4 class="modal-title" id="modal_label">筛选条件</h4>
+	</div>
+	<div class="modal-body form-body">
+		<div class="form-group">
+			<label for="f_pid">类别名：</label>
+		 	<select class="form-control input-sm" id="f_category_id">
+				<option value="">请选择</option>
+				<c:forEach var="c" items="${categoryList}">
+				<option value="${c.m.id}">${c.m.name}</option>
+				</c:forEach>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="f_pid">模型名：</label>
+		 	<select class="form-control input-sm" id="f_pid">
+				<option value="">请选择</option>
+				<c:forEach var="c" items="${modelList}">
+				<option value="${c.m.id}">${c.m.name}</option>
+				</c:forEach>
+			</select>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="reset" class="btn btn-default"><i class="glyphicon glyphicon-repeat"></i></button>
+		<button type="button" class="btn btn-primary" id="form_query_btn"><i class="glyphicon glyphicon-ok"></i></button>
+	</div>
+</div><!-- /.modal-content -->
+</div><!-- /.modal -->
+</div>
+</form>
 <%@ include file="/common/inc_footer.jsp"%>
 <!-- ======================================================================================================= -->
 <script type="text/javascript" src="/static/res/chok/js/chok.auth.js"></script>
+<script type="text/javascript" src="/static/res/chok/js/chok.view.get.js"></script>
 <script type="text/javascript">
 /**********************************************************/
-/* 删除后回调函数 */
-/**********************************************************/
-$chok.form.callback = function(){
-	if($chok.result.type == 1){
- 		location.href = "get.action?"+$chok.view.fn.getUrlParams("${queryParams}");
-	}
-};
-/* 初始化按钮事件 */
-function initBtnEvent(){
-	$("#ckb_all").click(function(){
-		$("input[name='keyIndex']").prop("checked",$(this).prop("checked"));
-	});
-	$("#bar_btn_add").click(function(){
-		location.href = "add1.action?"+$chok.view.fn.getUrlParams("${queryParams}");
-	});
-	$("#bar_btn_del").click(function(){
-		if(confirm("确认删除？")) $("#form_del").submit();
-	});
-	$("#bar_btn_updSortBatch").click(function(){
-		var idArr = [];
-		var i = 0;   
-		$("input[name='hidden_id']").each(function(){
-			idArr[i] = $(this).val();    
-            i++;
-        });
-		var sortArr = [];   
-		var j = 0;   
-		$("input[name='text_sort']").each(function(){
-			sortArr[j] = $(this).val();    
-            j++;
-        });
-		$.ajax({  
-		    url: "updSortBatch.action",  
-		    data: {id:idArr, sort:sortArr},  
-		    dataType: "json",  
-		    type: "POST",  
-		    traditional: true,  
-		    success: function (responseJSON) {  
-		        window.location.reload();
-		    }  
-		});
-	});
-	$("#back").click(function(){
-		location.href = "../model/get.action?"+$chok.view.fn.getUrlParams("${queryParams}");
-	});
-	$("input[name='row_btn_upd']").click(function(){
-		var _id = $(this).siblings("input[name='hidden_id']").val();
-		var _sort = $(this).siblings("input[name='text_sort']").val();
-		$.post("updSortById.action", {id:_id, sort:_sort}, function(data) {
-			  window.location.reload();
-		});
-	});
-}
 /* 全局函数 */
-$(function(){
+/**********************************************************/
+$(function() {
 	$chok.view.fn.selectSidebarMenu("${param.menuId}","${param.menuPermitId}","${param.menuName}");
-	initBtnEvent();
+	$chok.view.get.init.toolbar();
+	$chok.view.get.init.modalFormQuery();
+	$chok.view.get.init.table("${queryParams.f_page}","${queryParams.f_pageSize}");
 	$chok.auth.btn($chok.view.menuPermitId,$g_btnJson);
-	
-	$("#form_del a").each(function(){
-		$(this).attr("href", $(this).attr("href")+"&"+$chok.view.fn.getUrlParams("${queryParams}"));
-	});
 });
+/**********************************************************/
+/* 初始化配置 */
+/**********************************************************/
+$chok.view.get.config.setPreFormParams = function(){
+	$("#f_category_id").val(typeof("${queryParams.f_category_id}")=="undefined"?"":"${queryParams.f_category_id}");
+	$("#f_pid").val(typeof("${queryParams.f_pid}")=="undefined"?"":"${queryParams.f_pid}");
+};
+$chok.view.get.config.formParams = function(p){
+	p.category_id = $("#f_category_id").val();
+	p.pid = $("#f_pid").val();
+    return p;
+};
+$chok.view.get.config.urlParams = function(){
+	return {f_category_id : $("#f_category_id").val(),
+			f_pid  : $("#f_pid").val()};
+};
+$chok.view.get.config.tableColumns = 
+[
+    {title:'ID', field:'m.id', align:'center', valign:'middle', sortable:true},
+    {title:'PID', field:'m.pid', align:'center', valign:'middle', sortable:true},
+    {title:'图片路径', field:'m.url', align:'center', valign:'middle', sortable:true},
+    {title:'排序', field:'m.sort', align:'center', valign:'middle', sortable:true, 
+    	editable:
+    	{
+	    	type:'text',
+	    	title:'排序',
+	    	validate: function(value){
+	            return $chok.validator.checkEditable("number", null, value, null);
+	    	}
+    	}
+    }
+];
+$chok.view.get.callback.delRows = function(){
+};
+$chok.view.get.callback.onLoadSuccess = function(){
+	$chok.auth.btn($chok.view.menuPermitId,$g_btnJson);
+};
 </script>

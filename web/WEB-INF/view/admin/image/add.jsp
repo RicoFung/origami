@@ -3,11 +3,11 @@
 <!-- 主内容面板 -->
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>${param.menuName}<small>${modelName}</small></h1>
+		<h1>${param.menuName}<small>新增</small></h1>
 		<ol class="breadcrumb">
 			<li><a href="${ctx}/index.jsp"><i class="fa fa-dashboard"></i> 首页</a></li>
-			<li><a href="../model/get.action?menuId=${param.menuId}&menuName=${param.menuName}">${param.menuName}</a></li>
-			<li class="active">${modelName}</li>
+			<li><a href="get.action?menuId=${param.menuId}&menuName=${param.menuName}">${param.menuName}</a></li>
+			<li class="active">新增</li>
 		</ol>
 	</section>
 	<section class="content">
@@ -20,6 +20,15 @@
 			</div>
 			<div class="box-body">
 				<form class="dataForm" enctype="multipart/form-data">
+					<div class="form-group">
+						<label for="pid">所属模型：</label>
+					 	<select class="form-control input-sm" id="pid" name="pid" validate validate-rule-required>
+							<option value="">请选择</option>
+							<c:forEach var="c" items="${modelList}">
+							<option value="${c.m.id}">${c.m.name}</option>
+							</c:forEach>
+						</select>
+					</div>
 					<input id="myFile" name="myFile" type="file" multiple class="file-loading"/>
 					<div id="kv-error-2" style="margin-top:10px;display:none"></div>
 					<div id="kv-success-2" class="alert alert-success fade in" style="margin-top:10p;display:none"></div>
@@ -40,19 +49,42 @@ $(function(){
 	$chok.view.fn.selectSidebarMenu("${param.menuId}","${param.menuPermitId}","${param.menuName}");
 	// 返回列表页
 	$("#back").click(function(){
-		history.back();
+		location.href = "get.action?"+$chok.view.fn.getUrlParams("${queryParams}");
 	});
 	//
 	$("#myFile").fileinput({
-	    uploadUrl: "add2.action?pid=${pid}&ppid=${ppid}", // server upload action
 	    allowedFileExtensions : ['jpg','png','gif'],
-	    uploadAsync: false,
+	    uploadUrl: "add2.action", // server upload action
+	    uploadExtraData:function(){return {pid:$("#pid").val()};},
+	    uploadAsync: true,
 	    minFileCount: 1,
 	    maxFileCount: 10
-	}).on('filebatchpreupload', function(event, data, id, index) {
+	}).on('filepreupload', function(event, data, previewId, index, jqXHR) {
+       // 进行自定义验证并返回如下所示的错误
+       if (!$chok.validator.check()) {
+           return {
+               message: '所属模型未选择'//,
+               //data: {key1: 'Key 1', detail1: 'Detail 1'}
+           };
+       }
+	}).on('fileuploaderror', function(event, data, msg) {
+		console.info(data);
+	    var form = data.form, files = data.files, extra = data.extra,
+	        response = data.response, reader = data.reader;
+	    console.log('File upload error');
+	   // get message
+	   alert(msg);
+	}).on('fileuploaded', function(event, data, previewId, index) {
+		console.info(data);
+	    var form = data.form, files = data.files, extra = data.extra,
+	        response = data.response, reader = data.reader;
+	    console.log('File uploaded triggered');
+	    alert("上传图片成功！");
+	});
+   /*  }).on('filebatchpreupload', function(event, data, id, index) {
 	    $('#kv-success-2').html('<h4>Upload Status</h4><ul></ul>').hide();
 	}).on('filebatchuploaderror', function(event, data, msg) {
-	    var form = data.form, files = data.files, extra = data.extra,
+ 	    var form = data.form, files = data.files, extra = data.extra,
 	        response = data.response, reader = data.reader;
 	    var out = '';
 	    $.each(data.files, function(key, file) {
@@ -60,9 +92,9 @@ $(function(){
 	        out = out + '<li>' + '上传 # ' + (key + 1) + ' - '  +  fname + ' 失败.' + '</li>';
 	    });
 	    $('#kv-error-2 ul').append(out);
-	    $('#kv-error-2').show();
+	    $('#kv-error-2').show(); 
 	}).on('filebatchuploadsuccess', function(event, data, previewId, index) {
-	    var form = data.form, files = data.files, extra = data.extra,
+ 	   var form = data.form, files = data.files, extra = data.extra,
 	        response = data.response, reader = data.reader;
 	    var out = '';
 	    $.each(data.files, function(key, file) {
@@ -72,8 +104,7 @@ $(function(){
 	    $('#kv-success-2 ul').append(out);
 	    $('#kv-success-2').show();
 	    alert("上传图片成功！");
-	    //history.back();
-		location.href = "get.action?pid=${pid}&ppid=${ppid}";
-	});
+		location.href = "get.action?"+$chok.view.fn.getUrlParams("${queryParams}");
+	}); */
 });
 </script>

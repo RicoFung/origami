@@ -110,7 +110,17 @@
 		</init-param>
 		<init-param>
 			<param-name>ignoreURL</param-name>     
-			<param-value>/admin/home/get.action,/admin/home/searchMenu.action,/admin/image/add1.action,/admin/image/add2.action,/admin/image/getById.action,/images/*,/noaccess.jsp</param-value>     
+			<param-value>
+			/admin/home/get.action,
+			/admin/home/searchMenu.action,
+			/admin/image/add1.action,
+			/admin/image/add2.action,
+			/admin/image/getById.action,
+			/admin/image/upd1.action,
+			/admin/image/upd2.action,
+			/images/*,
+			/noaccess.jsp
+			</param-value>     
 		</init-param>
 		<init-param>
 			<param-name>appId</param-name>

@@ -11,14 +11,9 @@ import chok.devwork.BaseDao;
 public class ImageDao extends BaseDao<Image,Long>
 {
 	@Override
-	public Class getEntityClass()
+	public Class<Image> getEntityClass()
 	{
 		return Image.class;
-	}
-	
-	public void updSortById(Image po)
-	{
-		this.getSqlSession().update(getStatementName("updSortById"), po);
 	}
 	
 	public void delByPids(Map<String, Object> m)
