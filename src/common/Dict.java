@@ -53,14 +53,13 @@ public class Dict
 	 */
 	private static List<Object> getList(Map<String, Object> params, BaseService service)
 	{
-//		List<Object> list = new ArrayList<Object>();
-//		List<BaseModel> resultData = service.get(params);
-//		for(BaseModel o : resultData)
-//		{
-//			list.add(o.getM());
-//		}
-//		return list;
-		return service.get(params);
+		List<Object> list = new ArrayList<Object>();
+		List<BaseModel> resultData = service.get(params);
+		for(BaseModel o : resultData)
+		{
+			list.add(o.getM());
+		}
+		return list;
 	}
 	/**
 	 * 获取JSON集合(通用)

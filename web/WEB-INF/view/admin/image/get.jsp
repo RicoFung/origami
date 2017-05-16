@@ -50,21 +50,13 @@
 	</div>
 	<div class="modal-body form-body">
 		<div class="form-group">
-			<label for="f_pid">类别名：</label>
+			<label for="f_category_id">类别名：</label>
 		 	<select class="form-control input-sm" id="f_category_id">
-				<option value="">请选择</option>
-				<c:forEach var="c" items="${categorys}">
-				<option value="${c.m.id}">${c.m.name}</option>
-				</c:forEach>
 			</select>
 		</div>
 		<div class="form-group">
 			<label for="f_pid">模型名：</label>
 		 	<select class="form-control input-sm" id="f_pid" cascadeid="f_category_id">
-				<option value="">请选择</option>
-				<c:forEach var="c" items="${models}">
-				<option value="${c.m.id}">${c.m.name}</option>
-				</c:forEach>
 			</select>
 		</div>
 	</div>
@@ -90,7 +82,7 @@ $(function() {
 	$chok.view.get.init.modalFormQuery();
 	$chok.view.get.init.table("${queryParams.f_page}","${queryParams.f_pageSize}");
 	$chok.auth.btn($chok.view.menuPermitId,$g_btnJson);
-	$customize.init.selectorModel();
+	$customize.init.selectors();
 });
 /**********************************************************/
 /* 初始化配置 */
@@ -135,10 +127,25 @@ $chok.view.get.callback.onLoadSuccess = function(){
 var $customize = {};
 $customize.init = {};
 $customize.fn = {};
-$customize.init.selectorModel = function(){
-	$("#f_pid").cascadeSelect({
-		data:$.parseJSON('${modelJsons}'),
-		fk:"pid"
+$customize.init.selectors = function(){
+	$("#f_category_id").DropDownSelect({
+		url:$ctx+"/dict/getCategorys.action",
+		callback:{
+			afterload:function(){
+				$("#f_category_id").val(typeof("${queryParams.f_category_id}")=="undefined"?"":"${queryParams.f_category_id}");
+				$("#f_pid").reload();
+			}
+		}
+	});
+	$("#f_pid").DropDownSelect({
+		url:$ctx+"/dict/getModels.action",
+		cascadeid:"f_category_id",
+		fk:"pid",
+		callback:{
+			afterload:function(){
+				$("#f_pid").val(typeof("${queryParams.f_pid}")=="undefined"?"":"${queryParams.f_pid}");
+			}
+		}
 	});
 };
 </script>
