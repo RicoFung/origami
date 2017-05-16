@@ -119,6 +119,7 @@
 			/admin/image/upd1.action,
 			/admin/image/upd2.action,
 			/images/*,
+			/dict/*,
 			/noaccess.jsp
 			</param-value>     
 		</init-param>

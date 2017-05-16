@@ -1,11 +1,7 @@
 package admin.action;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -14,14 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import admin.entity.Image;
-import admin.service.CategoryService;
 import admin.service.ImageService;
 import admin.service.ModelService;
 import chok.devwork.BaseController;
 import chok.util.CollectionUtil;
-import chok.util.FileUtil;
-import chok.util.PropertiesUtil;
-import chok.util.UniqueId;
+import common.Dict;
 
 @Scope("prototype")
 @Controller
@@ -32,13 +25,11 @@ public class ImageAction extends BaseController<Image>
 	private ImageService service;
 	@Autowired
 	private ModelService modelService;
-	@Autowired
-	private CategoryService categoryService;
 	
 	@RequestMapping("/add1")
 	public String add1() 
 	{
-		put("modelList", modelService.get(null));
+		put("models", Dict.getModels(null));
 		put("queryParams",req.getParameterValueMap(false, true));
 		return "/admin/image/add.jsp";
 	}
@@ -103,8 +94,9 @@ public class ImageAction extends BaseController<Image>
 	@RequestMapping("/get")
 	public String get() 
 	{
-		put("modelList", modelService.get(null));
-		put("categoryList", categoryService.get(null));
+		put("categorys", Dict.getCategorys(null));
+		put("models", Dict.getModels(null));
+		put("modelJsons", Dict.getModels(null, "json"));
 		put("queryParams",req.getParameterValueMap(false, true));
 		return "/admin/image/get.jsp";
 	}

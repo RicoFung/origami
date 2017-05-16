@@ -53,16 +53,16 @@
 			<label for="f_pid">类别名：</label>
 		 	<select class="form-control input-sm" id="f_category_id">
 				<option value="">请选择</option>
-				<c:forEach var="c" items="${categoryList}">
+				<c:forEach var="c" items="${categorys}">
 				<option value="${c.m.id}">${c.m.name}</option>
 				</c:forEach>
 			</select>
 		</div>
 		<div class="form-group">
 			<label for="f_pid">模型名：</label>
-		 	<select class="form-control input-sm" id="f_pid">
+		 	<select class="form-control input-sm" id="f_pid" cascadeid="f_category_id">
 				<option value="">请选择</option>
-				<c:forEach var="c" items="${modelList}">
+				<c:forEach var="c" items="${models}">
 				<option value="${c.m.id}">${c.m.name}</option>
 				</c:forEach>
 			</select>
@@ -90,6 +90,7 @@ $(function() {
 	$chok.view.get.init.modalFormQuery();
 	$chok.view.get.init.table("${queryParams.f_page}","${queryParams.f_pageSize}");
 	$chok.auth.btn($chok.view.menuPermitId,$g_btnJson);
+	$customize.init.selectorModel();
 });
 /**********************************************************/
 /* 初始化配置 */
@@ -105,7 +106,7 @@ $chok.view.get.config.formParams = function(p){
 };
 $chok.view.get.config.urlParams = function(){
 	return {f_category_id : $("#f_category_id").val(),
-			f_pid  : $("#f_pid").val()};
+			f_pid : $("#f_pid").val()};
 };
 $chok.view.get.config.tableColumns = 
 [
@@ -127,5 +128,17 @@ $chok.view.get.callback.delRows = function(){
 };
 $chok.view.get.callback.onLoadSuccess = function(){
 	$chok.auth.btn($chok.view.menuPermitId,$g_btnJson);
+};
+/**********************************************************/
+/* 自定义配置 */
+/**********************************************************/
+var $customize = {};
+$customize.init = {};
+$customize.fn = {};
+$customize.init.selectorModel = function(){
+	$("#f_pid").cascadeSelect({
+		data:$.parseJSON('${modelJsons}'),
+		fk:"pid"
+	});
 };
 </script>

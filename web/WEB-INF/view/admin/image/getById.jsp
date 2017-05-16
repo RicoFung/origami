@@ -33,6 +33,9 @@
 /**********************************************************/
 $(function(){
 	$chok.view.fn.selectSidebarMenu("${param.menuId}","${param.menuPermitId}","${param.menuName}");// 标记当前菜单
-	$("#back").click(function(){history.back();});// 返回列表页
+	// 返回列表页
+	$("#back").click(function(){
+		location.href = "get.action?"+$chok.view.fn.getUrlParams("${queryParams}");
+	});
 });
 </script>

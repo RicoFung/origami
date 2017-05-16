@@ -24,7 +24,7 @@
 						<label for="pid">所属模型：</label>
 					 	<select class="form-control input-sm" id="pid" name="pid" validate validate-rule-required>
 							<option value="">请选择</option>
-							<c:forEach var="c" items="${modelList}">
+							<c:forEach var="c" items="${models}">
 							<option value="${c.m.id}">${c.m.name}</option>
 							</c:forEach>
 						</select>
@@ -41,8 +41,8 @@
 <%@ include file="/common/inc_footer.jsp"%>
 <!-- ======================================================================================================= -->
 <script type="text/javascript" src="/static/res/chok/js/chok.auth.js"></script>
-<link rel="stylesheet" href="/static/res/bs/fileinput/css/fileinput.min.css"/>
-<script type="text/javascript" src="/static/res/bs/fileinput/js/fileinput.min.js"></script>
+<link rel="stylesheet" href="/static/res/bs/plugin/fileinput/css/fileinput.min.css"/>
+<script type="text/javascript" src="/static/res/bs/plugin/fileinput/js/fileinput.min.js"></script>
 <script type="text/javascript" src="/static/res/chok/js/chok.view.add.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -68,20 +68,13 @@ $(function(){
            };
        }
 	}).on('fileuploaderror', function(event, data, msg) {
-		console.info(data);
-	    var form = data.form, files = data.files, extra = data.extra,
-	        response = data.response, reader = data.reader;
-	    console.log('File upload error');
-	   // get message
 	   alert(msg);
 	}).on('fileuploaded', function(event, data, previewId, index) {
-		console.info(data);
-	    var form = data.form, files = data.files, extra = data.extra,
-	        response = data.response, reader = data.reader;
-	    console.log('File uploaded triggered');
 	    alert("上传图片成功！");
+		location.href = "get.action?"+$chok.view.fn.getUrlParams("${queryParams}");
 	});
-   /*  }).on('filebatchpreupload', function(event, data, id, index) {
+   /*  同步请求
+   }).on('filebatchpreupload', function(event, data, id, index) {
 	    $('#kv-success-2').html('<h4>Upload Status</h4><ul></ul>').hide();
 	}).on('filebatchuploaderror', function(event, data, msg) {
  	    var form = data.form, files = data.files, extra = data.extra,
