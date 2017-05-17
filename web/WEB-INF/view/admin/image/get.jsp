@@ -50,14 +50,12 @@
 	</div>
 	<div class="modal-body form-body">
 		<div class="form-group">
-			<label for="f_category_id">类别名：</label>
-		 	<select class="form-control input-sm" id="f_category_id">
-			</select>
+			<label for="category_id">类别名：</label>
+		 	<select class="form-control input-sm" id="category_id"></select>
 		</div>
 		<div class="form-group">
-			<label for="f_pid">模型名：</label>
-		 	<select class="form-control input-sm" id="f_pid" cascadeid="f_category_id">
-			</select>
+			<label for="pid">模型名：</label>
+		 	<select class="form-control input-sm" id="pid" cascadeid="category_id"></select>
 		</div>
 	</div>
 	<div class="modal-footer">
@@ -82,7 +80,6 @@ $(function() {
 	$chok.view.get.init.modalFormQuery();
 	$chok.view.get.init.table("${queryParams.f_page}","${queryParams.f_pageSize}");
 	$chok.auth.btn($chok.view.menuPermitId,$g_btnJson);
-	$customize.init.selectors();
 });
 /**********************************************************/
 /* 初始化配置 */
@@ -124,28 +121,21 @@ $chok.view.get.callback.onLoadSuccess = function(){
 /**********************************************************/
 /* 自定义配置 */
 /**********************************************************/
-var $customize = {};
-$customize.init = {};
-$customize.fn = {};
-$customize.init.selectors = function(){
-	$("#f_category_id").DropDownSelect({
-		url:$ctx+"/dict/getCategorys.action",
-		callback:{
-			afterload:function(){
-				$("#f_category_id").val(typeof("${queryParams.f_category_id}")=="undefined"?"":"${queryParams.f_category_id}");
-				$("#f_pid").reload();
+$chok.view.fn.customize = function(){
+	var category_select = 
+		$("#category_id").DropDownSelect({
+			url:$ctx+"/dict/getCategorys.action",
+			callback:{
+				afterload:function(){
+					model_select.reload();
+				}
 			}
-		}
-	});
-	$("#f_pid").DropDownSelect({
-		url:$ctx+"/dict/getModels.action",
-		cascadeid:"f_category_id",
-		fk:"pid",
-		callback:{
-			afterload:function(){
-				$("#f_pid").val(typeof("${queryParams.f_pid}")=="undefined"?"":"${queryParams.f_pid}");
-			}
-		}
-	});
+		});
+	var model_select = 
+		$("#pid").DropDownSelect({
+			url:$ctx+"/dict/getModels.action",
+			cascadeid:"category_id",
+			fk:"pid"
+		});
 };
 </script>

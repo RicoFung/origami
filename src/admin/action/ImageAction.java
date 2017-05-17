@@ -94,9 +94,6 @@ public class ImageAction extends BaseController<Image>
 	@RequestMapping("/get")
 	public String get() 
 	{
-		put("categorys", Dict.getCategorys(null));
-		put("models", Dict.getModels(null));
-		put("modelJsons", Dict.getModels(null, "json"));
 		put("queryParams",req.getParameterValueMap(false, true));
 		return "/admin/image/get.jsp";
 	}

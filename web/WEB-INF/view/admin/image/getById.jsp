@@ -3,11 +3,11 @@
 <!-- 主内容面板 -->
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>${param.menuName}<small>${modelName}</small></h1>
+		<h1>${param.menuName}<small>明细</small></h1>
 		<ol class="breadcrumb">
 			<li><a href="${ctx}/index.jsp"><i class="fa fa-dashboard"></i> 首页</a></li>
-			<li><a href="../model/get.action?menuId=${param.menuId}&menuName=${param.menuName}">${param.menuName}</a></li>
-			<li class="active">${modelName}</li>
+			<li><a href="get.action?menuId=${param.menuId}&menuName=${param.menuName}">${param.menuName}</a></li>
+			<li class="active">明细</li>
 		</ol>
 	</section>
 	<section class="content">

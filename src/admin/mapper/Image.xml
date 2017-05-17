@@ -55,13 +55,12 @@
 	<select id="get" resultType="list" resultMap="result">
 		select <include refid="columns"/> from tb_image
 		<include refid="dynamicWhere" />
-		order by sort
+		order by sort, id desc
 		<include refid="page" />
 	</select>
 	
 	<select id="getCount" resultType="int">
 		select count(1) from tb_image
 		<include refid="dynamicWhere" />
-		order by sort
 	</select>
 </mapper>  
