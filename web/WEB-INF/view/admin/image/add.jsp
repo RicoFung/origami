@@ -21,11 +21,11 @@
 			<div class="box-body">
 				<form class="dataForm" enctype="multipart/form-data">
 					<div class="form-group">
-						<label for="pid">所属模型：</label>
-					 	<select class="form-control input-sm" id="pid" name="pid" validate validate-rule-required>
+						<label for="model_id">所属模型：</label>
+					 	<select class="form-control input-sm" id="model_id" name="model_id" validate validate-rule-required>
 							<option value="">请选择</option>
 							<c:forEach var="c" items="${models}">
-							<option value="${c.m.id}">${c.m.name}</option>
+							<option value="${c.id}">${c.name}</option>
 							</c:forEach>
 						</select>
 					</div>
@@ -55,7 +55,10 @@ $(function(){
 	$("#myFile").fileinput({
 	    allowedFileExtensions : ['jpg','png','gif'],
 	    uploadUrl: "add2.action", // server upload action
-	    uploadExtraData:function(){return {pid:$("#pid").val()};},
+	    uploadExtraData:function()
+	    {
+	    	return {model_id:$("#model_id").val(), sort:$("#sort").val()};
+	    },
 	    uploadAsync: true,
 	    minFileCount: 1,
 	    maxFileCount: 10
@@ -63,7 +66,7 @@ $(function(){
        // 进行自定义验证并返回如下所示的错误
        if (!$chok.validator.check()) {
            return {
-               message: '所属模型未选择'//,
+               message: '表单信息不合法'//,
                //data: {key1: 'Key 1', detail1: 'Detail 1'}
            };
        }

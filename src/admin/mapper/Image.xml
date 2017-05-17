@@ -4,22 +4,22 @@
 <mapper namespace="admin.entity.Image">
       <!-- 自动生成id策略 -->
     <insert id="add" parameterType="admin.entity.Image" useGeneratedKeys="true" keyProperty="id">  
-       	insert into tb_image(pid,name,sort,url) values (#{m.pid},#{m.name},#{m.sort},#{m.url})  
+       	insert into tb_image(model_id,name,sort,url) values (#{m.model_id},#{m.name},#{m.sort},#{m.url})  
     </insert>  
 	
 	<delete id="del" parameterType="admin.entity.Image">
 		delete from tb_image where id = #{id}
 	</delete>
-	<delete id="delByPids" parameterType="admin.entity.Image">
-	    delete from tb_image where pid in
-	    <foreach collection="pids" index="index" item="item" open="(" separator="," close=")">   
+	<delete id="delByModelIds" parameterType="admin.entity.Image">
+	    delete from tb_image where model_id in
+	    <foreach collection="model_ids" index="index" item="item" open="(" separator="," close=")">   
 	      #{item}   
 	    </foreach>  
 	 </delete>
 	
 	<update id="upd" parameterType="admin.entity.Image">
 		update tb_image 
-		   set pid = #{m.pid},
+		   set model_id = #{m.model_id},
 			   name = #{m.name},
 			   sort = #{m.sort},
 			   url = #{m.url}
@@ -28,14 +28,27 @@
 	
 	<resultMap type="admin.entity.Image" id="result">
 		<id property="m.id" column="id"/>
-		<result property="m.pid" column="pid"/>
+		<result property="m.model_id" column="model_id"/>
 		<result property="m.name" column="name"/>
 		<result property="m.sort" column="sort"/>
 		<result property="m.url" column="url"/>
 	</resultMap>
+	<resultMap type="admin.entity.Image" id="result1">
+		<id property="m.id" column="id"/>
+		<result property="m.name" column="name"/>
+		<result property="m.url" column="url"/>
+		<result property="m.sort" column="sort"/>
+		<result property="m.model_id" column="model_id"/>
+		<result property="m.model_name" column="model_name"/>
+		<result property="m.category_id" column="category_id"/>
+		<result property="m.category_name" column="category_name"/>
+	</resultMap>
   	
 	<sql id="columns">
-		ID, PID, NAME, SORT, URL
+		t.id, t.model_id, t.name, t.sort, t.url
+	</sql>
+	<sql id="columns1">
+		t.id, t.name, t.sort, t.url, t.model_id, t1.name model_name, t2.id category_id, t2.name category_name
 	</sql>
 	
 	<sql id="page">
@@ -44,23 +57,28 @@
 	
 	<sql id="dynamicWhere">
 		<where>
-			<if test="pid != null and pid != ''"> and PID = #{pid} </if>
+			<if test="model_id != null and model_id != ''"> and t.model_id = #{model_id} </if>
+			<if test="category_id != null and category_id != ''"> and t1.category_id = #{category_id} </if>
 		</where>
 	</sql>	
 	
 	<select id="getById" resultMap="result">
-		select <include refid="columns"/> from tb_image where id = #{id}
+		select <include refid="columns"/> from tb_image t where t.id = #{id}
 	</select>
 	
-	<select id="get" resultType="list" resultMap="result">
-		select <include refid="columns"/> from tb_image
+	<select id="get" resultType="list" resultMap="result1">
+		select <include refid="columns1"/>  from tb_image t
+		left join tb_model t1 on t.model_id = t1.id
+		left join tb_category t2 on t1.category_id = t2.id
 		<include refid="dynamicWhere" />
-		order by sort, id desc
+		order by t.sort, t.id desc
 		<include refid="page" />
 	</select>
 	
 	<select id="getCount" resultType="int">
-		select count(1) from tb_image
+		select count(1) from tb_image t
+		left join tb_model t1 on t.model_id = t1.id
+		left join tb_category t2 on t1.category_id = t2.id
 		<include refid="dynamicWhere" />
 	</select>
 </mapper>  

@@ -25,7 +25,7 @@
 	</resultMap>
   	
 	<sql id="columns">
-		ID, NAME, SORT
+		id, name, sort
 	</sql>
 	
 	<sql id="page">
@@ -34,7 +34,7 @@
 	
 	<sql id="dynamicWhere">
 		<where>
-			<if test="name != null and name != ''"> and NAME like concat('%',#{name},'%') </if>
+			<if test="name != null and name != ''"> and name like concat('%',#{name},'%') </if>
 		</where>
 	</sql>	
 	
@@ -44,7 +44,7 @@
 	
 	<select id="get" resultType="list" resultMap="result">
 		select <include refid="columns"/> from tb_category
-		<include refid="dynamicWhere" /> order by sort 
+		<include refid="dynamicWhere" /> order by sort, id desc 
 		<include refid="page" />
 	</select>
 	

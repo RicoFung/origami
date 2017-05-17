@@ -51,13 +51,6 @@ public class ImageService extends BaseService<Image,Long>
 			add(po);
 		}
 	}
-//	public void addBatch(List<Image> poList)
-//	{
-//		for(Image po : poList)
-//		{
-//			add(po);
-//		}
-//	}
 	
 	public void delBatch(Long[] ids)
 	{

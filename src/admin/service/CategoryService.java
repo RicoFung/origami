@@ -12,10 +12,10 @@ import chok.devwork.BaseService;
 public class CategoryService extends BaseService<Category,Long>
 {
 	@Autowired
-	private CategoryDao paperCategoryDao;
+	private CategoryDao dao;
 
 	@Override
 	public BaseDao<Category,Long> getEntityDao() {
-		return paperCategoryDao;
+		return dao;
 	}
 }

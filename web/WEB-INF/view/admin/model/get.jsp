@@ -52,16 +52,16 @@
 	</div>
 	<div class="modal-body form-body">
 		<div class="form-group">
-			<label for="f_pid">类别名：</label>
-		 	<select class="form-control input-sm" id="f_pid">
+			<label for="f_category_id">所属分类：</label>
+		 	<select class="form-control input-sm" id="f_category_id">
 				<option value="">请选择</option>
-				<c:forEach var="c" items="${catList}">
-				<option value="${c.m.id}">${c.m.name}</option>
+				<c:forEach var="c" items="${categorys}">
+				<option value="${c.id}">${c.name}</option>
 				</c:forEach>
 			</select>
 		</div>
 		<div class="form-group">
-			<label for="f_name">模型名：</label><input type="text" class="form-control input-sm" id="f_name"/>
+			<label for="f_name">名称：</label><input type="text" class="form-control input-sm" id="f_name"/>
 		</div>
 	</div>
 	<div class="modal-footer">
@@ -91,21 +91,20 @@ $(function() {
 /**********************************************************/
 $chok.view.get.config.setPreFormParams = function(){
 	$("#f_name").val(typeof("${queryParams.f_name}")=="undefined"?"":"${queryParams.f_name}");
-	$("#f_pid").val(typeof("${queryParams.f_pid}")=="undefined"?"":"${queryParams.f_pid}");
+	$("#f_category_id").val(typeof("${queryParams.f_category_id}")=="undefined"?"":"${queryParams.f_category_id}");
 };
 $chok.view.get.config.formParams = function(p){
 	p.name = $("#f_name").val();
-	p.pid = $("#f_pid").val();
+	p.category_id = $("#f_category_id").val();
     return p;
 };
 $chok.view.get.config.urlParams = function(){
 	return {f_name : $("#f_name").val(),
-			f_pid  : $("#f_pid").val()};
+			f_category_id  : $("#f_category_id").val()};
 };
 $chok.view.get.config.tableColumns = 
 [
     {title:'ID', field:'m.id', align:'center', valign:'middle', sortable:true},
-    {title:'PID', field:'m.pid', align:'center', valign:'middle', sortable:true, visible:false},
     {title:'名称', field:'m.name', align:'center', valign:'middle', sortable:true, 
     	editable:
     	{
@@ -116,7 +115,8 @@ $chok.view.get.config.tableColumns =
 	    	}
     	}
     },
-    {title:'分类名称', field:'m.catname', align:'center', valign:'middle', sortable:true},
+    {title:'所属分类_ID', field:'m.category_id', align:'center', valign:'middle', sortable:true, visible:false},
+    {title:'所属分类', field:'m.category_name', align:'center', valign:'middle', sortable:true},
     {title:'排序', field:'m.sort', align:'center', valign:'middle', sortable:true, 
     	editable:
     	{

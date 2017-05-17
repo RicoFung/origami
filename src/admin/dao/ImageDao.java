@@ -16,8 +16,8 @@ public class ImageDao extends BaseDao<Image,Long>
 		return Image.class;
 	}
 	
-	public void delByPids(Map<String, Object> m)
+	public void delByModelIds(Map<String, Object> m)
 	{
-		this.getSqlSession().update(getStatementName("delByPids"), m);
+		this.getSqlSession().update(getStatementName("delByModelIds"), m);
 	}
 }

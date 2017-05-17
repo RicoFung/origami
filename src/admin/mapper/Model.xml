@@ -4,7 +4,7 @@
 <mapper namespace="admin.entity.Model">
       <!-- 自动生成id策略 -->
     <insert id="add" parameterType="admin.entity.Model" useGeneratedKeys="true" keyProperty="id">  
-       	insert into tb_model(pid,name,sort) values (#{m.pid},#{m.name},#{m.sort})  
+       	insert into tb_model(category_id,name,sort) values (#{m.category_id},#{m.name},#{m.sort})  
     </insert>  
 	
 	<delete id="del" parameterType="admin.entity.Model">
@@ -13,25 +13,25 @@
 	
 	<update id="upd" parameterType="admin.entity.Model">
 		update tb_model set
-		   pid = #{m.pid},
-		  name = #{m.name},
-		  sort = #{m.sort}
+			   category_id = #{m.category_id},
+			   name = #{m.name},
+			   sort = #{m.sort}
 		where id = #{m.id}
 	</update>
 
 	<resultMap type="admin.entity.Model" id="result">
 		<id property="m.id" column="id"/>
-		<result property="m.pid" column="pid"/>
+		<result property="m.category_id" column="category_id"/>
 		<result property="m.name" column="name"/>
 		<result property="m.sort" column="sort"/>
-		<result property="m.catname" column="catname"/>
+		<result property="m.category_name" column="category_name"/>
 	</resultMap>
   	
 	<sql id="columns_l">
-		t.id ID, t.pid PID, t.name NAME, t.sort SORT, t1.name CATNAME
+		t.id id, t.category_id category_id, t.name name, t.sort sort, t1.name category_name
 	</sql>
 	<sql id="columns_o">
-		t.id, t.pid, t.name, t.sort
+		t.id, t.category_id, t.name, t.sort
 	</sql>
 	
 	<sql id="page">
@@ -40,8 +40,8 @@
 	
 	<sql id="dynamicWhere">
 		<where>
-			<if test="pid != null and pid != ''"> and t.PID = #{pid} </if>
-			<if test="name != null and name != ''"> and t.NAME like concat('%',#{name},'%') </if>
+			<if test="category_id != null and category_id != ''"> and t.category_id = #{category_id} </if>
+			<if test="name != null and name != ''"> and t.name like concat('%',#{name},'%') </if>
 		</where>
 	</sql>	
 	
@@ -51,8 +51,8 @@
 	
 	<select id="get" resultType="list" resultMap="result">
 		select <include refid="columns_l"/> from tb_model t
-		  left join tb_category t1 on t.pid = t1.id
-		<include refid="dynamicWhere" /> order by t.sort 
+		  left join tb_category t1 on t.category_id = t1.id
+		<include refid="dynamicWhere" /> order by t.sort, id desc 
 		<include refid="page" />
 	</select>
 	

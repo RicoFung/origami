@@ -51,6 +51,7 @@ public class CategoryAction extends BaseController<Category>
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			result.setSuccess(false);
 			result.setMsg(e.getMessage());
 		}

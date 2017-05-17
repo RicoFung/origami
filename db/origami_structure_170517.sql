@@ -27,7 +27,7 @@ CREATE TABLE `tb_category` (
   `name` varchar(255) DEFAULT NULL,
   `sort` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,14 +39,14 @@ DROP TABLE IF EXISTS `tb_image`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tb_image` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `pid` bigint(20) DEFAULT NULL,
+  `model_id` bigint(20) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `sort` bigint(20) DEFAULT NULL,
   `url` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_tb_model` (`pid`),
-  CONSTRAINT `fk_tb_model` FOREIGN KEY (`pid`) REFERENCES `tb_model` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8;
+  KEY `fk_tb_model` (`model_id`),
+  CONSTRAINT `fk_tb_model` FOREIGN KEY (`model_id`) REFERENCES `tb_model` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=170 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -58,13 +58,13 @@ DROP TABLE IF EXISTS `tb_model`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tb_model` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `pid` bigint(20) DEFAULT NULL,
+  `category_id` bigint(20) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `sort` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_tb_category` (`pid`),
-  CONSTRAINT `fk_tb_category` FOREIGN KEY (`pid`) REFERENCES `tb_category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+  KEY `fk_tb_category` (`category_id`),
+  CONSTRAINT `fk_tb_category` FOREIGN KEY (`category_id`) REFERENCES `tb_category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,4 +80,4 @@ CREATE TABLE `tb_model` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-05 15:04:55
+-- Dump completed on 2017-05-17 17:27:05

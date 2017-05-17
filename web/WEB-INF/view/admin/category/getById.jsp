@@ -20,8 +20,8 @@
 			</div>
 			<div class="box-body">
 				<form class="dataForm" id="dataForm" role="form">
-					<div class="form-group"><label class="control-label" for="name">类别名：</label><input type="text" class="form-control input-sm" id="name" name="m['name']" value="${po.m.name}" readonly="readonly"/></div>
-					<div class="form-group"><label class="control-label" for="sort">排序号：</label><input type="text" class="form-control input-sm" id="sort" name="m['sort']" value="${po.m.sort}" readonly="readonly"/></div>
+					<div class="form-group"><label class="control-label" for="name">名称：</label><input type="text" class="form-control input-sm" id="name" name="m['name']" value="${po.m.name}" readonly="readonly"/></div>
+					<div class="form-group"><label class="control-label" for="sort">排序：</label><input type="text" class="form-control input-sm" id="sort" name="m['sort']" value="${po.m.sort}" readonly="readonly"/></div>
 					<input type="hidden" name="m['id']" value="${po.m.id}" readonly="readonly">
 				</form>
 			</div>

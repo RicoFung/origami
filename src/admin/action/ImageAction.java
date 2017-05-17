@@ -38,7 +38,7 @@ public class ImageAction extends BaseController<Image>
 	{
 		try
 		{
-			service.addBatch(files, req.getLong("pid"));
+			service.addBatch(files, req.getLong("model_id"));
 			result.setSuccess(true);
 		}
 		catch(Exception e)
@@ -75,6 +75,7 @@ public class ImageAction extends BaseController<Image>
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			result.setSuccess(false);
 			result.setMsg(e.getMessage());
 		}
@@ -86,7 +87,7 @@ public class ImageAction extends BaseController<Image>
 	{
 		Image po = service.getById(req.getLong("id"));
 		put("po", po);
-		put("modelName", modelService.getById(po.getLong("pid")).get("name"));
+		put("modelName", modelService.getById(po.getLong("model_id")).get("name"));
 		put("queryParams",req.getParameterValueMap(false, true));
 		return "/admin/image/getById.jsp";
 	}

@@ -8,11 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import admin.entity.Model;
-import admin.service.CategoryService;
 import admin.service.ModelService;
 import chok.devwork.BaseController;
 import chok.util.CollectionUtil;
-
+import common.Dict;
 
 @Scope("prototype")
 @Controller
@@ -20,14 +19,12 @@ import chok.util.CollectionUtil;
 public class ModelAction extends BaseController<Model>
 {
 	@Autowired
-	private ModelService service;
-	@Autowired
-	private CategoryService catService;
+	private ModelService modelService;
 	
 	@RequestMapping("/add1")
 	public String add1() 
 	{
-		put("catList", catService.get(null));
+		put("categorys", Dict.getCategorys(null));
 		put("queryParams",req.getParameterValueMap(false, true));
 		return "/admin/model/add.jsp";
 	}
@@ -36,7 +33,7 @@ public class ModelAction extends BaseController<Model>
 	{
 		try
 		{
-			service.add(po);
+			modelService.add(po);
 			print("1");
 		}
 		catch(Exception e)
@@ -50,9 +47,10 @@ public class ModelAction extends BaseController<Model>
 	public void del()
 	{
 		try{
-			service.delBatch(CollectionUtil.toLongArray(req.getLongArray("id[]", 0l)));
+			modelService.delBatch(CollectionUtil.toLongArray(req.getLongArray("id[]", 0l)));
 			result.setSuccess(true);
 		}catch(Exception e){
+			e.printStackTrace();
 			result.setSuccess(false);
 			result.setMsg(e.getMessage());
 		}
@@ -62,8 +60,8 @@ public class ModelAction extends BaseController<Model>
 	@RequestMapping("/upd1")
 	public String upd1() 
 	{
-		put("po", service.getById(req.getLong("id")));
-		put("catList", catService.get(null));
+		put("po", modelService.getById(req.getLong("id")));
+		put("categorys", Dict.getCategorys(null));
 		put("queryParams", req.getParameterValueMap(false, true));
 		return "/admin/model/upd.jsp";
 	}
@@ -72,7 +70,7 @@ public class ModelAction extends BaseController<Model>
 	{
 		try
 		{
-			service.upd(po);
+			modelService.upd(po);
 			print("1");
 		}
 		catch(Exception e)
@@ -85,8 +83,8 @@ public class ModelAction extends BaseController<Model>
 	@RequestMapping("/getById")
 	public String getById() 
 	{
-		put("po", service.getById(req.getLong("id")));
-		put("catList", catService.get(null));
+		put("po", modelService.getById(req.getLong("id")));
+		put("categorys", Dict.getCategorys(null));
 		put("queryParams", req.getParameterValueMap(false, true));
 		return "/admin/model/getById.jsp";
 	}
@@ -94,8 +92,8 @@ public class ModelAction extends BaseController<Model>
 	@RequestMapping("/get")
 	public String get() 
 	{
-		put("catList", catService.get(null));
-		put("queryParams",req.getParameterValueMap(false, true));
+		put("categorys", Dict.getCategorys(null));
+		put("queryParams", req.getParameterValueMap(false, true));
 		return "/admin/model/get.jsp";
 	}
 	
@@ -103,8 +101,8 @@ public class ModelAction extends BaseController<Model>
 	public void getJson()
 	{
 		Map<String, Object> m = req.getParameterValueMap(false, true);
-		result.put("total",service.getCount(m));
-		result.put("rows",service.get(m));
+		result.put("total", modelService.getCount(m));
+		result.put("rows", modelService.get(m));
 		printJson(result.getData());
 	}
 }

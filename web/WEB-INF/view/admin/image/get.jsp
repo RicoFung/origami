@@ -50,12 +50,12 @@
 	</div>
 	<div class="modal-body form-body">
 		<div class="form-group">
-			<label for="category_id">类别名：</label>
+			<label for="category_id">所属类别：</label>
 		 	<select class="form-control input-sm" id="category_id"></select>
 		</div>
 		<div class="form-group">
-			<label for="pid">模型名：</label>
-		 	<select class="form-control input-sm" id="pid" cascadeid="category_id"></select>
+			<label for="model_id">所属模型：</label>
+		 	<select class="form-control input-sm" id="model_id" cascadeid="category_id"></select>
 		</div>
 	</div>
 	<div class="modal-footer">
@@ -86,22 +86,25 @@ $(function() {
 /**********************************************************/
 $chok.view.get.config.setPreFormParams = function(){
 	$("#f_category_id").val(typeof("${queryParams.f_category_id}")=="undefined"?"":"${queryParams.f_category_id}");
-	$("#f_pid").val(typeof("${queryParams.f_pid}")=="undefined"?"":"${queryParams.f_pid}");
+	$("#f_model_id").val(typeof("${queryParams.f_model_id}")=="undefined"?"":"${queryParams.f_model_id}");
 };
 $chok.view.get.config.formParams = function(p){
 	p.category_id = $("#f_category_id").val();
-	p.pid = $("#f_pid").val();
+	p.model_id = $("#f_model_id").val();
     return p;
 };
 $chok.view.get.config.urlParams = function(){
 	return {f_category_id : $("#f_category_id").val(),
-			f_pid : $("#f_pid").val()};
+			f_model_id : $("#f_model_id").val()};
 };
 $chok.view.get.config.tableColumns = 
 [
     {title:'ID', field:'m.id', align:'center', valign:'middle', sortable:true},
-    {title:'PID', field:'m.pid', align:'center', valign:'middle', sortable:true},
     {title:'图片路径', field:'m.url', align:'center', valign:'middle', sortable:true},
+    {title:'所属模型_ID', field:'m.model_id', align:'center', valign:'middle', sortable:true},
+    {title:'所属模型', field:'m.model_name', align:'center', valign:'middle', sortable:true},
+    {title:'所属分类_ID', field:'m.category_id', align:'center', valign:'middle', sortable:true},
+    {title:'所属分类', field:'m.category_name', align:'center', valign:'middle', sortable:true},
     {title:'排序', field:'m.sort', align:'center', valign:'middle', sortable:true, 
     	editable:
     	{
@@ -132,10 +135,10 @@ $chok.view.fn.customize = function(){
 			}
 		});
 	var model_select = 
-		$("#pid").DropDownSelect({
+		$("#model_id").DropDownSelect({
 			url:$ctx+"/dict/getModels.action",
 			cascadeid:"category_id",
-			fk:"pid"
+			fk:"model_id"
 		});
 };
 </script>

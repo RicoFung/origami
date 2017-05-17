@@ -21,16 +21,16 @@
 			<div class="box-body">
 				<form class="dataForm" id="dataForm" action="add2.action" method="post">
 					<div class="form-group">
-						<label for="pid">所属分类：</label>
-					 	<select class="form-control input-sm" id="pid" name="m['pid']" validate validate-rule-required>
+						<label for="category_id">所属分类：</label>
+					 	<select class="form-control input-sm" id="category_id" name="m['category_id']" validate validate-rule-required>
 							<option value="">请选择</option>
-							<c:forEach var="c" items="${catList}">
-							<option value="${c.m.id}">${c.m.name}</option>
+							<c:forEach var="c" items="${categorys}">
+							<option value="${c.id}">${c.name}</option>
 							</c:forEach>
 						</select>
 					</div>
-					<div class="form-group"><label class="control-label" for="name">模型名：</label><input type="text" class="form-control input-sm" id="name" name="m['name']" validate validate-rule-required/></div>
-					<div class="form-group"><label class="control-label" for="sort">排序号：</label><input type="text" class="form-control input-sm" id="sort" name="m['sort']" validate validate-rule-inputType="integer"/></div>
+					<div class="form-group"><label class="control-label" for="name">名称：</label><input type="text" class="form-control input-sm" id="name" name="m['name']" validate validate-rule-required/></div>
+					<div class="form-group"><label class="control-label" for="sort">排序：</label><input type="text" class="form-control input-sm" id="sort" name="m['sort']" validate validate-rule-inputType="integer"/></div>
 				</form>
 			</div>
 			<div class="box-footer">

@@ -22,21 +22,21 @@ import chok.util.PropertiesUtil;
 public class ModelService extends BaseService<Model,Long>
 {
 	@Autowired
-	private ModelDao paperModelDao;
+	private ModelDao modelDao;
 	@Autowired
-	private ImageDao imgDao;
+	private ImageDao imageDao;
 
 	@Override
 	public BaseDao<Model,Long> getEntityDao() 
 	{
-		return paperModelDao;
+		return modelDao;
 	}
 	
 	public void delBatch(Long[] ids)
 	{
 		Map<String, Object> m = new HashMap<String, Object>();
-		m.put("pids", ids);
-		List<Image> paperImages = imgDao.get(m);
+		m.put("model_ids", ids);
+		List<Image> paperImages = imageDao.get(m);
 		if (paperImages.size() == 0) return;
 		try 
 		{
@@ -47,7 +47,7 @@ public class ModelService extends BaseService<Model,Long>
 				if(f.exists()) FileUtils.forceDelete(f);
 			}
 			// 删除图片数据库记录
-			imgDao.delByPids(m);
+			imageDao.delByModelIds(m);
 			// 删除模型
 			super.del(ids);
 		} 

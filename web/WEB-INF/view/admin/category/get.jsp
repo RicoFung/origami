@@ -51,7 +51,7 @@
 	</div>
 	<div class="modal-body">
 		<div class="form-group">
-			 <label for="f_name">类别名：</label><input type="text" class="form-control input-sm" id="f_name"/>
+			 <label for="f_name">名称：</label><input type="text" class="form-control input-sm" id="f_name"/>
 		</div>
 	</div>
 	<div class="modal-footer">
@@ -93,7 +93,7 @@ $chok.view.get.config.urlParams = function(){
 $chok.view.get.config.tableColumns = 
 [
     {title:'ID', field:'m.id', align:'center', valign:'middle', sortable:true},
-    {title:'类别名', field:'m.name', align:'center', valign:'middle', sortable:true, 
+    {title:'名称', field:'m.name', align:'center', valign:'middle', sortable:true, 
     	editable:
     	{
     		type:'text',
@@ -103,7 +103,7 @@ $chok.view.get.config.tableColumns =
 	    	}
     	}
     },
-    {title:'排序号', field:'m.sort', align:'center', valign:'middle', sortable:true, 
+    {title:'排序', field:'m.sort', align:'center', valign:'middle', sortable:true, 
     	editable:
     	{
 	    	type:'text',
