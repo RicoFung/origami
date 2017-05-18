@@ -104,8 +104,8 @@ $chok.view.get.config.urlParams = function(){
 };
 $chok.view.get.config.tableColumns = 
 [
-    {title:'ID', field:'m.id', align:'center', valign:'middle', sortable:true},
-    {title:'名称', field:'m.name', align:'center', valign:'middle', sortable:true, 
+    {title:'ID', field:'m.id', align:'center', valign:'middle'},
+    {title:'名称', field:'m.name', align:'center', valign:'middle', 
     	editable:
     	{
     		type:'text',
@@ -115,9 +115,9 @@ $chok.view.get.config.tableColumns =
 	    	}
     	}
     },
-    {title:'所属分类_ID', field:'m.category_id', align:'center', valign:'middle', sortable:true, visible:false},
-    {title:'所属分类', field:'m.category_name', align:'center', valign:'middle', sortable:true},
-    {title:'排序', field:'m.sort', align:'center', valign:'middle', sortable:true, 
+    {title:'所属分类_ID', field:'m.category_id', align:'center', valign:'middle'},
+    {title:'所属分类', field:'m.category_name', align:'center', valign:'middle'},
+    {title:'排序', field:'m.sort', align:'center', valign:'middle', 
     	editable:
     	{
 	    	type:'text',
