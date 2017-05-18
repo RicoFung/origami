@@ -42,7 +42,7 @@ public class ImageService extends BaseService<Image,Long>
 			FileUtils.copyFile(srcFile, destFile);
 			//保存到db
 			Image po = new Image();
-			po.set("pid", modelId);
+			po.set("model_id", modelId);
 			po.set("url", __imgName);
 			poList.add(po);
 		}
