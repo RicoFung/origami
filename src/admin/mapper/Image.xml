@@ -12,7 +12,7 @@
 	</delete>
 	<delete id="delByModelIds" parameterType="admin.entity.Image">
 	    delete from tb_image where model_id in
-	    <foreach collection="model_ids" index="index" item="item" open="(" separator="," close=")">   
+	    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">   
 	      #{item}   
 	    </foreach>  
 	 </delete>
@@ -58,6 +58,11 @@
 	<sql id="dynamicWhere">
 		<where>
 			<if test="model_id != null and model_id != ''"> and t.model_id = #{model_id} </if>
+			<if test="model_ids != null and model_ids != ''"> and model_id in
+			    <foreach collection="model_ids" index="index" item="item" open="(" separator="," close=")">   
+			      #{item}   
+			    </foreach>  
+	    	 </if>
 			<if test="category_id != null and category_id != ''"> and t1.category_id = #{category_id} </if>
 		</where>
 	</sql>	
@@ -71,7 +76,7 @@
 		left join tb_model t1 on t.model_id = t1.id
 		left join tb_category t2 on t1.category_id = t2.id
 		<include refid="dynamicWhere" />
-		order by t.sort, t.id desc
+		order by t2.sort, t1.sort, t.sort, t.name, t.id
 		<include refid="page" />
 	</select>
 	

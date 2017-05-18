@@ -52,7 +52,7 @@
 	<select id="get" resultType="list" resultMap="result">
 		select <include refid="columns_l"/> from tb_model t
 		  left join tb_category t1 on t.category_id = t1.id
-		<include refid="dynamicWhere" /> order by t.sort, id desc 
+		<include refid="dynamicWhere" /> order by t1.sort, t.sort, t.id
 		<include refid="page" />
 	</select>
 	

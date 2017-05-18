@@ -29,8 +29,8 @@
 							</c:forEach>
 						</select>
 					</div>
-					<div class="form-group"><label class="control-label" for="name">名称：</label><input type="text" class="form-control input-sm" id="name" name="m['name']" validate validate-rule-required/></div>
-					<div class="form-group"><label class="control-label" for="sort">排序：</label><input type="text" class="form-control input-sm" id="sort" name="m['sort']" validate validate-rule-inputType="integer"/></div>
+					<div class="form-group"><label class="control-label" for="name">名称：</label><input type="text" class="form-control input-sm" id="name" name="m['name']" value="" validate validate-rule-required/></div>
+					<div class="form-group"><label class="control-label" for="sort">排序：</label><input type="text" class="form-control input-sm" id="sort" name="m['sort']" value="0" validate validate-rule-inputType="integer"/></div>
 				</form>
 			</div>
 			<div class="box-footer">

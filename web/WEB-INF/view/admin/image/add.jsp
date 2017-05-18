@@ -21,14 +21,14 @@
 			<div class="box-body">
 				<form class="dataForm" enctype="multipart/form-data">
 					<div class="form-group">
-						<label for="model_id">所属模型：</label>
-					 	<select class="form-control input-sm" id="model_id" name="model_id" validate validate-rule-required>
-							<option value="">请选择</option>
-							<c:forEach var="c" items="${models}">
-							<option value="${c.id}">${c.name}</option>
-							</c:forEach>
-						</select>
+						<label for="category_id">所属类别：</label>
+					 	<select class="form-control input-sm" id="category_id"></select>
 					</div>
+					<div class="form-group">
+						<label for="model_id">所属模型：</label>
+					 	<select class="form-control input-sm" id="model_id" cascadeid="category_id" validate validate-rule-required></select>
+					</div>
+					<input type="hidden" id="sort" value="0"/>
 					<input id="myFile" name="myFile" type="file" multiple class="file-loading"/>
 					<div id="kv-error-2" style="margin-top:10px;display:none"></div>
 					<div id="kv-success-2" class="alert alert-success fade in" style="margin-top:10p;display:none"></div>
@@ -71,8 +71,22 @@ $(function(){
            };
        }
 	}).on('fileuploaderror', function(event, data, msg) {
-	   alert(msg);
+ 	    var form = data.form, files = data.files, extra = data.extra,
+        response = data.response, reader = data.reader;
+	    var out = '';
+	    $.each(data.files, function(key, file) {
+	        var fname = file.name;
+	        out = out + '<li>' + '上传 # ' + (key + 1) + ' - '  +  fname + ' 失败.' + '</li>';
+	    });
+	    $('#kv-error-2 ul').append(out);
+	    $('#kv-error-2').show(); 
 	}).on('fileuploaded', function(event, data, previewId, index) {
+        var form = data.form, files = data.files, extra = data.extra,
+        response = data.response, reader = data.reader;
+	    if(!response.success){
+	    	alert("上传失败，"+response.msg);
+	    	return;
+	    }
 	    alert("上传图片成功！");
 		location.href = "get.action?"+$chok.view.fn.getUrlParams("${queryParams}");
 	});
@@ -103,4 +117,25 @@ $(function(){
 		location.href = "get.action?"+$chok.view.fn.getUrlParams("${queryParams}");
 	}); */
 });
+
+/**********************************************************/
+/* 自定义配置 */
+/**********************************************************/
+$chok.view.fn.customize = function(){
+	var category_select = 
+		$("#category_id").DropDownSelect({
+			url:$ctx+"/dict/getCategorys.action",
+			callback:{
+				afterload:function(){
+					model_select.reload();
+				}
+			}
+		});
+	var model_select = 
+		$("#model_id").DropDownSelect({
+			url:$ctx+"/dict/getModels.action",
+			cascadeid:"category_id",
+			fk:"category_id"
+		});
+};
 </script>

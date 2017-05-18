@@ -1,7 +1,5 @@
 package admin.dao;
 
-import java.util.Map;
-
 import org.springframework.stereotype.Repository;
 
 import admin.entity.Image;
@@ -16,8 +14,8 @@ public class ImageDao extends BaseDao<Image,Long>
 		return Image.class;
 	}
 	
-	public void delByModelIds(Map<String, Object> m)
+	public void delByModelIds(Long[] ids)
 	{
-		this.getSqlSession().update(getStatementName("delByModelIds"), m);
+		this.getSqlSession().update(getStatementName("delByModelIds"), ids);
 	}
 }

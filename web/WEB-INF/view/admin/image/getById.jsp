@@ -19,7 +19,7 @@
 				</div>
 			</div>
 			<div class="box-body">
-				<form class="dataForm"><img src="${imagePath}${po.m.url}" alt="图片"/></form>
+				<form class="dataForm"><img src="${imagePath}${po.m.name}" alt="图片" style="width:100%;height:100%;"/></form>
 			</div>
 			<div class="box-footer">&nbsp;</div>
 		</div>

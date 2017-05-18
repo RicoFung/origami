@@ -32,28 +32,23 @@ public class ModelService extends BaseService<Model,Long>
 		return modelDao;
 	}
 	
-	public void delBatch(Long[] ids)
+	public void delBatch(Long[] ids) throws IOException
 	{
 		Map<String, Object> m = new HashMap<String, Object>();
 		m.put("model_ids", ids);
-		List<Image> paperImages = imageDao.get(m);
-		if (paperImages.size() == 0) return;
-		try 
+		List<Image> images = imageDao.get(m);
+		if (images.size() > 0) 
 		{
 			// 批量物理删除图片文件
-			for(Image po : paperImages)
+			for(Image po : images)
 			{
 				File f = new File(PropertiesUtil.getImageUploadPath()+po.getString("url"));
 				if(f.exists()) FileUtils.forceDelete(f);
 			}
-			// 删除图片数据库记录
-			imageDao.delByModelIds(m);
-			// 删除模型
-			super.del(ids);
-		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
+			// 删除图片数据
+			imageDao.delByModelIds(ids);
 		}
+		// 删除模型数据
+		super.del(ids);
 	}
 }

@@ -100,11 +100,11 @@ $chok.view.get.config.urlParams = function(){
 $chok.view.get.config.tableColumns = 
 [
     {title:'ID', field:'m.id', align:'center', valign:'middle'},
-    {title:'图片', field:'m.url', align:'center', valign:'middle', width:100,
+    {title:'图片', field:'m.name', align:'center', valign:'middle', width:100,
         formatter:function(value,row,index){
         	var _href = "getById.action?id="+row.m.id+"&"+$chok.view.get.fn.getUrlParams();
-        	var _src = "${imagePath}"+row.m.url;
-            return "<a href=\""+_href+"\">"+"<img src=\""+_src+"\" alt=\"图片\" style=\"width:100px;height:100px\"/></a>";  
+        	var _src = "${imagePath}"+row.m.name;
+            return "<a href=\""+_href+"\">"+"<img src=\""+_src+"\" alt=\"图片\" style=\"width:100px;height:100px\"/><br/><div style=\"width:100%;margin:0 auto;\">"+row.m.name+"</div></a>";  
         } 
     },
     {title:'所属模型_ID', field:'m.model_id', align:'center', valign:'middle'},
@@ -144,7 +144,7 @@ $chok.view.fn.customize = function(){
 		$("#model_id").DropDownSelect({
 			url:$ctx+"/dict/getModels.action",
 			cascadeid:"category_id",
-			fk:"model_id"
+			fk:"category_id"
 		});
 };
 </script>

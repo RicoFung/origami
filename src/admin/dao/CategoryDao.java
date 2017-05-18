@@ -9,7 +9,7 @@ import chok.devwork.BaseDao;
 public class CategoryDao extends BaseDao<Category,Long>
 {
 	@Override
-	public Class getEntityClass()
+	public Class<Category> getEntityClass()
 	{
 		return Category.class;
 	}

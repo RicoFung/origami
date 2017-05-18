@@ -29,7 +29,6 @@ public class ImageAction extends BaseController<Image>
 	@RequestMapping("/add1")
 	public String add1() 
 	{
-		put("models", Dict.getModels(null));
 		put("queryParams",req.getParameterValueMap(false, true));
 		return "/admin/image/add.jsp";
 	}
