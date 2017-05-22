@@ -8,4 +8,5 @@
 <link rel="stylesheet" href="/static/res/ionicons/2.0.1/css/ionicons.min.css">
 <link rel="stylesheet" href="/static/res/AdminLTE/dist/css/AdminLTE.min.css">
 <link rel="stylesheet" href="/static/res/AdminLTE/dist/css/skins/_all-skins.min.css">
+<link rel="stylesheet" href="/static/res/AdminLTE/plugins/pace/pace.min.css">
 <link rel="stylesheet" href="/static/res/chok/css/chok.view.css">

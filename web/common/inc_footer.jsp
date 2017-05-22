@@ -17,6 +17,8 @@
 
 <!-- AdminLTE App -->
 <script src="/static/res/AdminLTE/dist/js/app.min.js"></script>
+<!-- Pace -->
+<script src="/static/res/AdminLTE/plugins/pace/pace.min.js"></script>
 <!-- Slimscroll -->
 <script src="/static/res/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
