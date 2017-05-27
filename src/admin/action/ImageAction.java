@@ -14,7 +14,6 @@ import admin.service.ImageService;
 import admin.service.ModelService;
 import chok.devwork.BaseController;
 import chok.util.CollectionUtil;
-import common.Dict;
 
 @Scope("prototype")
 @Controller
@@ -26,8 +25,8 @@ public class ImageAction extends BaseController<Image>
 	@Autowired
 	private ModelService modelService;
 	
-	@RequestMapping("/add1")
-	public String add1() 
+	@RequestMapping("/add")
+	public String add() 
 	{
 		put("queryParams",req.getParameterValueMap(false, true));
 		return "/admin/image/add.jsp";
@@ -81,29 +80,29 @@ public class ImageAction extends BaseController<Image>
 		printJson(result);
 	}
 
-	@RequestMapping("/getById")
-	public String getById() 
-	{
-		Image po = service.getById(req.getLong("id"));
-		put("po", po);
-		put("modelName", modelService.getById(po.getLong("model_id")).get("name"));
-		put("queryParams",req.getParameterValueMap(false, true));
-		return "/admin/image/getById.jsp";
-	}
-
 	@RequestMapping("/get")
 	public String get() 
 	{
+		Image po = service.get(req.getLong("id"));
+		put("po", po);
+		put("modelName", modelService.get(po.getLong("model_id")).get("name"));
 		put("queryParams",req.getParameterValueMap(false, true));
 		return "/admin/image/get.jsp";
 	}
+
+	@RequestMapping("/query")
+	public String query() 
+	{
+		put("queryParams",req.getParameterValueMap(false, true));
+		return "/admin/image/query.jsp";
+	}
 	
-	@RequestMapping("/getJson")
-	public void getJson()
+	@RequestMapping("/query2")
+	public void query2()
 	{
 		Map<String, Object> m = req.getParameterValueMap(false, true);
 		result.put("total",service.getCount(m));
-		result.put("rows",service.get(m));
+		result.put("rows",service.query(m));
 		printJson(result.getData());
 	}
 }

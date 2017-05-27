@@ -20,8 +20,8 @@ public class CategoryAction extends BaseController<Category>
 	@Autowired
 	private CategoryService service;
 	
-	@RequestMapping("/add1")
-	public String add1() 
+	@RequestMapping("/add")
+	public String add() 
 	{
 		put("queryParams",req.getParameterValueMap(false, true));
 		return "/admin/category/add.jsp";
@@ -58,10 +58,10 @@ public class CategoryAction extends BaseController<Category>
 		printJson(result);
 	}
 	
-	@RequestMapping("/upd1")
-	public String upd1() 
+	@RequestMapping("/upd")
+	public String upd() 
 	{
-		put("po", service.getById(req.getLong("id")));
+		put("po", service.get(req.getLong("id")));
 		put("queryParams",req.getParameterValueMap(false, true));
 		return "/admin/category/upd.jsp";
 	}
@@ -80,27 +80,27 @@ public class CategoryAction extends BaseController<Category>
 		}
 	}
 
-	@RequestMapping("/getById")
-	public String getById() 
-	{
-		put("po",service.getById(req.getLong("id")));
-		put("queryParams",req.getParameterValueMap(false, true));
-		return "/admin/category/getById.jsp";
-	}
-
 	@RequestMapping("/get")
 	public String get() 
 	{
+		put("po",service.get(req.getLong("id")));
 		put("queryParams",req.getParameterValueMap(false, true));
 		return "/admin/category/get.jsp";
 	}
+
+	@RequestMapping("/query")
+	public String query() 
+	{
+		put("queryParams",req.getParameterValueMap(false, true));
+		return "/admin/category/query.jsp";
+	}
 	
-	@RequestMapping("/getJson")
-	public void getJson()
+	@RequestMapping("/query2")
+	public void query2()
 	{
 		Map<String, Object> m = req.getParameterValueMap(false, true);
 		result.put("total",service.getCount(m));
-		result.put("rows",service.get(m));
+		result.put("rows",service.query(m));
 		printJson(result.getData());
 	}
 }

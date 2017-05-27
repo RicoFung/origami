@@ -40,31 +40,39 @@ public abstract class BaseDao<T,PK> extends SqlSessionDaoSupport
 		return _statement + statementName;
 	}
 	
-	public void add(T po){
+	public void add(T po)
+	{
 		this.getSqlSession().insert(getStatementName("add"), po);
 	}
 	
-	public void upd(T po){
+	public void upd(T po)
+	{
 		this.getSqlSession().update(getStatementName("upd"), po);
 	}
 
-	public void del(PK id){
+	public void del(PK id)
+	{
 		this.getSqlSession().delete(getStatementName("del"), id);
 	}
 
-	public T getById(PK id){
-		return (T) this.getSqlSession().selectOne(getStatementName("getById"), id);
+	@SuppressWarnings("unchecked")
+	public T get(PK id)
+	{
+		return (T) this.getSqlSession().selectOne(getStatementName("get"), id);
 	}
 	
-	public List get(Map m){
-		return this.getSqlSession().selectList(getStatementName("get"), m);
+	public List<T> query(Map<String, Object> m)
+	{
+		return this.getSqlSession().selectList(getStatementName("query"), m);
 	}
 	
-	public List getMap(Map m){
-		return this.getSqlSession().selectList(getStatementName("getMap"), m);
+	public List queryMap(Map<String, Object> m)
+	{
+		return this.getSqlSession().selectList(getStatementName("queryMap"), m);
 	}
 	
-	public int getCount(Map m){
+	public int getCount(Map<String, Object> m)
+	{
 		return (Integer) this.getSqlSession().selectOne(getStatementName("getCount"), m);
 	}
 
@@ -74,7 +82,7 @@ public abstract class BaseDao<T,PK> extends SqlSessionDaoSupport
 	 * @param m 表单查询参数
 	 * @return Page对象
 	 */
-	public Page<T> getPage(int countPageEach, Map m)
+	public Page<T> getPage(int countPageEach, Map<String, Object> m)
 	{
 		int curPage = !m.containsKey("offset")?DEFAULT_OFFSET:Integer.parseInt(m.get("offset").toString());
 		int limit = !m.containsKey("limit")?DEFAULT_LIMIT:Integer.parseInt(m.get("limit").toString());
@@ -88,13 +96,13 @@ public abstract class BaseDao<T,PK> extends SqlSessionDaoSupport
 		
 		m.put("offset", String.valueOf(offset));
 		m.put("limit", String.valueOf(limit));
-		List result = get(m);
+		List<T> result = query(m);
 		return new Page<T>(curPage, countPage, countPageEach, limit, result);
 	}
 	
-	public List getMapPage(Map m)
+	public List queryMapPage(Map<String, Object> m)
 	{
-		List result = getMap(m);
+		List result = queryMap(m);
 		return result;
 	}
 }

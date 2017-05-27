@@ -6,7 +6,7 @@
 		<h1>${param.menuName}<small>新增</small></h1>
 		<ol class="breadcrumb">
 			<li><a href="${ctx}/index.jsp"><i class="fa fa-dashboard"></i> 首页</a></li>
-			<li><a href="get.action?menuId=${param.menuId}&menuName=${param.menuName}">${param.menuName}</a></li>
+			<li><a href="query.action?menuId=${param.menuId}&menuName=${param.menuName}">${param.menuName}</a></li>
 			<li class="active">新增</li>
 		</ol>
 	</section>
@@ -49,7 +49,7 @@ $(function(){
 	$chok.view.fn.selectSidebarMenu("${param.menuId}","${param.menuPermitId}","${param.menuName}");
 	// 返回列表页
 	$("#back").click(function(){
-		location.href = "get.action?"+$chok.view.fn.getUrlParams("${queryParams}");
+		location.href = "query.action?"+$chok.view.fn.getUrlParams("${queryParams}");
 	});
 	//
 	$("#myFile").fileinput({
@@ -88,7 +88,7 @@ $(function(){
 	    	return;
 	    }
 	    alert("上传图片成功！");
-		location.href = "get.action?"+$chok.view.fn.getUrlParams("${queryParams}");
+		location.href = "query.action?"+$chok.view.fn.getUrlParams("${queryParams}");
 	});
    /*  同步请求
    }).on('filebatchpreupload', function(event, data, id, index) {
@@ -114,7 +114,7 @@ $(function(){
 	    $('#kv-success-2 ul').append(out);
 	    $('#kv-success-2').show();
 	    alert("上传图片成功！");
-		location.href = "get.action?"+$chok.view.fn.getUrlParams("${queryParams}");
+		location.href = "query.action?"+$chok.view.fn.getUrlParams("${queryParams}");
 	}); */
 });
 

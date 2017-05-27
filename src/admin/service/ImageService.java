@@ -60,7 +60,7 @@ public class ImageService extends BaseService<Image,Long>
 		// 删除图片文件
 		for(int i=0; i<ids.length; i++)
 		{
-			File f = new File(PropertiesUtil.getImageUploadPath()+dao.getById(ids[i]).getString("name"));
+			File f = new File(PropertiesUtil.getImageUploadPath()+dao.get(ids[i]).getString("name"));
 			if(f.exists()) FileUtils.forceDelete(f);
 		}
 		// 删除表记录

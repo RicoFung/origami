@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 
+import chok.devwork.Result;
 import chok.sso.AuthUser;
 import chok.util.http.HttpAction;
 import chok.util.http.HttpResult;
@@ -101,7 +102,11 @@ public class AuthFilter implements Filter
 				if (req.getHeader("x-requested-with") != null && req.getHeader("x-requested-with").equals("XMLHttpRequest")) 
 				{ // ajax请求
 					resp.setContentType("text/html;charset=UTF-8"); 
-					resp.getWriter().print("0:操作失败，没有权限！");
+					resp.setContentType("application/json");
+					Result result = new Result();
+					result.setSuccess(false);
+					result.setMsg("操作失败，没有权限，请联系管理员！");
+					resp.getWriter().print(JSON.toJSONString(result));
 				}
 				else
 				{ // 非ajax请求

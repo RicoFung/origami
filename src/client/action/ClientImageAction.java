@@ -26,7 +26,7 @@ public class ClientImageAction extends BaseController<Image>
 	public void getPageByPid() 
 	{
 		Map<String, Object> m = req.getParameterValueMap(false, true);
-		List<Map<String,String>> resultList = service.getMapPage(m);
+		List<Map<String,String>> resultList = service.queryMapPage(m);
 		print(new Gson().toJson(resultList));
 		System.out.println(new Gson().toJson(resultList));
 	}
@@ -35,7 +35,7 @@ public class ClientImageAction extends BaseController<Image>
 	public void getListByPid() 
 	{
 		Map<String, Object> m = req.getParameterValueMap(false, true);
-		List<Map<String,String>> resultList = service.getMap(m);
+		List<Map<String,String>> resultList = service.queryMap(m);
 		print(new Gson().toJson(resultList));
 		System.out.println(new Gson().toJson(resultList));
 	}

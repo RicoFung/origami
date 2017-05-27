@@ -21,8 +21,8 @@ public class ModelAction extends BaseController<Model>
 	@Autowired
 	private ModelService modelService;
 	
-	@RequestMapping("/add1")
-	public String add1() 
+	@RequestMapping("/add")
+	public String add() 
 	{
 		put("categorys", Dict.getCategorys(null));
 		put("queryParams",req.getParameterValueMap(false, true));
@@ -57,10 +57,10 @@ public class ModelAction extends BaseController<Model>
 		printJson(result);
 	}
 	
-	@RequestMapping("/upd1")
-	public String upd1() 
+	@RequestMapping("/upd")
+	public String upd() 
 	{
-		put("po", modelService.getById(req.getLong("id")));
+		put("po", modelService.get(req.getLong("id")));
 		put("categorys", Dict.getCategorys(null));
 		put("queryParams", req.getParameterValueMap(false, true));
 		return "/admin/model/upd.jsp";
@@ -80,29 +80,29 @@ public class ModelAction extends BaseController<Model>
 		}
 	}
 
-	@RequestMapping("/getById")
-	public String getById() 
-	{
-		put("po", modelService.getById(req.getLong("id")));
-		put("categorys", Dict.getCategorys(null));
-		put("queryParams", req.getParameterValueMap(false, true));
-		return "/admin/model/getById.jsp";
-	}
-
 	@RequestMapping("/get")
 	public String get() 
 	{
+		put("po", modelService.get(req.getLong("id")));
 		put("categorys", Dict.getCategorys(null));
 		put("queryParams", req.getParameterValueMap(false, true));
 		return "/admin/model/get.jsp";
 	}
+
+	@RequestMapping("/query")
+	public String query() 
+	{
+		put("categorys", Dict.getCategorys(null));
+		put("queryParams", req.getParameterValueMap(false, true));
+		return "/admin/model/query.jsp";
+	}
 	
-	@RequestMapping("/getJson")
-	public void getJson()
+	@RequestMapping("/query2")
+	public void query2()
 	{
 		Map<String, Object> m = req.getParameterValueMap(false, true);
 		result.put("total", modelService.getCount(m));
-		result.put("rows", modelService.get(m));
+		result.put("rows", modelService.query(m));
 		printJson(result.getData());
 	}
 }

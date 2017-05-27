@@ -18,10 +18,10 @@ import chok.util.http.HttpUtil;
 @RequestMapping("/admin/home")
 public class HomeAction extends BaseController<Object>
 {
-	@RequestMapping("/get")
-	public String add1() 
+	@RequestMapping("/query")
+	public String query() 
 	{
-		return "/admin/home/get.jsp";
+		return "/admin/home/query.jsp";
 	}
 	
 	@RequestMapping("/searchMenu")

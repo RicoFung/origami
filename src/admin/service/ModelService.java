@@ -36,7 +36,7 @@ public class ModelService extends BaseService<Model,Long>
 	{
 		Map<String, Object> m = new HashMap<String, Object>();
 		m.put("model_ids", ids);
-		List<Image> images = imageDao.get(m);
+		List<Image> images = imageDao.query(m);
 		if (images.size() > 0) 
 		{
 			// 批量物理删除图片文件

@@ -7,33 +7,41 @@ public abstract class BaseService<T,PK>
 {
 	public abstract BaseDao<T, PK> getEntityDao();
 	
-	public void add(T po){
+	public void add(T po)
+	{
 		getEntityDao().add(po);
 	}
 
-	public void upd(T po) {
+	public void upd(T po) 
+	{
 		getEntityDao().upd(po);
 	}
 
-	public void del(PK[] ids) {
-		for(PK id:ids){
+	public void del(PK[] ids) 
+	{
+		for(PK id:ids)
+		{
 			getEntityDao().del(id);
 		}
 	}
 
-	public T getById(PK id) {
-		return (T) getEntityDao().getById(id);
+	public T get(PK id)
+	{
+		return (T) getEntityDao().get(id);
 	}
 
-	public List get(Map m) {
-		return getEntityDao().get(m);
+	public List<T> query(Map<String, Object> m) 
+	{
+		return getEntityDao().query(m);
 	}
 	
-	public List getMap(Map m) {
-		return getEntityDao().getMap(m);
+	public List queryMap(Map<String, Object> m)
+	{
+		return getEntityDao().queryMap(m);
 	}
 	
-	public int getCount(Map m) {
+	public int getCount(Map<String, Object> m) 
+	{
 		return getEntityDao().getCount(m);
 	}
 
@@ -43,11 +51,13 @@ public abstract class BaseService<T,PK>
 	 * @param m 表单查询参数
 	 * @return Page对象
 	 */
-	public Page<T> getPage(int countPageEach, Map m){
+	public Page<T> getPage(int countPageEach, Map<String, Object> m)
+	{
 		return getEntityDao().getPage(countPageEach, m);
 	}
 	
-	public List getMapPage(Map m){
-		return getEntityDao().getMapPage(m);
+	public List queryMapPage(Map<String, Object> m)
+	{
+		return getEntityDao().queryMapPage(m);
 	}
 }

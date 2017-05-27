@@ -45,11 +45,11 @@
 		</where>
 	</sql>	
 	
-	<select id="getById" resultMap="result">
+	<select id="get" resultMap="result">
 		select <include refid="columns_o"/> from tb_model t where t.id = #{id}
 	</select>
 	
-	<select id="get" resultType="list" resultMap="result">
+	<select id="query" resultType="list" resultMap="result">
 		select <include refid="columns_l"/> from tb_model t
 		  left join tb_category t1 on t.category_id = t1.id
 		<include refid="dynamicWhere" /> order by t1.sort, t.sort, t.id

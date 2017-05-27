@@ -111,12 +111,11 @@
 		<init-param>
 			<param-name>ignoreURL</param-name>     
 			<param-value>
-			/admin/home/get.action,
+			/admin/home/query.action,
 			/admin/home/searchMenu.action,
-			/admin/image/add1.action,
+			/admin/image/add.action,
 			/admin/image/add2.action,
-			/admin/image/getById.action,
-			/admin/image/upd1.action,
+			/admin/image/get.action,
 			/admin/image/upd2.action,
 			/images/*,
 			/dict/*,

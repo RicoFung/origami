@@ -67,11 +67,11 @@
 		</where>
 	</sql>	
 	
-	<select id="getById" resultMap="result">
+	<select id="get" resultMap="result">
 		select <include refid="columns"/> from tb_image t where t.id = #{id}
 	</select>
 	
-	<select id="get" resultType="list" resultMap="result1">
+	<select id="query" resultType="list" resultMap="result1">
 		select <include refid="columns1"/>  from tb_image t
 		left join tb_model t1 on t.model_id = t1.id
 		left join tb_category t2 on t1.category_id = t2.id

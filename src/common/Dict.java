@@ -54,7 +54,7 @@ public class Dict
 	private static List<Object> getList(Map<String, Object> params, BaseService service)
 	{
 		List<Object> list = new ArrayList<Object>();
-		List<BaseModel> resultData = service.get(params);
+		List<BaseModel> resultData = service.query(params);
 		for(BaseModel o : resultData)
 		{
 			list.add(o.getM());
@@ -70,7 +70,7 @@ public class Dict
 	private static List<Object> getJsons(Map<String, Object> params, BaseService service)
 	{
 		List<Object> list = new ArrayList<Object>();
-		List<BaseModel> resultData = service.get(params);
+		List<BaseModel> resultData = service.query(params);
 		for(BaseModel o : resultData)
 		{
 			list.add(JSON.toJSON(o.getM()));

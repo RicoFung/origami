@@ -123,7 +123,7 @@ public class LoginFilter implements Filter
 				resp.setContentType("application/json");
 				Result result = new Result();
 				result.setSuccess(false);
-				result.setMsg("操作失败，没登录！");
+				result.setMsg("操作失败，会话超时，请重新登录！");
 				resp.getWriter().print(JSON.toJSONString(result));
 			}
 			else

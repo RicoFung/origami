@@ -6,7 +6,7 @@
 		<h1>${param.menuName}<small>新增</small></h1>
 		<ol class="breadcrumb">
 			<li><a href="${ctx}/index.jsp"><i class="fa fa-dashboard"></i> 首页</a></li>
-			<li><a href="get.action?menuId=${param.menuId}&menuName=${param.menuName}">${param.menuName}</a></li>
+			<li><a href="query.action?menuId=${param.menuId}&menuName=${param.menuName}">${param.menuName}</a></li>
 			<li class="active">新增</li>
 		</ol>
 	</section>
@@ -25,7 +25,7 @@
 				</form>
 			</div>
 			<div class="box-footer">
-				<button type="submit" class="btn btn-block btn-success btn-flat pull-right" id="dataFormSave"><i class="glyphicon glyphicon-floppy-save"></i></button>
+				<button type="submit" class="btn btn-block btn-success btn-flat pull-right" id="dataFormSave" pbtnId="pbtn_add2"><i class="glyphicon glyphicon-floppy-save"></i></button>
 			</div>
 		</div>
 	</section>
@@ -40,7 +40,7 @@
 /**********************************************************/
 $chok.form.callback = function(){
 	if($chok.result.type == 1){
- 		location.href = "get.action?"+$chok.view.fn.getUrlParams("${queryParams}");
+ 		location.href = "query.action?"+$chok.view.fn.getUrlParams("${queryParams}");
 	}
 };
 /**********************************************************/
@@ -50,7 +50,7 @@ $(function(){
 	$chok.view.fn.selectSidebarMenu("${param.menuId}","${param.menuPermitId}","${param.menuName}");
 	// 返回列表页
 	$("#back").click(function(){
-		location.href = "get.action?"+$chok.view.fn.getUrlParams("${queryParams}");
+		location.href = "query.action?"+$chok.view.fn.getUrlParams("${queryParams}");
 	});
 });
 </script>
