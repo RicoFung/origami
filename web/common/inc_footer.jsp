@@ -9,7 +9,9 @@
 		<!-- Create the tabs -->
 		<ul class="nav nav-tabs nav-justified control-sidebar-tabs"></ul>
 		<!-- Tab panes -->
-		<div class="tab-content"></div>
+		<div class="tab-content">
+      		<div class="tab-pane" id="control-sidebar-home-tab">
+      	</div>
 	</aside>
 	<!-- 右侧栏背景 -->
 	<div class="control-sidebar-bg"></div>
