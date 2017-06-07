@@ -17,15 +17,3 @@
 <script type="text/javascript" src="/static/res/chok/js/chok.form.js"></script>
 <script type="text/javascript" src="/static/res/chok/js/chok.view.js"></script>
 <script type="text/javascript" src="/static/res/chok/js/chok.nav.js"></script>
-<script type="text/javascript">
-function getGlobalHeight(type) {
-	if (type=='table') {
-		var minH = 300;
-		var newH = $(window).height() - 373;
-	   	return newH<minH?minH:newH;
-	}
-	else if (type=='tree') {
-		return $(window).height() - 35;
-	}
-}
-</script>
