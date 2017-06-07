@@ -10,7 +10,7 @@
 		<ul class="nav nav-tabs nav-justified control-sidebar-tabs"></ul>
 		<!-- Tab panes -->
 		<div class="tab-content">
-      		<div class="tab-pane" id="control-sidebar-home-tab">
+      		<div class="tab-pane" id="control-sidebar-home-tab"></div>
       	</div>
 	</aside>
 	<!-- 右侧栏背景 -->
