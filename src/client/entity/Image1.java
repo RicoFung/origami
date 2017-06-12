@@ -33,7 +33,7 @@ public class Image1
 		return url;
 	}
 	public void setUrl(String url) {
-		this.url = PropertiesUtil.getImagePath()+url;
+		this.url = PropertiesUtil.getValue("image.path")+url;
 	}
 	public int getSort() {
 		return sort;

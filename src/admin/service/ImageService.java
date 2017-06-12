@@ -46,7 +46,7 @@ public class ImageService extends BaseService<Image,Long>
 			//保存到硬盘
 //			File srcFile = ((DiskFileItem)files[i].getFileItem()).getStoreLocation(); //报临时目录not exist错
 			File srcFile = FileUtil.multipartFileToFile(files[i]);
-			File destFile = new File(PropertiesUtil.getImageUploadPath(), __imgName);
+			File destFile = new File(PropertiesUtil.getValue("image.upload.path"), __imgName);
 			FileUtils.copyFile(srcFile, destFile);
 		}
 		for(Image po : poList)
@@ -60,7 +60,7 @@ public class ImageService extends BaseService<Image,Long>
 		// 删除图片文件
 		for(int i=0; i<ids.length; i++)
 		{
-			File f = new File(PropertiesUtil.getImageUploadPath()+dao.get(ids[i]).getString("name"));
+			File f = new File(PropertiesUtil.getValue("image.upload.path")+dao.get(ids[i]).getString("name"));
 			if(f.exists()) FileUtils.forceDelete(f);
 		}
 		// 删除表记录

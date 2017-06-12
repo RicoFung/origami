@@ -21,14 +21,4 @@ public class PropertiesUtil
 		  return "";
 		}  
 	}
-	
-	public static String getImageUploadPath()
-	{
-		return getValue("image.upload.path");
-	}
-	
-	public static String getImagePath()
-	{
-		return getValue("image.path");
-	}
 }

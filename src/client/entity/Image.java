@@ -39,7 +39,7 @@ public class Image
 		return url;
 	}
 	public void setUrl(String url) {
-		this.url = PropertiesUtil.getImagePath()+url;
+		this.url = PropertiesUtil.getValue("image.path")+url;
 	}
 	public long getDatasize(){
 		return datasize;

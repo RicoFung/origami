@@ -42,7 +42,7 @@ public class ModelService extends BaseService<Model,Long>
 			// 批量物理删除图片文件
 			for(Image po : images)
 			{
-				File f = new File(PropertiesUtil.getImageUploadPath()+po.getString("url"));
+				File f = new File(PropertiesUtil.getValue("image.upload.path")+po.getString("url"));
 				if(f.exists()) FileUtils.forceDelete(f);
 			}
 			// 删除图片数据

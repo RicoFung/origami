@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 String ctx = request.getContextPath();
-String imagePath = PropertiesUtil.getImagePath();
+String imagePath = PropertiesUtil.getValue("image.path");
 request.setAttribute("ctx", ctx);
 request.setAttribute("imagePath", imagePath);
 %>
