@@ -100,7 +100,7 @@ public class CategoryAction extends BaseController<Category>
 	{
 		Map<String, Object> m = req.getParameterValueMap(false, true);
 		result.put("total",service.getCount(m));
-		result.put("rows",service.query(m));
+		result.put("rows",service.query(req.getDynamicSortMap(m)));
 		printJson(result.getData());
 	}
 }

@@ -92,8 +92,8 @@ $chok.view.query.config.urlParams = function(){
 };
 $chok.view.query.config.tableColumns = 
 [
-    {title:'ID', field:'m.id', align:'center', valign:'middle'},
-    {title:'名称', field:'m.name', align:'center', valign:'middle', 
+    {title:'ID', field:'m.id', align:'center', valign:'middle', sortable:true},
+    {title:'名称', field:'m.name', align:'center', valign:'middle', sortable:true, 
     	editable:
     	{
     		type:'text',
@@ -103,7 +103,7 @@ $chok.view.query.config.tableColumns =
 	    	}
     	}
     },
-    {title:'排序', field:'m.sort', align:'center', valign:'middle', 
+    {title:'排序', field:'m.sort', align:'center', valign:'middle', sortable:true, 
     	editable:
     	{
 	    	type:'text',
@@ -114,6 +114,8 @@ $chok.view.query.config.tableColumns =
     	}
     }
 ];
+$chok.view.query.config.showMultiSort = true;
+$chok.view.query.config.sortPriority = [{"sortName":"m.sort", "sortOrder":"asc"}];
 $chok.view.query.callback.delRows = function(){
 };
 $chok.view.query.callback.onLoadSuccess = function(){

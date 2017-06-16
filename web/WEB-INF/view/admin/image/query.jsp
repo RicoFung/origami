@@ -99,19 +99,19 @@ $chok.view.query.config.urlParams = function(){
 };
 $chok.view.query.config.tableColumns = 
 [
-    {title:'ID', field:'m.id', align:'center', valign:'middle'},
-    {title:'图片', field:'m.name', align:'center', valign:'middle', width:100,
+    {title:'ID', field:'m.id', align:'center', valign:'middle', sortable:true},
+    {title:'图片', field:'m.name', align:'center', valign:'middle', sortable:true, width:100,
         formatter:function(value,row,index){
         	var _href = "get.action?id="+row.m.id+"&"+$chok.view.query.fn.getUrlParams();
         	var _src = "${imagePath}"+row.m.name;
             return "<a href=\""+_href+"\">"+"<img src=\""+_src+"\" alt=\"图片\" style=\"width:100px;height:100px\"/><br/><div style=\"width:100%;margin:0 auto;\">"+row.m.name+"</div></a>";  
         } 
     },
-    {title:'所属模型_ID', field:'m.model_id', align:'center', valign:'middle'},
-    {title:'所属模型', field:'m.model_name', align:'center', valign:'middle'},
-    {title:'所属分类_ID', field:'m.category_id', align:'center', valign:'middle'},
-    {title:'所属分类', field:'m.category_name', align:'center', valign:'middle'},
-    {title:'排序', field:'m.sort', align:'center', valign:'middle', 
+    {title:'所属模型_ID', field:'m.model_id', align:'center', valign:'middle', sortable:true},
+    {title:'所属模型', field:'m.model_name', align:'center', valign:'middle', sortable:true},
+    {title:'所属分类_ID', field:'m.category_id', align:'center', valign:'middle', sortable:true},
+    {title:'所属分类', field:'m.category_name', align:'center', valign:'middle', sortable:true},
+    {title:'排序', field:'m.sort', align:'center', valign:'middle', sortable:true, 
     	editable:
     	{
 	    	type:'text',
@@ -122,6 +122,8 @@ $chok.view.query.config.tableColumns =
     	}
     }
 ];
+$chok.view.query.config.showMultiSort = true;
+$chok.view.query.config.sortPriority = [{"sortName":"m.category_name", "sortOrder":"asc"},{"sortName":"m.model_name", "sortOrder":"asc"},{"sortName":"m.sort", "sortOrder":"asc"}];
 $chok.view.query.callback.delRows = function(){
 };
 $chok.view.query.callback.onLoadSuccess = function(){

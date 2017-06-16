@@ -34,6 +34,19 @@
 		t.id, t.category_id, t.name, t.sort
 	</sql>
 	
+	<sql id="order">
+		<choose>
+			<when test="sort!=null and sort!=''">
+				order by CONVERT(tt.${sort} USING gbk) ${order}
+			</when>
+			<when test="multiSort!=null and (sort==null or sort=='')">
+				order by <foreach collection="multiSort" index="index" item="item" separator=",">CONVERT(tt.${item.sortName} USING gbk) ${item.sortOrder}</foreach>  
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</sql>
+	
 	<sql id="page">
 		<if test="offset!=null and limit!=null"> limit #{offset,javaType=String,jdbcType=NUMERIC}, #{limit,javaType=String,jdbcType=NUMERIC} </if>
 	</sql>
@@ -43,16 +56,20 @@
 			<if test="category_id != null and category_id != ''"> and t.category_id = #{category_id} </if>
 			<if test="name != null and name != ''"> and t.name like concat('%',#{name},'%') </if>
 		</where>
-	</sql>	
+	</sql>
 	
 	<select id="get" resultMap="result">
 		select <include refid="columns_o"/> from tb_model t where t.id = #{id}
 	</select>
 	
 	<select id="query" resultType="list" resultMap="result">
-		select <include refid="columns_l"/> from tb_model t
-		  left join tb_category t1 on t.category_id = t1.id
-		<include refid="dynamicWhere" /> order by t1.sort, t.sort, t.id
+		select tt.* from
+		(
+			select <include refid="columns_l"/> from tb_model t
+			  left join tb_category t1 on t.category_id = t1.id
+			<include refid="dynamicWhere" />
+		) tt
+		<include refid="order" />
 		<include refid="page" />
 	</select>
 	

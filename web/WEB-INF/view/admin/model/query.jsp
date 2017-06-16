@@ -99,12 +99,12 @@ $chok.view.query.config.formParams = function(p){
 };
 $chok.view.query.config.urlParams = function(){
 	return {f_name : $("#f_name").val(),
-			f_category_id  : $("#f_category_id").val()};
+			f_category_id : $("#f_category_id").val()};
 };
 $chok.view.query.config.tableColumns = 
 [
-    {title:'ID', field:'m.id', align:'center', valign:'middle'},
-    {title:'名称', field:'m.name', align:'center', valign:'middle', 
+    {title:'ID', field:'m.id', align:'center', valign:'middle', sortable:true},
+    {title:'名称', field:'m.name', align:'center', valign:'middle', sortable:true, 
     	editable:
     	{
     		type:'text',
@@ -114,9 +114,9 @@ $chok.view.query.config.tableColumns =
 	    	}
     	}
     },
-    {title:'所属分类_ID', field:'m.category_id', align:'center', valign:'middle'},
-    {title:'所属分类', field:'m.category_name', align:'center', valign:'middle'},
-    {title:'排序', field:'m.sort', align:'center', valign:'middle', 
+    {title:'所属分类_ID', field:'m.category_id', align:'center', valign:'middle', sortable:true},
+    {title:'所属分类', field:'m.category_name', align:'center', valign:'middle', sortable:true},
+    {title:'排序', field:'m.sort', align:'center', valign:'middle', sortable:true, 
     	editable:
     	{
 	    	type:'text',
@@ -127,6 +127,7 @@ $chok.view.query.config.tableColumns =
     	}
     }
 ];
+$chok.view.query.config.showMultiSort = true;
 $chok.view.query.callback.delRows = function(){
 };
 $chok.view.query.callback.onLoadSuccess = function(){

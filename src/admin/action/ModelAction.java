@@ -102,7 +102,7 @@ public class ModelAction extends BaseController<Model>
 	{
 		Map<String, Object> m = req.getParameterValueMap(false, true);
 		result.put("total", modelService.getCount(m));
-		result.put("rows", modelService.query(m));
+		result.put("rows", modelService.query(req.getDynamicSortMap(m)));
 		printJson(result.getData());
 	}
 }

@@ -5,12 +5,16 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -417,6 +421,64 @@ public class MyReq extends HttpServletRequestWrapper
 		{
 			System.out.println(e);
 		}
+	}
+	
+	/**
+	 * 动态多列排序参数过滤
+	 * @param param
+	 * @return Map<String, Object>
+	 */
+	public Map<String, Object> getDynamicSortMap(Map<String, Object> param)
+	{
+		// 单列排序
+		if (param.containsKey("sort") && param.get("sort").toString().indexOf("m.")!=-1)
+		{
+			param.put("sort", param.get("sort").toString().substring(2));
+		}
+		// 多列排序
+		// 分组
+		Map<String, Object> sortNameMap = new LinkedHashMap<String, Object>();
+		Map<String, Object> sortOrderMap = new LinkedHashMap<String, Object>();
+		for (Entry<String, Object> entry: param.entrySet()) 
+		{
+			String k = entry.getKey();
+			Object v = entry.getValue();
+			if (k.indexOf("multiSort") != -1)
+			{
+				if (k.indexOf("[sortName]") != -1) sortNameMap.put(k, v);
+				if (k.indexOf("[sortOrder]") != -1) sortOrderMap.put(k, v);
+			}
+		}
+		// 排序
+		List<Map.Entry<String, Object>> multiSortNameList = new ArrayList<Map.Entry<String, Object>>(sortNameMap.entrySet());
+		Collections.sort(multiSortNameList, new Comparator<Map.Entry<String, Object>>()
+		{
+			public int compare(Entry<String, Object> o1, Entry<String, Object> o2) 
+			{
+				return (o1.getKey()).compareTo(o2.getKey());
+			}
+		});
+		List<Map.Entry<String, Object>> multiSortOrderList = new ArrayList<Map.Entry<String, Object>>(sortOrderMap.entrySet());
+		Collections.sort(multiSortOrderList, new Comparator<Map.Entry<String, Object>>()
+		{
+			public int compare(Entry<String, Object> o1, Entry<String, Object> o2) 
+			{
+				return (o1.getKey()).compareTo(o2.getKey());
+			}
+		});
+		// 重新组合
+		List<Map<String, Object>> multiSortList = new ArrayList<Map<String, Object>>();
+		for(int i=0; i<multiSortNameList.size(); i++)
+		{
+			Map<String, Object> multiSortObj = new LinkedHashMap<String, Object>();
+			String sortName = multiSortNameList.get(i).getValue().toString().substring(2);
+			Object sortOrder = multiSortOrderList.get(i).getValue();
+			multiSortObj.put("sortName", sortName);
+			multiSortObj.put("sortOrder", sortOrder);
+			multiSortList.add(multiSortObj);
+		}
+		if (multiSortList.size() > 0) param.put("multiSort", multiSortList);
+		return param;
 	}
 	
 	private static Date toDate(String value) throws Exception 

@@ -25,7 +25,20 @@
 	</resultMap>
   	
 	<sql id="columns">
-		id, name, sort
+		t.id, t.name, t.sort
+	</sql>
+	
+	<sql id="order">
+		<choose>
+			<when test="sort!=null and sort!=''">
+				order by CONVERT(tt.${sort} USING gbk) ${order}
+			</when>
+			<when test="multiSort!=null and (sort==null or sort=='')">
+				order by <foreach collection="multiSort" index="index" item="item" separator=",">CONVERT(tt.${item.sortName} USING gbk) ${item.sortOrder}</foreach>  
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
 	</sql>
 	
 	<sql id="page">
@@ -34,22 +47,26 @@
 	
 	<sql id="dynamicWhere">
 		<where>
-			<if test="name != null and name != ''"> and name like concat('%',#{name},'%') </if>
+			<if test="name != null and name != ''"> and t.name like concat('%',#{name},'%') </if>
 		</where>
 	</sql>	
 	
 	<select id="get" resultMap="result">
-		select <include refid="columns"/> from tb_category where id = #{id}
+		select <include refid="columns"/> from tb_category t where t.id = #{id}
 	</select>
 	
 	<select id="query" resultType="list" resultMap="result">
-		select <include refid="columns"/> from tb_category
-		<include refid="dynamicWhere" /> order by sort, id desc 
+		select tt.* from 
+		(
+			select <include refid="columns"/> from tb_category t
+			<include refid="dynamicWhere" />
+		) tt
+		<include refid="order" />
 		<include refid="page" />
 	</select>
 	
 	<select id="getCount" resultType="int">
-		select count(1) from tb_category
+		select count(1) from tb_category t
 		<include refid="dynamicWhere" />
 	</select>
 </mapper>  

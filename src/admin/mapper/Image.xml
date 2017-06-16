@@ -48,7 +48,21 @@
 		t.id, t.model_id, t.name, t.sort, t.url
 	</sql>
 	<sql id="columns1">
-		t.id, t.name, t.sort, t.url, t.model_id, t1.name model_name, t2.id category_id, t2.name category_name
+		t.id, t.name, t.sort, t.url, t.model_id, t1.name model_name, t1.sort t1_sort, t2.id category_id, t2.name category_name, t2.sort t2_sort
+	</sql>
+	
+	<sql id="order">
+		<choose>
+			<when test="sort!=null and sort!=''">
+				order by CONVERT(tt.${sort} USING gbk) ${order}
+			</when>
+			<when test="multiSort!=null and (sort==null or sort=='')">
+				order by <foreach collection="multiSort" index="index" item="item" separator=",">CONVERT(tt.${item.sortName} USING gbk) ${item.sortOrder}</foreach>  
+			</when>
+			<otherwise>
+				order by tt.t2_sort, tt.t1_sort, tt.sort, tt.name, tt.id
+			</otherwise>
+		</choose>
 	</sql>
 	
 	<sql id="page">
@@ -72,11 +86,15 @@
 	</select>
 	
 	<select id="query" resultType="list" resultMap="result1">
-		select <include refid="columns1"/>  from tb_image t
-		left join tb_model t1 on t.model_id = t1.id
-		left join tb_category t2 on t1.category_id = t2.id
-		<include refid="dynamicWhere" />
-		order by t2.sort, t1.sort, t.sort, t.name, t.id
+		select tt.* from
+		(
+			select <include refid="columns1"/> 
+			  from tb_image t
+			  left join tb_model t1 on t.model_id = t1.id
+			  left join tb_category t2 on t1.category_id = t2.id
+			<include refid="dynamicWhere" />
+		) tt
+		<include refid="order" />
 		<include refid="page" />
 	</select>
 	
