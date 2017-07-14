@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%-- 
 <%@ page import="chok.sso.AuthUser"%>
 <%@ page import="chok.sso.filter.LoginFilter"%>
 <%
@@ -10,7 +11,7 @@ String menuJson = o==null?"":o.getString("sso.menuJson");
 String btnJson = o==null?"":o.getString("sso.btnJson");
 request.setAttribute("SsoLoginUser", o);
 %>
-<%-- 
+ --%>
 <%@ page import="chok.cas.client.CasLoginUser" %>
 <%@ page import="chok.cas.client.filter.CasAccessFilter" %>
 <%
@@ -22,7 +23,6 @@ String menuJson = o==null?"":o.getString("cas.menuJson");
 String btnJson = o==null?"":o.getString("cas.btnJson");
 request.setAttribute("CasLoginUser", o);
 %>
- --%>
 <%@ include file="/common/inc_ctx.jsp"%>
 <script type="text/javascript">
 /* js 全局变量 **********************************************************/
@@ -70,8 +70,8 @@ $(function(){
 			<div class="navbar-custom-menu">
 				<ul class="nav navbar-nav">
 					<c:choose>
-						<c:when test="${SsoLoginUser==null}">
-						<%-- <c:when test="${CasLoginUser==null}"> --%>
+						<%-- <c:when test="${SsoLoginUser==null}"> --%>
+						<c:when test="${CasLoginUser==null}">
 							<li><a href="/static/login.jsp"><i class="glyphicon glyphicon-log-in"></i>登录</a></li>
 						</c:when>
 						<c:otherwise>
@@ -84,8 +84,12 @@ $(function(){
 									<li>
 										<ul id="user-dropdown-menu" class="menu">
 											<li menuId="userinfo"><a href="#"><i class="fa fa-user text-aqua"></i> <span>个人资料</span></a></li>
+											<li menuId="password"><a href="${ctx}/cas/password.action"><i class="glyphicon glyphicon-lock text-aqua"></i><span>修改密码</span></a></li>
+											<li menuId="logout"><a href="${ctx}/cas/logout.action"><i class="glyphicon glyphicon-log-out text-red"></i><span>登出</span></a></li>
+											<%-- 
 											<li menuId="password"><a href="${ctx}/sso/password.action"><i class="glyphicon glyphicon-lock text-aqua"></i><span>修改密码</span></a></li>
 											<li menuId="logout"><a href="${ctx}/sso/logout.action"><i class="glyphicon glyphicon-log-out text-red"></i><span>登出</span></a></li>
+										 	--%>
 										</ul>
 									</li>
 								</ul>
