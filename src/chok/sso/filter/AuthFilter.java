@@ -33,8 +33,8 @@ public class AuthFilter implements Filter
 {
 	static Logger log = LoggerFactory.getLogger("sso.auth");
 	
-	private static String ssoURL = "";// SSO项目根地址
-	private static String ssoApiURL = "";// SSO接口地址
+//	private static String ssoURL = "";// SSO项目根地址
+	private static String apiURL = "";// API接口地址
 	private static String appId = "";// SSO client端ID
 	private static Set<String> ignoreURLSet = new HashSet<String>();// 无需验证页面
 	private static String isNeedChkAct = "";// 是否需要验证action权限
@@ -48,8 +48,8 @@ public class AuthFilter implements Filter
 	{
 		try
 		{
-			ssoURL = String.valueOf(config.getInitParameter("ssoURL")).trim();
-			ssoApiURL = String.valueOf(config.getInitParameter("ssoApiURL")).trim();
+//			ssoURL = String.valueOf(config.getInitParameter("ssoURL")).trim();
+			apiURL = String.valueOf(config.getInitParameter("apiURL")).trim();
 			appId = String.valueOf(config.getInitParameter("appId")).trim();
 			
 			String ignoreURL = String.valueOf(config.getInitParameter("ignoreURL")).trim();
@@ -132,7 +132,7 @@ public class AuthFilter implements Filter
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("tc_user_id", u.getString("id"));
 		param.put("tc_app_id", appId);
-		HttpResult<String> r = HttpUtil.create(new HttpAction(ssoApiURL+"/getMenuByUserId.action", param), String.class, "GET");
+		HttpResult<String> r = HttpUtil.create(new HttpAction(apiURL+"/getMenuByUserId.action", param), String.class, "GET");
 		if(log.isInfoEnabled()) log.info("已获取 menuJson：" + r.getData());
 		return r.getData();
 	}
@@ -142,7 +142,7 @@ public class AuthFilter implements Filter
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("tc_user_id", u.getString("id"));
 		param.put("tc_app_id", appId);
-		HttpResult<String> r = HttpUtil.create(new HttpAction(ssoApiURL+"/getBtnByUserId.action", param), String.class, "GET");
+		HttpResult<String> r = HttpUtil.create(new HttpAction(apiURL+"/getBtnByUserId.action", param), String.class, "GET");
 		if(log.isInfoEnabled()) log.info("已获取 btnJson：" + r.getData());
 		return r.getData();
 	}
@@ -152,7 +152,7 @@ public class AuthFilter implements Filter
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("tc_user_id", u.getString("id"));
 		param.put("tc_app_id", appId);
-		HttpResult<String> r = HttpUtil.create(new HttpAction(ssoApiURL+"/getActByUserId.action", param), String.class, "GET");
+		HttpResult<String> r = HttpUtil.create(new HttpAction(apiURL+"/getActByUserId.action", param), String.class, "GET");
 		if(log.isInfoEnabled()) log.info("已获取 actJson：" + r.getData());
 		return r.getData();
 	}

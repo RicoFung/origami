@@ -33,7 +33,6 @@ public class LoginFilter implements Filter
 	
 	public static String ssoURL = "";// SSO项目根地址
 	public static String ssoAuthURL = "";// SSO认证地址
-	public static String ssoApiURL = "";// SSO接口地址
 	public static String loginURL = "";// 登录页面
 	public static String logoutURL = "";// 登出页面
 	public static String passwordURL = "";// 修改密码页面
@@ -47,7 +46,6 @@ public class LoginFilter implements Filter
 		{
 			ssoURL = String.valueOf(config.getInitParameter("ssoURL")).trim();
 			ssoAuthURL = String.valueOf(config.getInitParameter("ssoAuthURL")).trim();
-			ssoApiURL = String.valueOf(config.getInitParameter("ssoApiURL")).trim();
 			loginURL = ssoAuthURL + "/login.action";
 			logoutURL = ssoAuthURL + "/logout.action";
 			passwordURL = ssoAuthURL + "/password.action";
@@ -152,7 +150,7 @@ public class LoginFilter implements Filter
 			// 通过 http 带上ticket 获取用户对象
 			Map<String, String> m = new HashMap<String, String>();
 			m.put("ticket", ticket);
-			HttpResult<String> r = HttpUtil.create(new HttpAction(ssoApiURL+"/getLoginer.action", m), String.class, "GET");
+			HttpResult<String> r = HttpUtil.create(new HttpAction(ssoAuthURL+"/getLoginer.action", m), String.class, "GET");
 			AuthUser u = JSON.parseObject(r.getData(), AuthUser.class);
 			
 			// 验证用户对象
