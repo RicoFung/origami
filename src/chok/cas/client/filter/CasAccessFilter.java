@@ -33,9 +33,9 @@ import chok.util.http.HttpUtil;
 
 public class CasAccessFilter implements Filter 
 {
-	static Logger log = LoggerFactory.getLogger("cas.access");
+	static Logger log = LoggerFactory.getLogger("CasAccessFilter.class");
 	
-	private static String ssoApiURL = "";// SSO接口地址
+	private static String apiURL = "";// 接口地址
 	private static String appId = "";// SSO client端ID
 	private static Set<String> ignoreURLSet = new HashSet<String>();// 无需验证页面
 	private static String isNeedChkAct = "";// 是否需要验证action权限
@@ -50,7 +50,7 @@ public class CasAccessFilter implements Filter
 	{
 		try
 		{
-			ssoApiURL = String.valueOf(config.getInitParameter("ssoApiURL")).trim();
+			apiURL = String.valueOf(config.getInitParameter("apiURL")).trim();
 			appId = String.valueOf(config.getInitParameter("appId")).trim();
 			
 			String ignoreURL = String.valueOf(config.getInitParameter("ignoreURL")).trim();
@@ -81,11 +81,11 @@ public class CasAccessFilter implements Filter
 			CasLoginUser u = checkUserSession(req, session);
 			if(u == null) return;
 			if (!u.getM().containsKey(MENU_JSON) || u.getString(MENU_JSON)==null) u.set(MENU_JSON, getMenuJson(u));
-			if(log.isInfoEnabled()) log.info(u.getString("tc_code")+"'s menuJson：" + u.getString(MENU_JSON));
+			if(log.isInfoEnabled()) log.info("["+u.getString("tc_code")+"'s menuJson] = " + u.getString(MENU_JSON));
 			if (!u.getM().containsKey(BTN_JSON) || u.getString(BTN_JSON)==null) u.set(BTN_JSON, getBtnJson(u));
-			if(log.isInfoEnabled()) log.info(u.getString("tc_code")+"'s btnJson：" + u.getString(BTN_JSON));
+			if(log.isInfoEnabled()) log.info("["+u.getString("tc_code")+"'s btnJson] = " + u.getString(BTN_JSON));
 			if (!u.getM().containsKey(ACT_JSON) || u.getString(ACT_JSON)==null) u.set(ACT_JSON, getActJson(u));
-			if(log.isInfoEnabled()) log.info(u.getString("tc_code")+"'s actJson：" + u.getString(ACT_JSON));
+			if(log.isInfoEnabled()) log.info("["+u.getString("tc_code")+"'s actJson] = " + u.getString(ACT_JSON));
 			
 			if(isNeedChkAct.equals("1"))
 			{
@@ -133,8 +133,8 @@ public class CasAccessFilter implements Filter
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("tc_user_id", u.getString("id"));
 		param.put("tc_app_id", appId);
-		HttpResult<String> r = HttpUtil.create(new HttpAction(ssoApiURL+"/getMenuByUserId.action", param), String.class, "GET");
-		if(log.isInfoEnabled()) log.info("已获取 menuJson：" + r.getData());
+		HttpResult<String> r = HttpUtil.create(new HttpAction(apiURL+"/getMenuByUserId.action", param), String.class, "GET");
+		if(log.isInfoEnabled()) log.info("[MENU_JSON] <<< " + r.getData());
 		return r.getData();
 	}
 	
@@ -143,8 +143,8 @@ public class CasAccessFilter implements Filter
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("tc_user_id", u.getString("id"));
 		param.put("tc_app_id", appId);
-		HttpResult<String> r = HttpUtil.create(new HttpAction(ssoApiURL+"/getBtnByUserId.action", param), String.class, "GET");
-		if(log.isInfoEnabled()) log.info("已获取 btnJson：" + r.getData());
+		HttpResult<String> r = HttpUtil.create(new HttpAction(apiURL+"/getBtnByUserId.action", param), String.class, "GET");
+		if(log.isInfoEnabled()) log.info("[BTN_JSON] <<< " + r.getData());
 		return r.getData();
 	}
 	
@@ -153,8 +153,8 @@ public class CasAccessFilter implements Filter
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("tc_user_id", u.getString("id"));
 		param.put("tc_app_id", appId);
-		HttpResult<String> r = HttpUtil.create(new HttpAction(ssoApiURL+"/getActByUserId.action", param), String.class, "GET");
-		if(log.isInfoEnabled()) log.info("已获取 actJson：" + r.getData());
+		HttpResult<String> r = HttpUtil.create(new HttpAction(apiURL+"/getActByUserId.action", param), String.class, "GET");
+		if(log.isInfoEnabled()) log.info("[ACT_JSON] <<< " + r.getData());
 		return r.getData();
 	}
 	

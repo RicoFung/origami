@@ -127,8 +127,8 @@
 		<filter-name>CasAccessFilter</filter-name>
 		<filter-class>chok.cas.client.filter.CasAccessFilter</filter-class>
 		<init-param>
-			<param-name>ssoApiURL</param-name>
-			<param-value>http://localhost:8585/sso/api</param-value>
+			<param-name>apiURL</param-name>
+			<param-value>http://localhost:8585/api</param-value>
 		</init-param>
 		<init-param>
 			<param-name>ignoreURL</param-name>

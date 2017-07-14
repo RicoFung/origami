@@ -11,12 +11,15 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HttpUtil
 {
+	static Logger log = LoggerFactory.getLogger("HttpUtil");
+	
 	public static <T> HttpResult<T> create(HttpAction actionObj, Class<T> clazz, String method)
 	{
-//		Log.i("<* Request URL *>", actionObj.getUrl());
 		HttpResult<T> o = new HttpResult<T>();
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		try
@@ -30,17 +33,15 @@ public class HttpUtil
 			CloseableHttpResponse resp = null;
 			if(method.equals("POST"))
 			{
-//				Log.i("<* Request METHOD *>", "POST");
 				//初始化HttpPost
 				HttpPost req = new HttpPost(actionObj.getUrl());
+				if(log.isInfoEnabled()) log.info("['POST' URL] >>> " + actionObj.getUrl());
 				req.setEntity(new UrlEncodedFormEntity(actionObj.getParams(), "UTF-8"));
-//				req.setEntity(new UrlEncodedFormEntity(actionObj.getParams(), HTTP.UTF_8));
 				//执行请求
 				resp = httpclient.execute(req);
 			}
 			else if(method.equals("GET"))
 			{
-//				Log.i("<* Request METHOD *>", "GET");
 				String url = actionObj.getUrl();
 				//初始化HttpGet
 				for (int i=0; i<actionObj.getParams().size(); i++)
@@ -50,7 +51,7 @@ public class HttpUtil
 					else
 						url += "&" + actionObj.getParams().get(i).getName() + "=" + actionObj.getParams().get(i).getValue();
 				}
-//				Log.i("<* Request 'GET' URL *>", url);
+				if(log.isInfoEnabled()) log.info("['GET' URL] >>> " + url);
 				HttpGet req = new HttpGet(url);
 				//执行请求
 				resp = httpclient.execute(req);
@@ -59,7 +60,6 @@ public class HttpUtil
 			{
 				o.setSuc(false);
 				o.setErrMsg("请求失败：请正确填写 GET / POST");
-//				Log.i("<* 请求失败：*>", "请正确填写 GET / POST");
 			}
 			//请求响应
 			if(resp.getStatusLine().getStatusCode() == 200)
