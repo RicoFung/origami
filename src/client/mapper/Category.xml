@@ -55,7 +55,7 @@
 	<select id="getNavMap" resultType="java.util.HashMap">
 		select <include refid="columns"/>, count(t1.id) QTY 
 		  from tb_category t 
-		  left join tb_model t1 on t.id = t1.pid
+		  left join tb_model t1 on t.id = t1.category_id
 		<include refid="dynamicWhere" /> 
 		group by t.id, t.name, t.sort
         order by t.sort 

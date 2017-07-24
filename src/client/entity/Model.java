@@ -3,21 +3,20 @@ package client.entity;
 public class Model 
 {
 	private Long id;
-	private Long pid;
+	private Long categoryId;
 	private String name;
 	private int sort;
-	
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Long getPid() {
-		return pid;
+	public Long getCategoryId() {
+		return categoryId;
 	}
-	public void setPid(Long pid) {
-		this.pid = pid;
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
 	}
 	public String getName() {
 		return name;
@@ -31,4 +30,5 @@ public class Model
 	public void setSort(int sort) {
 		this.sort = sort;
 	}
+	
 }

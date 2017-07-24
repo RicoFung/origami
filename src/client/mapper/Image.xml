@@ -4,7 +4,7 @@
 <mapper namespace="client.entity.Image">
       <!-- 自动生成id策略 -->
     <insert id="add" parameterType="client.entity.Image" useGeneratedKeys="true" keyProperty="id">  
-       	insert into tb_image(pid,name,sort) values (#{pid},#{name},#{sort})  
+       	insert into tb_image(model_id,name,sort) values (#{modelId},#{name},#{sort})  
     </insert>  
 	
 	<delete id="del" parameterType="client.entity.Image">
@@ -13,7 +13,7 @@
 	
 	<update id="upd" parameterType="client.entity.Image">
 		update tb_image set
-		pid = #{pid},
+		model_id = #{modelId},
 		name = #{name},
 		sort = #{sort}
 		where id = #{id}
@@ -21,15 +21,14 @@
   	
 	<resultMap type="client.entity.Image" id="result">
 		<id property="id" column="id"/>
-		<result property="pid" column="pid"/>
+		<result property="modelId" column="model_id"/>
 		<result property="name" column="name"/>
 		<result property="sort" column="sort"/>
 		<result property="url" column="url"/>
-		<result property="datasize" column="datasize"/>
 	</resultMap>
   	
 	<sql id="columns">
-		ID, PID, NAME, SORT, IFNULL(URL,'') URL
+		ID, MODEL_ID, NAME, SORT, IFNULL(URL,'') URL
 	</sql>
 	
 	<sql id="page">
@@ -38,21 +37,21 @@
 	
 	<sql id="dynamicWhere">
 		<where>
-			<if test="pid != null"> and PID = #{pid} </if>
+			<if test="modelId != null"> and MODEL_ID = #{modelId} </if>
 			<if test="name != null"> and NAME like concat('%',#{name},'%') </if>
 		</where>
 	</sql>	
 	
-	<select id="getById" resultMap="result">
+	<select id="get" resultMap="result">
 		select <include refid="columns"/> from tb_image where id = #{id}
 	</select>
 	
-	<select id="get" resultType="list" resultMap="result">
+	<select id="query" resultType="list" resultMap="result">
 		select <include refid="columns"/> from tb_image
 		<include refid="dynamicWhere" /> order by sort
 		<include refid="page" />
 	</select>
-	<select id="getMap" resultType="java.util.HashMap">
+	<select id="queryMap" resultType="java.util.HashMap">
 		select <include refid="columns"/> from tb_image
 		<include refid="dynamicWhere" /> order by sort 
 		<include refid="page" />

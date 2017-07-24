@@ -5,11 +5,10 @@ import chok.util.PropertiesUtil;
 public class Image1 
 {
 	private Long id;
-	private Long pid;
+	private Long modelId;
 	private String name;
 	private String url;
 	private int sort;
-	private byte[] image;
 	
 	public Long getId() {
 		return id;
@@ -17,11 +16,11 @@ public class Image1
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Long getPid() {
-		return pid;
+	public Long getModelId() {
+		return modelId;
 	}
-	public void setPid(Long pid) {
-		this.pid = pid;
+	public void setModelId(Long modelId) {
+		this.modelId = modelId;
 	}
 	public String getName() {
 		return name;
@@ -33,18 +32,12 @@ public class Image1
 		return url;
 	}
 	public void setUrl(String url) {
-		this.url = PropertiesUtil.getValue("image.path")+url;
+		this.url = PropertiesUtil.getValue("image.path")+name;
 	}
 	public int getSort() {
 		return sort;
 	}
 	public void setSort(int sort) {
 		this.sort = sort;
-	}
-	public byte[] getImage() {
-		return image;
-	}
-	public void setImage(byte[] image) {
-		this.image = image;
 	}
 }

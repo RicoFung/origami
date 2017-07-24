@@ -5,22 +5,22 @@
   	
 	<resultMap type="client.entity.Image1" id="result">
 		<id property="id" column="id"/>
-		<result property="pid" column="pid"/>
+		<result property="modelId" column="model_id"/>
 		<result property="name" column="name"/>
 		<result property="sort" column="sort"/>
 		<result property="url" column="url"/>
 	</resultMap>
   	
 	<sql id="columns">
-		ID, PID, NAME, SORT, URL
+		ID, MODEL_ID, NAME, SORT, URL
 	</sql>
 	
-	<select id="getById" resultMap="result">
+	<select id="get" resultMap="result">
 		select <include refid="columns"/> from tb_image where id = #{id}
 	</select>
 	
 	<select id="getByPidAndMaxSort" resultMap="result">
-		select <include refid="columns"/> from tb_image t where t.sort = (select max(t.sort) from tb_image t where t.pid = #{pid}) and t.pid = #{pid}
+		select <include refid="columns"/> from tb_image t where t.sort = (select max(t.sort) from tb_image t where t.model_id = #{modelId}) and t.model_id = #{modelId}
 	</select>
 
 </mapper>  

@@ -4,7 +4,7 @@
 <mapper namespace="client.entity.Model">
       <!-- 自动生成id策略 -->
     <insert id="add" parameterType="client.entity.Model" useGeneratedKeys="true" keyProperty="id">  
-       	insert into tb_model(pid,name,sort) values (#{pid},#{name},#{sort})  
+       	insert into tb_model(category_id,name,sort) values (#{categoryId},#{name},#{sort})  
     </insert>  
 	
 	<delete id="del" parameterType="client.entity.Model">
@@ -20,13 +20,13 @@
   	
 	<resultMap type="client.entity.Model" id="result">
 		<id property="id" column="id"/>
-		<result property="pid" column="pid"/>
 		<result property="name" column="name"/>
+		<result property="categoryId" column="category_id"/>
 		<result property="sort" column="sort"/>
 	</resultMap>
   	
 	<sql id="columns">
-		t.ID, t.PID, t.NAME, t.SORT
+		t.ID, t.CATEGORY_ID, t.NAME, t.SORT
 	</sql>
 	
 	<sql id="page">
@@ -35,7 +35,7 @@
 	
 	<sql id="dynamicWhere">
 		<where>
-			<if test="pid != null"> and t.PID = #{pid} </if>
+			<if test="categoryId != null"> and t.CATEGORY_ID = #{categoryId} </if>
 			<if test="name != null"> and t.NAME like concat('%',#{name},'%') </if>
 		</where>
 	</sql>	
@@ -55,12 +55,16 @@
 		<include refid="page" />
 	</select>
 	<select id="getMapJoinCategory" resultType="java.util.HashMap">
-		select <include refid="columns"/>, t1.NAME NAV_NAME, IFNULL(t2.URL,'') IMAGE_URL 
+		select <include refid="columns"/>, t1.NAME NAV_NAME, IFNULL(t2.NAME,'') IMAGE_NAME
 		  from tb_model t 
 		 inner join tb_category t1 
-		 		 on t.pid = t1.id
-		  left join (select tt.id,tt.pid,tt.url,max(tt.sort) from tb_image tt group by tt.pid) t2
-		         on t.id = t2.pid
+		 		 on t.category_id = t1.id
+		  left join (
+						select tt1.name, tt1.model_id from tb_image tt1
+						 inner join (select model_id, max(sort) sort from tb_image group by model_id) tt2
+							on tt1.model_id = tt2.model_id and tt1.sort = tt2.sort
+					) t2
+		         on t.id = t2.model_id
 		<include refid="dynamicWhere" /> order by t.sort 
 		<include refid="page" />
 	</select>
