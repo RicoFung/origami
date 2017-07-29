@@ -16,7 +16,8 @@ public class ClientImageService extends BaseService<Image,Long>
 	private ClientImageDao dao;
 
 	@Override
-	public BaseDao<Image,Long> getEntityDao() {
+	public BaseDao<Image,Long> getEntityDao() 
+	{
 		return dao;
 	}
 }

@@ -40,21 +40,16 @@
 		</where>
 	</sql>	
 	
-	<select id="getById" resultMap="result">
+	<select id="get" resultMap="result">
 		select <include refid="columns"/> from tb_model t where t.id = #{id}
 	</select>
 	
-	<select id="get" resultType="list" resultMap="result">
+	<select id="query" resultType="list" resultMap="result">
 		select <include refid="columns"/> from tb_model t
 		<include refid="dynamicWhere" /> order by t.sort 
 		<include refid="page" />
 	</select>
-	<select id="getMap" resultType="java.util.HashMap">
-		select <include refid="columns"/> from tb_model t
-		<include refid="dynamicWhere" /> order by t.sort 
-		<include refid="page" />
-	</select>
-	<select id="getMapJoinCategory" resultType="java.util.HashMap">
+	<select id="queryMap" resultType="java.util.HashMap">
 		select <include refid="columns"/>, t1.NAME NAV_NAME, IFNULL(t2.NAME,'') IMAGE_NAME
 		  from tb_model t 
 		 inner join tb_category t1 

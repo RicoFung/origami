@@ -9,23 +9,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import chok.devwork.BaseController;
-import client.entity.Model;
-import client.service.ClientModelService;
+import client.entity.Category;
+import client.service.ClientCategoryService;
 
 @Scope("prototype")
 @Controller
-@RequestMapping("/client/model")
-public class ClientModelAction extends BaseController<Model>
+@RequestMapping("/client/category")
+public class ClientCategoryAction extends BaseController<Category>
 {
 	@Autowired
-	private ClientModelService service;
+	private ClientCategoryService service;
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping("/queryPage")
-	public void queryPage() 
+	@RequestMapping("/query")
+	public void query()
 	{
 		Map<String, Object> m = req.getParameterValueMap(false, true);
-		List<Map<String,String>> list = service.queryMapPage(m);
+		List<Map<String,String>> list = service.queryMap(m);
 		printJson(list);
 	}
 }

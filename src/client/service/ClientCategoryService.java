@@ -15,7 +15,8 @@ public class ClientCategoryService extends BaseService<Category,Long>
 	private ClientCategoryDao dao;
 
 	@Override
-	public BaseDao<Category,Long> getEntityDao() {
+	public BaseDao<Category,Long> getEntityDao() 
+	{
 		return dao;
 	}
 }

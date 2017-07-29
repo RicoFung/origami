@@ -8,8 +8,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.google.gson.Gson;
-
 import chok.devwork.BaseController;
 import client.entity.Image;
 import client.service.ClientImageService;
@@ -22,21 +20,21 @@ public class ClientImageAction extends BaseController<Image>
 	@Autowired
 	private ClientImageService service;
 	
-	@RequestMapping("/getPageByPid")
-	public void getPageByPid() 
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/queryPage")
+	public void queryPage() 
 	{
 		Map<String, Object> m = req.getParameterValueMap(false, true);
-		List<Map<String,String>> resultList = service.queryMapPage(m);
-		print(new Gson().toJson(resultList));
-		System.out.println(new Gson().toJson(resultList));
+		List<Map<String,String>> list = service.queryMapPage(m);
+		printJson(list);
 	}
 	
-	@RequestMapping("/getListByPid")
-	public void getListByPid() 
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/query")
+	public void query() 
 	{
 		Map<String, Object> m = req.getParameterValueMap(false, true);
-		List<Map<String,String>> resultList = service.queryMap(m);
-		print(new Gson().toJson(resultList));
-		System.out.println(new Gson().toJson(resultList));
+		List<Map<String,String>> list = service.queryMap(m);
+		printJson(list);
 	}
 }

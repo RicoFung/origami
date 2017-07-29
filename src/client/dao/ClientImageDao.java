@@ -10,7 +10,7 @@ import client.entity.Image;
 public class ClientImageDao extends BaseDao<Image,Long>
 {
 	@Override
-	public Class getEntityClass()
+	public Class<Image> getEntityClass()
 	{
 		return Image.class;
 	}

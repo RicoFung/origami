@@ -38,21 +38,16 @@
 		</where>
 	</sql>	
 	
-	<select id="getById" resultMap="result">
+	<select id="get" resultMap="result">
 		select <include refid="columns"/> from tb_category t where t.id = #{id}
 	</select>
 	
-	<select id="get" resultType="list" resultMap="result">
+	<select id="query" resultType="list" resultMap="result">
 		select <include refid="columns"/> from tb_category t
 		<include refid="dynamicWhere" /> order by t.sort 
 		<include refid="page" />
 	</select>
-	<select id="getMap" resultType="java.util.HashMap">
-		select <include refid="columns"/> from tb_category t
-		<include refid="dynamicWhere" /> order by t.sort 
-		<include refid="page" />
-	</select>
-	<select id="getNavMap" resultType="java.util.HashMap">
+	<select id="queryMap" resultType="java.util.HashMap">
 		select <include refid="columns"/>, count(t1.id) QTY 
 		  from tb_category t 
 		  left join tb_model t1 on t.id = t1.category_id
