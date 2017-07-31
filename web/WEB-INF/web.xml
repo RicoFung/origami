@@ -176,6 +176,21 @@
 		<url-pattern>/cas/logout.action</url-pattern> 
 	</filter-mapping> 
 
+	<!-- 基于CAS密码修改过滤器 -->
+	
+	<filter> 
+		<filter-name>CasPasswordFilter</filter-name>
+		<filter-class>chok.cas.client.filter.CasPasswordFilter</filter-class> 
+		<init-param>
+			<param-name>passwordURL</param-name>
+			<param-value>http://localhost:8585/cps/password.action</param-value>
+		</init-param>
+	</filter> 
+	<filter-mapping> 
+		<filter-name>CasPasswordFilter</filter-name>
+		<url-pattern>/cas/password.action</url-pattern> 
+	</filter-mapping> 
+
 	<!-- ======================== CAS单点登录结束 ======================== -->
  	
  	
