@@ -20,6 +20,7 @@
 		<!-- toolbar
 		======================================================================================================= -->
 		<div id="toolbar">
+		<button type="button" class="btn btn-default" id="bar_btn_imp" ><i class="glyphicon glyphicon-upload"></i></button>
 		<button type="button" class="btn btn-default" id="bar_btn_add" pbtnId="pbtn_add"><i class="glyphicon glyphicon-plus"></i></button>
 		<button type="button" class="btn btn-default" id="bar_btn_del" pbtnId="pbtn_del"><i class="glyphicon glyphicon-remove"></i></button>
 		<button type="button" class="btn btn-default" id="bar_btn_query" pbtnId="pbtn_query2" data-toggle="modal" data-target="#modal_form_query"><i class="glyphicon glyphicon-search"></i></button>
@@ -120,5 +121,29 @@ $chok.view.query.callback.delRows = function(){
 };
 $chok.view.query.callback.onLoadSuccess = function(){
 	$chok.auth.btn($chok.view.menuPermitId,$g_btnJson);
+};
+/* OVERWRITE-初始化工具栏 */
+$chok.view.query.init.toolbar = function(){
+	$("#bar_btn_imp").click(function(){
+		location.href = "imp.action?"+$chok.view.query.fn.getUrlParams();
+	});
+	$("#bar_btn_add").click(function(){
+		location.href = "add.action?"+$chok.view.query.fn.getUrlParams();
+	});
+	$("#bar_btn_del").click(function(){
+		if($chok.view.query.fn.getIdSelections().length<1) {
+			alert("没选择");
+			return;
+		}
+		if(!confirm("确认删除？")) return;
+		$.post("del.action",{id:$chok.view.query.fn.getIdSelections()},function(result){
+	        $chok.view.query.callback.delRows(result); // 删除行回调
+	        if(!result.success) {
+	        	alert(result.msg);
+	        	return;
+	        }
+	        $("#tb_list").bootstrapTable('refresh'); // 刷新table
+		});
+	});
 };
 </script>

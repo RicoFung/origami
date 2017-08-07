@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import admin.entity.Category;
 import admin.service.CategoryService;
@@ -39,6 +41,29 @@ public class CategoryAction extends BaseController<Category>
 			e.printStackTrace();
 			print("0:" + e.getMessage());
 		}
+	}
+	
+	@RequestMapping("/imp")
+	public String imp() 
+	{
+		put("queryParams",req.getParameterValueMap(false, true));
+		return "/admin/category/imp.jsp";
+	}
+	@RequestMapping("/imp2")
+	public void imp2(@RequestParam("myFile") CommonsMultipartFile files[])
+	{
+		try
+		{
+			service.imp2(files);
+			result.setSuccess(true);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			result.setSuccess(false);
+			result.setMsg(e.getMessage());
+		}
+		printJson(result);
 	}
 	
 	@RequestMapping("/del")
