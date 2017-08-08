@@ -1,6 +1,11 @@
 package admin.action;
 
+import java.io.ByteArrayOutputStream;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
+
+import javax.servlet.ServletOutputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -12,7 +17,10 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import admin.entity.Category;
 import admin.service.CategoryService;
 import chok.devwork.BaseController;
+import chok.devwork.BaseModel;
 import chok.util.CollectionUtil;
+import chok.util.POIUtil;
+import chok.util.TimeUtil;
 
 @Scope("prototype")
 @Controller
@@ -127,5 +135,13 @@ public class CategoryAction extends BaseController<Category>
 		result.put("total",service.getCount(m));
 		result.put("rows",service.query(req.getDynamicSortMap(m)));
 		printJson(result.getData());
+	}
+	
+	@RequestMapping("/exp")
+	public void exp()
+	{
+		Map<String, Object> m = req.getParameterValueMap(false, true);
+		List<Category> list = service.query(m);
+		exp(list, BaseModel.class, "xlsx");
 	}
 }
