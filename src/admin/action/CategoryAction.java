@@ -142,6 +142,6 @@ public class CategoryAction extends BaseController<Category>
 	{
 		Map<String, Object> m = req.getParameterValueMap(false, true);
 		List<Category> list = service.query(m);
-		exp(list, BaseModel.class, "xlsx");
+		exp(list, "xlsx");
 	}
 }

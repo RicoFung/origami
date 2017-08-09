@@ -4,9 +4,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -26,11 +27,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
 import chok.devwork.BaseModel;  
-/** 
- * excel读写工具类 
- * @author sun.kai 
- * 2016年8月21日 
- */  
+
 public class POIUtil 
 {  
     private static Logger logger  = Logger.getLogger(POIUtil.class);  
@@ -40,7 +37,7 @@ public class POIUtil
 	private static int headerFontSize = 14;
       
     /** 
-     * 读入excel文件，解析后返回 
+     * 读入EXCEL
      * @param file 
      * @throws IOException  
      */  
@@ -97,14 +94,14 @@ public class POIUtil
     /**
      * 写EXCEL
      * @param os
-     * @param sheetTitle
-     * @param titleColumn
-     * @param headers
+     * @param sheetName
+     * @param title
+     * @param headerNames
+     * @param dataColumn
      * @param list
      * @return
      */
-    @SuppressWarnings("unchecked")
-	public static OutputStream writeExcel(OutputStream os, String sheetName, String title, String columnNames, String columnKeys, List list, Class clazz)
+	public static OutputStream writeExcel(OutputStream os, String sheetName, String title, String headerNames, String dataColumn, List<?> list)
     {
 		try 
 		{
@@ -116,65 +113,89 @@ public class POIUtil
 			// 待写入的行号
 			int writingRow = 0;
 			// 列名
-			String[] columnNameArray = null;
-			// 列键名
-			String[] columnKeyArray = null;
-			if (columnNames != null && columnNames.length() > 0) columnNameArray = columnNames.split(",");
-			if (columnKeys != null && columnKeys.length() > 0) columnKeyArray = columnKeys.split(",");
-			// 设置标题
+			String[] headerNameArray = null;
+			// 表列名
+			String[] dataColumnArray = null;
+			if (headerNames != null && headerNames.length() > 0) headerNameArray = headerNames.split(",");
+			if (dataColumn != null && dataColumn.length() > 0) dataColumnArray = dataColumn.split(",");
+			// 写入标题
 			if (title!=null)
 			{
-				wsheet.addMergedRegion(new CellRangeAddress(0, 0, 0, columnNameArray.length - 1));
+				wsheet.addMergedRegion(new CellRangeAddress(0, 0, 0, headerNameArray.length - 1));
 				XSSFCell c = wsheet.createRow(writingRow).createCell(0);
 				c.setCellStyle(titleCellStyle);
 				c.setCellValue(new XSSFRichTextString(title));
 				writingRow++;
 			}
-			// 设置列名
-			if (columnNameArray.length > 0)
+			// 写入列名
+			if (headerNameArray.length > 0)
 			{
 				XSSFRow r1 = wsheet.createRow(writingRow);
-				for (int i = 0; i < columnNameArray.length; i++) 
+				for (int i = 0; i < headerNameArray.length; i++) 
 				{
-					r1.createCell(i).setCellValue(new XSSFRichTextString(columnNameArray[i]));
+					r1.createCell(i).setCellValue(new XSSFRichTextString(headerNameArray[i]));
 					r1.getCell(i).setCellStyle(headerCellStyle);
 				}
 				writingRow++;
 			}
-			// 设置数据列表
-			if (clazz.isAssignableFrom(BaseModel.class))
+			// 写入每行每列数据
+			for (int i=0; i<list.size(); i++)
 			{
-				for (int i = 0; i < list.size(); i++)
+				int columnIndex = 0;
+				String v = "";
+				XSSFRow rContent = wsheet.createRow(i + writingRow);
+				// BaseModel 类型
+				if (list.get(i).getClass().getSuperclass().isAssignableFrom(BaseModel.class))
 				{
-					BaseModel o = (BaseModel) list.get(i);
-					XSSFRow rContent = wsheet.createRow(i + writingRow);
-					
-					int columnIndex = 0;
-					for (int j=0; j<columnKeyArray.length; j++)
+					for (int j=0; j<dataColumnArray.length; j++)
 					{
-						if (o.getString(columnKeyArray[j]) != null)
-							rContent.createCell(columnIndex).setCellValue(new XSSFRichTextString(String.valueOf(o.getString(columnKeyArray[j]))));
+						v = ((BaseModel)list.get(i)).getString(dataColumnArray[j]);
+						if (v != null)
+							rContent.createCell(columnIndex).setCellValue(new XSSFRichTextString(v));
 						else
 							rContent.createCell(columnIndex).setCellValue(new XSSFRichTextString(""));
+						rContent.getCell(j).setCellStyle(contentCellStyle);
 						columnIndex++;
 					}
 				}
-			}
-			else
-			{
-				for (int i = 0; i < list.size(); i++)
+				// Map 类型
+				else if (list.get(i).getClass().getSuperclass().isAssignableFrom(Map.class))
 				{
-					Object[] objs = (Object[]) list.get(i);
-					XSSFRow rContent = wsheet.createRow(i + writingRow);
-					for (int j = 0; j < objs.length; j++) 
+					for (int j=0; j<dataColumnArray.length; j++)
 					{
-						if (objs[j] != null)
-							rContent.createCell(j).setCellValue(new XSSFRichTextString(String.valueOf(objs[j])));
+						v = (String)((Map<?, ?>)list.get(i)).get(dataColumnArray[j]);
+						if (v != null)
+							rContent.createCell(columnIndex).setCellValue(new XSSFRichTextString(v));
 						else
-							rContent.createCell(j).setCellValue(new XSSFRichTextString(""));
+							rContent.createCell(columnIndex).setCellValue(new XSSFRichTextString(""));
 						rContent.getCell(j).setCellStyle(contentCellStyle);
+						columnIndex++;
 					}
 				}
+				// 其他 类型
+				else
+				{
+					try
+					{
+						for (int j=0; j<dataColumnArray.length; j++)
+						{
+							Method m = list.get(i).getClass().getMethod("get"+dataColumnArray[i].substring(0,1).toUpperCase()+dataColumnArray[i].substring(1));
+							v = String.valueOf(m.invoke(list.get(i)));
+							if (v != null)
+								rContent.createCell(columnIndex).setCellValue(new XSSFRichTextString(v));
+							else
+								rContent.createCell(columnIndex).setCellValue(new XSSFRichTextString(""));
+							rContent.getCell(j).setCellStyle(contentCellStyle);
+							columnIndex++;
+						}
+					}
+					catch (Exception e)
+					{
+						e.printStackTrace();
+					}
+				}
+
+				
 			}
 			wbook.write(os); // 写入文件
 		} 
