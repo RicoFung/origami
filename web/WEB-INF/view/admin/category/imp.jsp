@@ -25,7 +25,9 @@
 					<div id="kv-success-2" class="alert alert-success fade in" style="margin-top:10p;display:none"></div>
 				</form>
 			</div>
-			<div class="box-footer">&nbsp;</div>
+			<div class="box-footer">
+				<a href="${ctx}/templates/upload.xlsx" target="_blank">上传模板.xlsx</a>
+			</div>
 		</div>
 	</section>
 </div>
@@ -44,7 +46,7 @@ $(function(){
 	});
 	//
 	$("#myFile").fileinput({
-	    allowedFileExtensions : ['xlsx','xls'],
+	    allowedFileExtensions : ['xlsx'],
 	    uploadUrl: "imp2.action", // server upload action
 	    uploadAsync: true,
 	    minFileCount: 1,

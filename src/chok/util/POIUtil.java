@@ -63,8 +63,8 @@ public class POIUtil
                 int firstRowNum  = sheet.getFirstRowNum();  
                 //获得当前sheet的结束行  
                 int lastRowNum = sheet.getLastRowNum();  
-                //循环除了第一行的所有行  
-                for(int rowNum = firstRowNum+1;rowNum <= lastRowNum;rowNum++)
+                //循环除了第一、二行的所有行  
+                for(int rowNum=firstRowNum+2; rowNum<=lastRowNum; rowNum++)
                 {  
                     //获得当前行  
                     Row row = sheet.getRow(rowNum);  
