@@ -48,6 +48,7 @@
 	<sql id="dynamicWhere">
 		<where>
 			<if test="name != null and name != ''"> and t.name like concat('%',#{name},'%') </if>
+			<if test="search != null and search != ''"> and (t.id like concat('%',#{search},'%') or t.name like concat('%',#{search},'%'))</if>
 		</where>
 	</sql>	
 	

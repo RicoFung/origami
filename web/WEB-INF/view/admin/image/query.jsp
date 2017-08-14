@@ -51,11 +51,15 @@
 	<div class="modal-body form-body">
 		<div class="form-group">
 			<label for="category_id">所属类别：</label>
-		 	<select class="form-control input-sm" id="category_id"></select>
+		 	<!-- <select class="form-control input-sm" id="category_id"></select> -->
+		 	<input type="text" class="form-control input-sm" id="category_id" value=""/>
+		 	<input type="hidden" id="f_category_id" value=""/>
 		</div>
 		<div class="form-group">
 			<label for="model_id">所属模型：</label>
-		 	<select class="form-control input-sm" id="model_id" cascadeid="category_id"></select>
+		 	<!-- <select class="form-control input-sm" id="model_id" cascadeid="category_id"></select> -->
+		 	<input type="text" class="form-control input-sm" id="model_id" value=""/>
+		 	<input type="hidden" id="f_model_id" value=""/>
 		</div>
 	</div>
 	<div class="modal-footer">
@@ -133,6 +137,19 @@ $chok.view.query.callback.onLoadSuccess = function(){
 /* 自定义配置 */
 /**********************************************************/
 $chok.view.fn.customize = function(){
+	var category_select = $("#category_id").ListSelectField({
+		id: "category_select",
+		title: "选择分类",
+		url: $ctx+"/dict/getCategoryPage.action"
+	});
+	
+	var model_select = $("#model_id").ListSelectField({
+		id: "model_select",
+		title: "选择模型",
+		url: $ctx+"/dict/getModelPage.action"
+	});
+	
+	/* 
 	var category_select = 
 		$("#category_id").DropDownSelect({
 			url:$ctx+"/dict/getCategorys.action",
@@ -148,5 +165,6 @@ $chok.view.fn.customize = function(){
 			cascadeid:"category_id",
 			fk:"category_id"
 		});
+	 */
 };
 </script>
