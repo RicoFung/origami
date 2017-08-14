@@ -53,13 +53,11 @@
 			<label for="category_id">所属类别：</label>
 		 	<!-- <select class="form-control input-sm" id="category_id"></select> -->
 		 	<input type="text" class="form-control input-sm" id="category_id" value=""/>
-		 	<input type="hidden" id="f_category_id" value=""/>
 		</div>
 		<div class="form-group">
 			<label for="model_id">所属模型：</label>
 		 	<!-- <select class="form-control input-sm" id="model_id" cascadeid="category_id"></select> -->
 		 	<input type="text" class="form-control input-sm" id="model_id" value=""/>
-		 	<input type="hidden" id="f_model_id" value=""/>
 		</div>
 	</div>
 	<div class="modal-footer">
