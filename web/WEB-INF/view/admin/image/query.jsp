@@ -144,7 +144,11 @@ $chok.view.fn.customize = function(){
 	var model_select = $("#model_id").ListSelectField({
 		id: "model_select",
 		title: "选择模型",
-		url: $ctx+"/dict/getModelPage.action"
+		url: $ctx+"/dict/getModelPage.action",
+		queryParams: function(p){
+			p.category_ids = category_select.getSelections("id");
+			return p;
+		}
 	});
 	
 	/* 

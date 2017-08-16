@@ -54,6 +54,11 @@
 	<sql id="dynamicWhere">
 		<where>
 			<if test="category_id != null and category_id != ''"> and t.category_id = #{category_id} </if>
+			<if test="category_ids != null and category_ids != ''"> and t.category_id in
+			    <foreach collection="category_ids" index="index" item="item" open="(" separator="," close=")">   
+			      #{item}   
+			    </foreach> 
+			</if>
 			<if test="name != null and name != ''"> and t.name like concat('%',#{name},'%') </if>
 			<if test="search != null and search != ''"> and (t.id like concat('%',#{search},'%') or t.name like concat('%',#{search},'%'))</if>
 		</where>

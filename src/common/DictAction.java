@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import chok.devwork.BaseController;
+import chok.util.CollectionUtil;
 
 @Scope("prototype")
 @Controller
@@ -41,6 +42,11 @@ public class DictAction extends BaseController<Object>
 	public void getModelPage()
 	{
 		Map<String, Object> m = req.getParameterValueMap(false, true);
+		if (m.containsKey("category_ids[]"))
+		{
+			m.put("category_ids", CollectionUtil.toLongArray(req.getLongArray("category_ids[]", 0l)));
+			m.remove("category_ids[]");
+		}
 		result.put("total", Factory.getModelService().getCount(m));
 		result.put("rows", Factory.getModelService().query(req.getDynamicSortMap(m)));
 		printJson(result.getData());
