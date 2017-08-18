@@ -48,18 +48,29 @@
 	   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 	   <h4 class="modal-title" id="modal_label">筛选条件</h4>
 	</div>
+	<!-- 级联<select> -->
 	<div class="modal-body form-body">
 		<div class="form-group">
 			<label for="category_id">所属类别：</label>
-		 	<!-- <select class="form-control input-sm" id="category_id"></select> -->
+		 	<select class="form-control input-sm" id="category_id"></select>
+		</div>
+		<div class="form-group">
+			<label for="model_id">所属模型：</label>
+		 	<select class="form-control input-sm" id="model_id" cascadeid="category_id"></select>
+		</div>
+	</div>
+	<!-- 级联列表选择框
+	<div class="modal-body form-body">
+		<div class="form-group">
+			<label for="category_id">所属类别：</label>
 		 	<input type="text" class="form-control input-sm" id="category_id" value=""/>
 		</div>
 		<div class="form-group">
 			<label for="model_id">所属模型：</label>
-		 	<!-- <select class="form-control input-sm" id="model_id" cascadeid="category_id"></select> -->
 		 	<input type="text" class="form-control input-sm" id="model_id" value=""/>
 		</div>
 	</div>
+	 -->
 	<div class="modal-footer">
 		<button type="reset" class="btn btn-default"><i class="glyphicon glyphicon-repeat"></i></button>
 		<button type="button" class="btn btn-primary" id="form_query_btn"><i class="glyphicon glyphicon-ok"></i></button>
@@ -135,23 +146,7 @@ $chok.view.query.callback.onLoadSuccess = function(){
 /* 自定义配置 */
 /**********************************************************/
 $chok.view.fn.customize = function(){
-	var category_select = $("#category_id").ListSelectField({
-		id: "category_select",
-		title: "选择分类",
-		url: $ctx+"/dict/getCategoryPage.action"
-	});
-	
-	var model_select = $("#model_id").ListSelectField({
-		id: "model_select",
-		title: "选择模型",
-		url: $ctx+"/dict/getModelPage.action",
-		queryParams: function(p){
-			p.category_ids = category_select.getSelections("id");
-			return p;
-		}
-	});
-	
-	/* 
+	/* 级联<Select> */
 	var category_select = 
 		$("#category_id").DropDownSelect({
 			url:$ctx+"/dict/getCategorys.action",
@@ -167,6 +162,22 @@ $chok.view.fn.customize = function(){
 			cascadeid:"category_id",
 			fk:"category_id"
 		});
+	/* 级联列表选择框
+	var category_select = $("#category_id").ListSelectField({
+		id: "category_select",
+		title: "选择分类",
+		url: $ctx+"/dict/getCategoryPage.action"
+	});
+	
+	var model_select = $("#model_id").ListSelectField({
+		id: "model_select",
+		title: "选择模型",
+		url: $ctx+"/dict/getModelPage.action",
+		queryParams: function(p){
+			p.category_ids = category_select.getSelections("id");
+			return p;
+		}
+	});
 	 */
 };
 </script>
