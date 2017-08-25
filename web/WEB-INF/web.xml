@@ -138,6 +138,9 @@
 			/admin/logout.action,
 			/admin/home/query.action,
 			/admin/home/searchMenu.action,
+			/admin/category/imp.action,
+			/admin/category/imp2.action,
+			/admin/category/exp.action,
 			/admin/image/add.action,
 			/admin/image/add2.action,
 			/admin/image/get.action,
@@ -205,7 +208,7 @@
 		<filter-name>ssoPasswordFilter</filter-name>
 		<url-pattern>/sso/password.action</url-pattern>
 	</filter-mapping>
-	 -->
+ -->
 	<!-- sso登出过滤器 -->
 	<!-- 
 	<filter> 
@@ -216,7 +219,7 @@
 		<filter-name>ssoLogoutFilter</filter-name> 
 		<url-pattern>/sso/logout.action</url-pattern> 
 	</filter-mapping> 
-	 -->
+ -->
 	<!-- sso登录过滤器 -->
 	<!-- 
 	<filter> 
@@ -239,7 +242,7 @@
 		<filter-name>ssoLoginFilter</filter-name> 
 		<url-pattern>/admin/*</url-pattern> 
 	</filter-mapping>
-	 -->
+ -->
 	<!-- sso授权过滤器 -->
 	<!-- 
 	<filter>
@@ -280,7 +283,7 @@
 		<filter-name>ssoAuthFilter</filter-name>
 		<url-pattern>/admin/*</url-pattern>
 	</filter-mapping>
-	 -->
+ -->
  	<!-- ======================== SSO单点登录结束 ======================== -->
  	
 	<!-- Spring MVC servlet -->
@@ -295,5 +298,56 @@
 		<servlet-name>springmvc</servlet-name>
 		<!-- 此处可以可以配置成*.do，对应struts的后缀习惯 -->
 		<url-pattern>*.action</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ======================== 配置 Druid 监控信息显示页面   该配置可以访问监控界面，配置好后，访问http://ip地址:端口号/项目名/druid/index.html ========================  -->  
+	<servlet>
+	    <servlet-name>DruidStatView</servlet-name>
+	    <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+	     <init-param>  
+	       <!-- 允许清空统计数据 -->  
+	       <param-name>resetEnable</param-name>  
+	       <param-value>true</param-value>  
+	    </init-param>  
+	  
+	  <!--   ip过滤规则
+	        （1）deny优先于allow，如果在deny列表中，就算在allow列表中，也会被拒绝。
+	        （2）如果allow没有配置或者为空，则允许所有访问
+	        
+	        ip配置格式
+	          <IP>
+	          或者
+	          <IP>/<SUB_NET_MASK_size>
+	        其中
+	          128.242.127.1/24
+	        24表示，前面24位是子网掩码，比对的时候，前面24位相同就匹配。
+	        不支持IPV6
+	        由于匹配规则不支持IPV6，配置了allow或者deny之后，会导致IPV6无法访问。
+	     -->            
+	     
+	    <init-param>
+	       <!-- 访问IP白名单 -->
+	       <param-name>allow</param-name>
+	       <param-value>10.12.42.61</param-value>
+	    </init-param>
+	    <init-param>
+	       <!-- 访问IP黑名单 --> 
+	        <param-name>deny</param-name> 
+	        <param-value>192.168.1.252</param-value>
+	    </init-param>
+	    <init-param>  
+	        <!-- 用户名 -->  
+	        <param-name>loginUsername</param-name>  
+	        <param-value>druid</param-value>  
+	    </init-param>  
+	    <init-param>  
+	        <!-- 密码 -->  
+	        <param-name>loginPassword</param-name>  
+	        <param-value>druid</param-value>  
+	    </init-param>  
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>DruidStatView</servlet-name>
+	    <url-pattern>/druid/*</url-pattern>
 	</servlet-mapping>
 </web-app>
