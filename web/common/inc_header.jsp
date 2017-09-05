@@ -72,7 +72,7 @@ $(function(){
 					<c:choose>
 						<%-- <c:when test="${SsoLoginUser==null}"> --%>
 						<c:when test="${CasLoginUser==null}">
-							<li><a href="/static/login.jsp"><i class="glyphicon glyphicon-log-in"></i>登录</a></li>
+							<li><a href="https://localhost:18443/cas/login"><i class="glyphicon glyphicon-log-in"></i>登录</a></li>
 						</c:when>
 						<c:otherwise>
 							<li class="dropdown user user-menu notifications-menu">
