@@ -171,7 +171,7 @@
 		<filter-class>chok.cas.client.filter.CasLogoutFilter</filter-class> 
 		<init-param>
 			<param-name>logoutURL</param-name>
-			<param-value>https://localhost:18443/cas/logout.action</param-value>
+			<param-value>https://localhost:18443/cas/logout.action?service=http://localhost:8585/portal</param-value>
 		</init-param>
 	</filter> 
 	<filter-mapping> 
