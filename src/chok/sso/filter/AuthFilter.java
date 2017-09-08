@@ -75,6 +75,7 @@ public class AuthFilter implements Filter
 		{
 			relativeURI = relativeURI.replaceFirst(req.getContextPath(), "");
 		}
+		if(log.isInfoEnabled()) log.info("[当前访问地址] = " + relativeURI);
 		try
 		{
 			AuthUser u = (AuthUser)session.getAttribute(LoginFilter.LOGINER);
@@ -172,6 +173,7 @@ public class AuthFilter implements Filter
 			if(actionURL.equals(actList.get(i).get("tc_url").toString()))
 			{
 				tag = true;
+				break;
 			}
 		}
 		return tag;
