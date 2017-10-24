@@ -29,9 +29,9 @@ import chok.util.http.HttpAction;
 import chok.util.http.HttpResult;
 import chok.util.http.HttpUtil;
 
-public class AuthFilter implements Filter 
+public class AccessFilter implements Filter 
 {
-	static Logger log = LoggerFactory.getLogger("sso.auth");
+	static Logger log = LoggerFactory.getLogger("AccessFilter.class");
 	
 //	private static String ssoURL = "";// SSO项目根地址
 	private static String apiURL = "";// API接口地址
@@ -39,9 +39,9 @@ public class AuthFilter implements Filter
 	private static Set<String> ignoreURLSet = new HashSet<String>();// 无需验证页面
 	private static String isNeedChkAct = "";// 是否需要验证action权限
 	
-	private final static String menuJson = "sso.menuJson";// 
-	public final static String btnJson = "sso.btnJson";// 
-	public final static String actJson = "sso.actJson";// 
+	private final static String menuJson = "menuJson";// 
+	public final static String btnJson = "btnJson";// 
+	public final static String actJson = "actJson";// 
 	
 	@Override
 	public void init(FilterConfig config) throws ServletException 

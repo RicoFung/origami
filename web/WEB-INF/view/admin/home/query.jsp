@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/common/inc_header.jsp"%>
+<%@ include file="/include/view-begin.jsp"%>
 <!-- 主内容面板 -->
 <div class="content-wrapper">
 	<section class="content-header">
@@ -11,7 +11,7 @@
 	<section class="content">
 	</section>
 </div>
-<%@ include file="/common/inc_footer.jsp"%>
+<%@ include file="/include/view-end.jsp"%>
 <script type="text/javascript">
 /**********************************************************/
 /* 全局函数 */

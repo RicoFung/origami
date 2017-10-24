@@ -40,10 +40,10 @@ public class CasAccessFilter implements Filter
 	private static Set<String> ignoreURLSet = new HashSet<String>();// 无需验证页面
 	private static String isNeedChkAct = "";// 是否需要验证action权限
 	
-	private final static String MENU_JSON = "cas.menuJson";// 
-	public final static String BTN_JSON = "cas.btnJson";// 
-	public final static String ACT_JSON = "cas.actJson";// 
-	public final static String LOGINER = "cas.loginer";// sessionUser在session中的key
+	private final static String MENU_JSON = "menuJson";// 
+	public final static String BTN_JSON = "btnJson";// 
+	public final static String ACT_JSON = "actJson";// 
+	public final static String LOGINER = "loginer";// sessionUser在session中的key
 	
 	@Override
 	public void init(FilterConfig config) throws ServletException 

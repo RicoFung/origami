@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/common/inc_header.jsp"%>
+<%@ include file="/include/view-begin.jsp"%>
 <!-- 主内容面板 -->
 <div class="content-wrapper">
 	<section class="content-header">
@@ -79,10 +79,10 @@
 </div><!-- /.modal -->
 </div>
 </form>
-<%@ include file="/common/inc_footer.jsp"%>
+<%@ include file="/include/view-end.jsp"%>
 <!-- ======================================================================================================= -->
-<script type="text/javascript" src="/static/res/chok/js/chok.auth.js"></script>
-<script type="text/javascript" src="/static/res/chok/js/chok.view.query.js"></script>
+<script type="text/javascript" src="${statics}/res/chok/js/chok.auth.js"></script>
+<script type="text/javascript" src="${statics}/res/chok/js/chok.view.query.js"></script>
 <script type="text/javascript">
 /**********************************************************/
 /* 全局函数 */

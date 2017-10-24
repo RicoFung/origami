@@ -246,8 +246,8 @@
 	<!-- sso授权过滤器 -->
 	<!-- 
 	<filter>
-		<filter-name>ssoAuthFilter</filter-name>
-		<filter-class>chok.sso.filter.AuthFilter</filter-class>
+		<filter-name>ssoAccessFilter</filter-name>
+		<filter-class>chok.sso.filter.AccessFilter</filter-class>
 		<init-param>
 			<param-name>ssoURL</param-name>
 			<param-value>http://localhost:8585/sso</param-value>
@@ -280,7 +280,7 @@
 		</init-param>
 	</filter>
 	<filter-mapping>
-		<filter-name>ssoAuthFilter</filter-name>
+		<filter-name>ssoAccessFilter</filter-name>
 		<url-pattern>/admin/*</url-pattern>
 	</filter-mapping>
  -->
