@@ -145,7 +145,8 @@ public class POIUtil
 				String v = "";
 				XSSFRow rContent = wsheet.createRow(i + writingRow);
 				// BaseModel 类型
-				if (list.get(i).getClass().getSuperclass().isAssignableFrom(BaseModel.class))
+//				if (list.get(i).getClass().getSuperclass().isAssignableFrom(BaseModel.class))
+				if (BaseModel.class.getName().equals(list.get(i).getClass().getSuperclass().getName()))
 				{
 					for (int j=0; j<dataColumnArray.length; j++)
 					{
@@ -159,7 +160,8 @@ public class POIUtil
 					}
 				}
 				// Map 类型
-				else if (list.get(i).getClass().getSuperclass().isAssignableFrom(Map.class))
+//				else if (list.get(i).getClass().getSuperclass().isAssignableFrom(Map.class))
+				else if (Map.class.getName().equals(list.get(i).getClass().getSuperclass().getName()))
 				{
 					for (int j=0; j<dataColumnArray.length; j++)
 					{
@@ -179,7 +181,7 @@ public class POIUtil
 					{
 						for (int j=0; j<dataColumnArray.length; j++)
 						{
-							Method m = list.get(i).getClass().getMethod("get"+dataColumnArray[i].substring(0,1).toUpperCase()+dataColumnArray[i].substring(1));
+							Method m = list.get(i).getClass().getMethod("get"+dataColumnArray[j].substring(0,1).toUpperCase()+dataColumnArray[j].substring(1));
 							v = String.valueOf(m.invoke(list.get(i)));
 							if (v != null)
 								rContent.createCell(columnIndex).setCellValue(new XSSFRichTextString(v));
