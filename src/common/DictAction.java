@@ -27,7 +27,7 @@ public class DictAction extends BaseController<Object>
 	{
 		Map<String, Object> m = req.getParameterValueMap(false, true);
 		result.put("total", Factory.getCategoryService().getCount(m));
-		result.put("rows", Factory.getCategoryService().query(req.getDynamicSortMap(m)));
+		result.put("rows", Factory.getCategoryService().query(req.getDynamicSortParameterValueMap(m)));
 		printJson(result.getData());
 	}
 
@@ -48,7 +48,7 @@ public class DictAction extends BaseController<Object>
 			m.remove("category_ids[]");
 		}
 		result.put("total", Factory.getModelService().getCount(m));
-		result.put("rows", Factory.getModelService().query(req.getDynamicSortMap(m)));
+		result.put("rows", Factory.getModelService().query(req.getDynamicSortParameterValueMap(m)));
 		printJson(result.getData());
 	}
 	

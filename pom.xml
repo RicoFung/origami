@@ -8,6 +8,22 @@
 	<name>origami Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	
+	<!-- 指定JDK -->
+	<profiles>
+		<profile>     
+		    <id>jdk-1.8</id>     
+		    <activation>     
+		        <activeByDefault>true</activeByDefault>     
+		        <jdk>1.8</jdk>     
+		    </activation>     
+		    <properties>     
+		        <maven.compiler.source>1.8</maven.compiler.source>     
+		        <maven.compiler.target>1.8</maven.compiler.target>     
+		        <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>     
+		    </properties>     			
+	    </profile>
+	</profiles>
+	
 	<!-- *************************************** -->
 	<!-- spring mvc + spring + mybatis 配置方式 -->
 	<!-- *************************************** -->
@@ -45,6 +61,8 @@
 		<dependency><groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId><version>2.3.1</version></dependency>
 		<dependency><groupId>jstl</groupId><artifactId>jstl</artifactId><version>1.2</version></dependency>
 		<dependency><groupId>com.github.stuxuhai</groupId><artifactId>jpinyin</artifactId><version>1.1.7</version></dependency>
+		<dependency><groupId>org.apache.commons</groupId><artifactId>commons-lang3</artifactId><version>3.6</version></dependency>
+		<dependency><groupId>ognl</groupId><artifactId>ognl</artifactId><version>3.2.3</version></dependency>
         <!-- poi -->
         <dependency><groupId>org.apache.poi</groupId><artifactId>poi</artifactId><version>${poi.version}</version></dependency>
 		<dependency><groupId>org.apache.poi</groupId><artifactId>poi-ooxml</artifactId><version>${poi.version}</version></dependency>

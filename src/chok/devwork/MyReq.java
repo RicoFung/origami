@@ -425,18 +425,18 @@ public class MyReq extends HttpServletRequestWrapper
 	
 	/**
 	 * 动态多列排序参数过滤
-	 * @param param
-	 * @return Map<String, Object>
+	 * @param param Map<String, Object>
+	 * @return param Map<String, Object>
 	 */
-	public Map<String, Object> getDynamicSortMap(Map<String, Object> param)
+	public Map<String, Object> getDynamicSortParameterValueMap(Map<String, Object> param)
 	{
 		// 单列排序
-		if (param.containsKey("sort") && param.get("sort").toString().indexOf("m.")!=-1)
+		if (param.containsKey("sort") && param.get("sort").toString().indexOf("m.")!=-1) // entity 为 Map时，去掉'm.'
 		{
 			param.put("sort", param.get("sort").toString().substring(2));
 		}
 		// 多列排序
-		// 分组
+		// 多列排序.分组
 		Map<String, Object> sortNameMap = new LinkedHashMap<String, Object>();
 		Map<String, Object> sortOrderMap = new LinkedHashMap<String, Object>();
 		for (Entry<String, Object> entry: param.entrySet()) 
@@ -449,7 +449,7 @@ public class MyReq extends HttpServletRequestWrapper
 				if (k.indexOf("[sortOrder]") != -1) sortOrderMap.put(k, v);
 			}
 		}
-		// 排序
+		// 多列排序.排序
 		List<Map.Entry<String, Object>> multiSortNameList = new ArrayList<Map.Entry<String, Object>>(sortNameMap.entrySet());
 		Collections.sort(multiSortNameList, new Comparator<Map.Entry<String, Object>>()
 		{
@@ -466,12 +466,13 @@ public class MyReq extends HttpServletRequestWrapper
 				return (o1.getKey()).compareTo(o2.getKey());
 			}
 		});
-		// 重新组合
+		// 多列排序.重新组合
 		List<Map<String, Object>> multiSortList = new ArrayList<Map<String, Object>>();
 		for(int i=0; i<multiSortNameList.size(); i++)
 		{
 			Map<String, Object> multiSortObj = new LinkedHashMap<String, Object>();
-			String sortName = multiSortNameList.get(i).getValue().toString().substring(2);
+			String sortName = multiSortNameList.get(i).getValue().toString();
+			if (sortName.indexOf("m.")!=-1) sortName = sortName.substring(2); // entity 为 Map时，去掉'm.'
 			Object sortOrder = multiSortOrderList.get(i).getValue();
 			multiSortObj.put("sortName", sortName);
 			multiSortObj.put("sortOrder", sortOrder);
