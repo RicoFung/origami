@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%-- 
 <%@ page import="chok.cas.client.CasLoginUser" %>
 <%@ page import="chok.cas.client.filter.CasAccessFilter" %>
 <%
@@ -10,9 +11,9 @@ String menuJson = o==null?"":o.getString("menuJson");
 String btnJson = o==null?"":o.getString("btnJson");
 request.setAttribute("LoginUser", o);
 %>
-<%-- 
-<%@ page import="chok.sso.AuthUser"%>
-<%@ page import="chok.sso.filter.LoginFilter"%>
+--%>
+<%@ page import="chok.sso.client.AuthUser"%>
+<%@ page import="chok.sso.client.filter.LoginFilter"%>
 <%
 AuthUser o = (AuthUser)session.getAttribute(LoginFilter.LOGINER);
 String appId = o==null?"":o.getString("appId");
@@ -22,7 +23,6 @@ String menuJson = o==null?"":o.getString("menuJson");
 String btnJson = o==null?"":o.getString("btnJson");
 request.setAttribute("LoginUser", o);
 %>
---%>
 <script type="text/javascript">
 /* js 全局变量 **********************************************************/
 var $g_menuJson = <%=menuJson%>;

@@ -103,17 +103,17 @@
 		-->
 		
 		<!-- cas client  -->
-		<dependency>
-            <groupId>org.jasig.cas.client</groupId>
-            <artifactId>cas-client-core</artifactId>
-            <version>3.4.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+		<dependency><groupId>org.jasig.cas.client</groupId><artifactId>cas-client-core</artifactId><version>3.4.1</version><exclusions><exclusion><groupId>javax.servlet</groupId><artifactId>servlet-api</artifactId></exclusion></exclusions></dependency>
+		<!-- rico-framework chok -->
+		<!-- 全部依赖
+		<dependency><groupId>rico.framework</groupId><artifactId>chok</artifactId><version>1.0</version></dependency>
+		 -->
+		<!-- 分开依赖
+		 -->
+		<dependency><groupId>rico.framework</groupId><artifactId>chok-util</artifactId><version>1.0</version></dependency>
+		<dependency><groupId>rico.framework</groupId><artifactId>chok-devwork</artifactId><version>1.0</version></dependency>
+		<dependency><groupId>rico.framework</groupId><artifactId>chok-sso-client</artifactId><version>1.0</version></dependency>
+		<dependency><groupId>rico.framework</groupId><artifactId>chok-cas-client</artifactId><version>1.0</version></dependency>
 	</dependencies>
 	
 	<build>

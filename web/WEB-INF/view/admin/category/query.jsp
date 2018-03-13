@@ -136,17 +136,28 @@ $chok.view.query.init.toolbar = function(){
 	});
 	$("#bar_btn_del").click(function(){
 		if($chok.view.query.fn.getIdSelections().length<1) {
-			alert("没选择");
+			$.alert({title: "提示", type: "red", content: "没选择"});
 			return;
 		}
-		if(!confirm("确认删除？")) return;
-		$.post("del.action",{id:$chok.view.query.fn.getIdSelections()},function(result){
-	        $chok.view.query.callback.delRows(result); // 删除行回调
-	        if(!result.success) {
-	        	alert(result.msg);
-	        	return;
-	        }
-	        $("#tb_list").bootstrapTable('refresh'); // 刷新table
+		$.confirm({
+		    title: "提示",
+		    content: "确认删除？",
+		    type: "red",
+		    typeAnimated: true,
+		    buttons: {
+		        ok: function() {
+		    		$.post("del.action",{id:$chok.view.query.fn.getIdSelections()},function(result){
+		    	        $chok.view.query.callback.delRows(result); // 删除行回调
+		    	        if(!result.success) {
+			    	        	$.alert({title: "提示", content: result.msg});
+			    	        	return;
+		    	        }
+		    	        $("#tb_list").bootstrapTable('refresh'); // 刷新table
+		    		});
+		        },
+		        close: function () {
+		        }
+		    }
 		});
 	});
 };

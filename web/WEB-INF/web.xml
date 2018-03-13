@@ -57,7 +57,7 @@
 	</filter-mapping>
 
 	<!-- ======================== CAS单点登录开始 ======================== -->
-
+<!-- 
     <filter>
         <filter-name>CAS Single Sign Out Filter</filter-name>
         <filter-class>org.jasig.cas.client.session.SingleSignOutFilter</filter-class>
@@ -121,10 +121,10 @@
         <filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
         <url-pattern>/admin/*</url-pattern>
     </filter-mapping>
-
+ -->
 	
 	<!-- 基于CAS访问授权过滤器 -->
-	
+	<!-- 
 	<filter>
 		<filter-name>CasAccessFilter</filter-name>
 		<filter-class>chok.cas.client.filter.CasAccessFilter</filter-class>
@@ -163,9 +163,9 @@
 		<filter-name>CasAccessFilter</filter-name>
 		<url-pattern>/admin/*</url-pattern>
 	</filter-mapping>
-
+ -->
 	<!-- 基于CAS登出过滤器 -->
-	
+	<!-- 
 	<filter> 
 		<filter-name>CasLogoutFilter</filter-name>
 		<filter-class>chok.cas.client.filter.CasLogoutFilter</filter-class> 
@@ -178,9 +178,9 @@
 		<filter-name>CasLogoutFilter</filter-name>
 		<url-pattern>/cas/logout.action</url-pattern> 
 	</filter-mapping> 
-
+ -->
 	<!-- 基于CAS密码修改过滤器 -->
-	
+	<!-- 
 	<filter> 
 		<filter-name>CasPasswordFilter</filter-name>
 		<filter-class>chok.cas.client.filter.CasPasswordFilter</filter-class> 
@@ -193,45 +193,40 @@
 		<filter-name>CasPasswordFilter</filter-name>
 		<url-pattern>/cas/password.action</url-pattern> 
 	</filter-mapping> 
-
+ -->
 	<!-- ======================== CAS单点登录结束 ======================== -->
  	
  	
  	<!-- ======================== SSO单点登录开始 ======================== -->
 	<!-- sso修改密码过滤器 -->
-	<!-- 
 	<filter>
 		<filter-name>ssoPasswordFilter</filter-name>
-		<filter-class>chok.sso.filter.PasswordFilter</filter-class>
+		<filter-class>chok.sso.client.filter.PasswordFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>ssoPasswordFilter</filter-name>
 		<url-pattern>/sso/password.action</url-pattern>
 	</filter-mapping>
- -->
 	<!-- sso登出过滤器 -->
-	<!-- 
 	<filter> 
 		<filter-name>ssoLogoutFilter</filter-name> 
-		<filter-class>chok.sso.filter.LogoutFilter</filter-class> 
+		<filter-class>chok.sso.client.filter.LogoutFilter</filter-class> 
 	</filter> 
 	<filter-mapping> 
 		<filter-name>ssoLogoutFilter</filter-name> 
 		<url-pattern>/sso/logout.action</url-pattern> 
 	</filter-mapping> 
- -->
 	<!-- sso登录过滤器 -->
-	<!-- 
 	<filter> 
 		<filter-name>ssoLoginFilter</filter-name> 
-		<filter-class>chok.sso.filter.LoginFilter</filter-class> 
+		<filter-class>chok.sso.client.filter.LoginFilter</filter-class> 
 		<init-param> 
 			<param-name>ssoURL</param-name> 
-			<param-value>http://localhost:8585/sso</param-value> 
+			<param-value>http://localhost:8081/sso</param-value> 
 		</init-param> 
 		<init-param> 
 			<param-name>ssoAuthURL</param-name> 
-			<param-value>http://localhost:8585/sso/auth</param-value> 
+			<param-value>http://localhost:8081/sso/auth</param-value> 
 		</init-param> 
 		<init-param> 
 			<param-name>ignoreURL</param-name> 
@@ -242,19 +237,17 @@
 		<filter-name>ssoLoginFilter</filter-name> 
 		<url-pattern>/admin/*</url-pattern> 
 	</filter-mapping>
- -->
 	<!-- sso授权过滤器 -->
-	<!-- 
 	<filter>
 		<filter-name>ssoAccessFilter</filter-name>
-		<filter-class>chok.sso.filter.AccessFilter</filter-class>
+		<filter-class>chok.sso.client.filter.AccessFilter</filter-class>
 		<init-param>
 			<param-name>ssoURL</param-name>
-			<param-value>http://localhost:8585/sso</param-value>
+			<param-value>http://localhost:8081/sso</param-value>
 		</init-param>
 		<init-param>
 			<param-name>apiURL</param-name>
-			<param-value>http://localhost:8585/api</param-value>
+			<param-value>http://localhost:8081/api</param-value>
 		</init-param>
 		<init-param>
 			<param-name>ignoreURL</param-name>
@@ -283,7 +276,6 @@
 		<filter-name>ssoAccessFilter</filter-name>
 		<url-pattern>/admin/*</url-pattern>
 	</filter-mapping>
- -->
  	<!-- ======================== SSO单点登录结束 ======================== -->
  	
 	<!-- Spring MVC servlet -->

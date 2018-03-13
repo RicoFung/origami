@@ -3,6 +3,9 @@
 <script type="text/javascript" src="${statics}/res/jquery/jquery.form.js"></script>
 <script type="text/javascript" src="${statics}/res/jquery/jquery-ui.min.js"></script>
 <script type="text/javascript" src="${statics}/res/jquery/third/ztree/js/jquery.ztree.all.min.js"></script>
+<script type="text/javascript" src="${statics}/res/jquery/third/loadingoverlay/loadingoverlay.min.js"></script>
+<script type="text/javascript" src="${statics}/res/jquery/third/loadingoverlay/loadingoverlay_progress.min.js"></script>
+<script type="text/javascript" src="${statics}/res/jquery/third/confirm/jquery-confirm.min.js"></script>
 <script type="text/javascript" src="${statics}/res/jquery/customize/fn/jquery.customize.fn.resize.js"></script>
 <script type="text/javascript" src="${statics}/res/jquery/customize/plugin/jquery.customize.plugin.DropDownSelect.js"></script>
 <script type="text/javascript" src="${statics}/res/jquery/customize/plugin/jquery.customize.plugin.ListSelectModal.js"></script>
