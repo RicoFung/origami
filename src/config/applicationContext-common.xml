@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"    "http://www.springframework.org/dtd/spring-beans-2.0.dtd"-->
 <beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
     xmlns:context="http://www.springframework.org/schema/context"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:aop="http://www.springframework.org/schema/aop"
@@ -110,5 +111,20 @@
 				<value>transactionInterceptor</value>
 			</list>
 		</property>
+	</bean>
+	
+	<!-- redis数据源 -->
+	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">  
+	    <property name="maxIdle" value="${redis.maxIdle}" />  
+	    <property name="maxTotal" value="${redis.maxActive}" />  
+	    <property name="maxWaitMillis" value="${redis.maxWait}" />  
+	    <property name="testOnBorrow" value="${redis.testOnBorrow}" />  
+	</bean>
+	<!-- Spring-redis连接池管理工厂 -->
+	<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"  
+	    p:host-name="${redis.host}" p:port="${redis.port}" p:password="${redis.pass}"  p:pool-config-ref="poolConfig"/>  
+	<!-- 使用中间类解决RedisCache.jedisConnectionFactory的静态注入，从而使MyBatis实现第三方缓存 -->
+	<bean id="redisCacheTransfer" class="cache.ssm.RedisCacheTransfer">
+	    <property name="jedisConnectionFactory" ref="jedisConnectionFactory"/>
 	</bean>
 </beans>
